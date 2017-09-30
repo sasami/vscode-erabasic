@@ -1,0 +1,50 @@
+{
+    "name": "erabasic",
+    "displayName": "EraBasic",
+    "description": "Syntax Highlighter for EraBasic",
+    "license": "CC0",
+    "version": "0.0.1",
+    "publisher": "sasami",
+    "bugs": {
+        "url": "https://github.com/sasami/vscode-erabasic/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sasami/vscode-erabasic.git"
+    },
+    "engines": {
+        "vscode": "^1.16.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "erabasic",
+                "aliases": [
+                    "EraBasic",
+                    "erabasic"
+                ],
+                "extensions": [
+                    ".erb",
+                    ".erh"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "erabasic",
+                "scopeName": "source.erabasic",
+                "path": "./syntaxes/erabasic.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "erabasic",
+                "path": "./snippets/erabasic.json"
+            }
+        ]
+    }
+}

@@ -1,0 +1,666 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "EraBasic",
+	"patterns": [
+		{
+			"include": "#preprocessor"
+		},
+		{
+			"include": "#statement"
+		},
+		{
+			"include": "#expression"
+		}
+	],
+	"repository": {
+		"preprocessor": {
+			"patterns": [
+				{
+					"include": "#preprocessor-block"
+				},
+				{
+					"include": "#preprocessor-special-comment"
+				},
+				{
+					"include": "#preprocessor-attribute"
+				}
+			]
+		},
+		"preprocessor-block": {
+			"patterns": [
+				{
+					"begin": "^\\s*(;[!#];)?\\s*\\[(IF \\w+|ELSEIF \\w+|IF_DEBUG|IF_NDEBUG|ELSE|ENDIF)\\]",
+					"beginCaptures": {
+						"0": {
+							"name": "meta.preprocessor.erabasic"
+						}
+					},
+					"end": "$"
+				},
+				{
+					"name": "comment.block.erabasic",
+					"begin": "^\\s*(;[!#];)?\\s*\\[SKIPSTART\\]",
+					"end": "^\\s*(;[!#];)?\\s*\\[SKIPEND\\]",
+					"captures": {
+						"0": {
+							"name": "meta.preprocessor.erabasic"
+						}
+					}
+				}
+			]
+		},
+		"preprocessor-special-comment": {
+			"patterns": [
+				{
+					"begin": "^\\s*;[!#];",
+					"beginCaptures": {
+						"0": {
+							"name": "meta.preprocessor.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"include": "#statement"
+						}
+					]
+				}
+			]
+		},
+		"preprocessor-attribute": {
+			"patterns": [
+				{
+					"begin": "^\\s*#(SINGLE|PRI|LATER|ONLY|FUNCTION|FUNCTIONS|LOCALSIZE|LOCALSSIZE|DIM|DIMS|DEFINE)\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "meta.preprocessor.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					]
+				}
+			]
+		},
+		"statement": {
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#function-declaration"
+				},
+				{
+					"include": "#labeled-statement"
+				},
+				{
+					"include": "#control-statement"
+				},
+				{
+					"include": "#command-statement"
+				},
+				{
+					"include": "#assignment-statement"
+				}
+			]
+		},
+		"function-declaration": {
+			"patterns": [
+				{
+					"begin": "@([_[:alpha:]][_[:alnum:]]*)",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.function.erabasic"
+						}
+					},
+					"end": "(?=$)",
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					]
+				}
+			]
+		},
+		"labeled-statement": {
+			"patterns": [
+				{
+					"match": "\\$(_[:alpha:][_[:alnum:]]*)",
+					"captures": {
+						"1": {
+							"name": "entity.name.label.erabasic"
+						}
+					}
+				}
+			]
+		},
+		"control-statement": {
+			"patterns": [
+				{
+					"begin": "\\b(DATA)\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.control.erabasic"
+						}
+					},
+					"end": "$"
+				},
+				{
+					"begin": "\\b(RETURNFORM|DATAFORM)\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.control.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"include": "#form-string"
+						}
+					]
+				},
+				{
+					"begin": "\\bCASE\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.control.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"name": "keyword.control.erabasic",
+							"match": "\\b(IS|TO)\\b"
+						},
+						{
+							"include": "#expression"
+						}
+					]
+				},
+				{
+					"begin": "\\b(JUMP|CALL|TRYJUMP|TRYCALL|TRYCJUMP|TRYCCALL|CALLEVENT|CALLF|FUNC)\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.control.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"name": "entity.name.function.erabasic",
+							"match": "\\w+"
+						},
+						{
+							"begin": "(?=,|\\()",
+							"end": "(?=$)",
+							"patterns": [
+								{
+									"include": "#expression"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "\\b(JUMPFORM|CALLFORM|TRYJUMPFORM|TRYCALLFORM|TRYCJUMPFORM|TRYCCALLFORM|CALLFORMF|GOTOFORM|TRYGOTOFORM|TRYCGOTOFORM)\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.control.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"name": "entity.name.function.erabasic",
+							"match": "\\w+"
+						},
+						{
+							"include": "#form-string"
+						},
+						{
+							"begin": "(?=,|\\()",
+							"end": "(?=$)",
+							"patterns": [
+								{
+									"include": "#expression"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "\\b(SIF|IF|ELSEIF|ELSE|ENDIF|REPEAT|REND|FOR|NEXT|WHILE|WEND|DO|LOOP|SELECTCASE|CASEELSE|ENDSELECT|BREAK|CONTINUE|GOTO|TRYGOTO|TRYCGOTO|CATCH|ENDCATCH|TRYCALLLIST|TRYJUMPLIST|TRYGOTOLIST|ENDFUNC|RETURN|RETURNF|RESTART|BEGIN|CALLTRAIN|DOTRAIN|THROW|PRINTDATA|PRINTDATAL|PRINTDATAW|PRINTDATAK|PRINTDATAKL|PRINTDATAKW|PRINTDATAD|PRINTDATADL|PRINTDATADW|STRDATA|ENDDATA|DATALIST|ENDLIST|ASSERT)\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.control.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					]
+				}
+			]
+		},
+		"command-statement": {
+			"patterns": [
+				{
+					"begin": "\\b(PRINT|PRINTL|PRINTW|PRINTK|PRINTKL|PRINTKW|PRINTD|PRINTDL|PRINTDW|PRINTSINGLE|PRINTSINGLEK|PRINTSINGLED|PRINTC|PRINTCK|PRINTCD|PRINTLC|PRINTLCK|PRINTLCD|PRINTPLAIN|CUSTOMDRAWLINE|SETCOLORBYNAME|SETBGCOLORBYNAME|STRLEN|STRLENU|ESCAPE|DEBUGPRINT|DEBUGPRINTL)\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.other.command.erabasic"
+						}
+					},
+					"end": "$"
+				},
+				{
+					"begin": "\\b(PRINTFORM|PRINTFORML|PRINTFORMW|PRINTFORMK|PRINTFORMKL|PRINTFORMKW|PRINTFORMD|PRINTFORMDL|PRINTFORMDW|PRINTSINGLEFORM|PRINTSINGLEFORMK|PRINTSINGLEFORMD|PRINTFORMC|PRINTFORMCK|PRINTFORMCD|PRINTFORMLC|PRINTFORMLCK|PRINTFORMLCD|PRINTPLAINFORM|DRAWLINEFORM|REUSELASTLINE|STRLENFORM|STRLENFORMU|ENCODETOUNI|INPUTS|ONEINPUTS|DEBUGPRINTFORM|DEBUGPRINTFORML)\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.other.command.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"include": "#form-string"
+						}
+					]
+				},
+				{
+					"begin": "\\b(PRINTV|PRINTVL|PRINTVW|PRINTVK|PRINTVKL|PRINTVKW|PRINTVD|PRINTVDL|PRINTVDW|PRINTS|PRINTSL|PRINTSW|PRINTSK|PRINTSKL|PRINTSKW|PRINTSD|PRINTSDL|PRINTSDW|PRINTFORMS|PRINTFORMSL|PRINTFORMSW|PRINTFORMSK|PRINTFORMSKL|PRINTFORMSKW|PRINTFORMSD|PRINTFORMSDL|PRINTFORMSDW|PRINTSINGLEV|PRINTSINGLEVK|PRINTSINGLEVD|PRINTSINGLES|PRINTSINGLESK|PRINTSINGLESD|PRINTSINGLEFORMS|PRINTSINGLEFORMSK|PRINTSINGLEFORMSD|PRINTDATA|PRINTDATAL|PRINTDATAW|PRINTDATAK|PRINTDATAKL|PRINTDATAKW|PRINTDATAD|PRINTDATADL|PRINTDATADW|DATALIST|PRINTBUTTON|PRINTBUTTONC|PRINTBUTTONLC|PRINT_ABL|PRINT_TALENT|PRINT_MARK|PRINT_EXP|PRINT_PALAM|PRINT_ITEM|PRINT_SHOPITEM|UPCHECK|DRAWLINE|CLEARLINE|PRINT_IMG|PRINT_RECT|PRINT_SPACE|SETCOLOR|SETCOLOR|RESETCOLOR|SETBGCOLOR|SETBGCOLOR|RESETBGCOLOR|GETCOLOR|GETDEFCOLOR|GETBGCOLOR|GETDEFBGCOLOR|GETFOCUSCOLOR|FONTBOLD|FONTITALIC|FONTREGULAR|FONTSTYLE|GETSTYLE|CHKFONT|SETFONT|GETFONT|FORCEKANA|ALIGNMENT|CURRENTALIGN|REDRAW|CURRENTREDRAW|PRINTCPERLINE|LINEISEMPTY|BARSTR|MONEYSTR|SKIPDISP|NOSKIP|ENDNOSKIP|ISSKIP|MOUSESKIP|TOUPPER|TOLOWER|TOHALF|TOFULL|TOSTR|ISNUMERIC|TOINT|STRLENS|STRLENSU|SUBSTRING|SUBSTRINGU|CHARATU|STRFIND|STRFINDU|STRCOUNT|SPLIT|REPLACE|UNICODE|POWER|ABS|SIGN|SQRT|GETBIT|MAX|MIN|LIMIT|INRANGE|SETBIT|CLEARBIT|INVERTBIT|ADDCHARA|DELCHARA|SWAPCHARA|SORTCHARA|GETCHARA|ADDDEFCHARA|ADDVOIDCHARA|DELALLCHARA|PICKUPCHARA|EXISTCSV|FINDCHARA|FINDLASTCHARA|COPYCHARA|ADDCOPYCHARA|VARSIZE|RESETDATA|RESETGLOBAL|RESET_STAIN|SWAP|CSVNAME|CSVCALLNAME|CSVNICKNAME|CSVMASTERNAME|CSVBASE|CSVCSTR|CSVABL|CSVTALENT|CSVMARK|CSVEXP|CSVRELATION|CSVJULE|CSVEQUIP|CSVCFLAG|GETNUM|GETPALAMLV|GETEXPLV|FINDELEMENT|FINDLASTELEMENT|VARSET|CVARSET|ARRAYSHIFT|ARRAYREMOVE|ARRAYSORT|ARRAYCOPY|CUPCHECK|SAVEDATA|LOADDATA|DELDATA|CHKDATA|SAVENOS|SAVEGLOBAL|LOADGLOBAL|OUTPUTLOG|SAVECHARA|LOADCHARA|CHKCHARADATA|FIND_CHARADATA|GETTIME|GETMILLISECOND|GETSECOND|FORCEWAIT|INPUT|TINPUT|TINPUTS|TWAIT|ONEINPUT|TONEINPUT|TONEINPUTS|WAITANYKEY|RANDOMIZE|DUMPRAND|INITRAND|DEBUGCLEAR|TOOLTIP_SETCOLOR|TOOLTIP_SETDELAY|HTML_PRINT|HTML_TAGSPLIT|CLEARTEXTBOX|STOPCALLTRAIN|PRINTV|PRINTVL|PRINTVW|PRINTVK|PRINTVKL|PRINTVKW|PRINTVD|PRINTVDL|PRINTVDW|PRINTS|PRINTSL|PRINTSW|PRINTSK|PRINTSKL|PRINTSKW|PRINTSD|PRINTSDL|PRINTSDW|PRINTFORMS|PRINTFORMSL|PRINTFORMSW|PRINTFORMSK|PRINTFORMSKL|PRINTFORMSKW|PRINTFORMSD|PRINTFORMSDL|PRINTFORMSDW|PRINTSINGLEV|PRINTSINGLEVK|PRINTSINGLEVD|PRINTSINGLES|PRINTSINGLESK|PRINTSINGLESD|PRINTSINGLEFORMS|PRINTSINGLEFORMSK|PRINTSINGLEFORMSD|PRINTDATA|PRINTDATAL|PRINTDATAW|PRINTDATAK|PRINTDATAKL|PRINTDATAKW|PRINTDATAD|PRINTDATADL|PRINTDATADW|DATALIST|PRINTBUTTON|PRINTBUTTONC|PRINTBUTTONLC|PRINT_ABL|PRINT_TALENT|PRINT_MARK|PRINT_EXP|PRINT_PALAM|PRINT_ITEM|PRINT_SHOPITEM|UPCHECK|DRAWLINE|CLEARLINE|PRINT_IMG|PRINT_RECT|PRINT_SPACE|SETCOLOR|SETCOLOR|RESETCOLOR|SETBGCOLOR|SETBGCOLOR|RESETBGCOLOR|GETCOLOR|GETDEFCOLOR|GETBGCOLOR|GETDEFBGCOLOR|GETFOCUSCOLOR|FONTBOLD|FONTITALIC|FONTREGULAR|FONTSTYLE|GETSTYLE|CHKFONT|SETFONT|GETFONT|FORCEKANA|ALIGNMENT|CURRENTALIGN|REDRAW|CURRENTREDRAW|PRINTCPERLINE|LINEISEMPTY|BARSTR|MONEYSTR|SKIPDISP|NOSKIP|ENDNOSKIP|ISSKIP|MOUSESKIP|TOUPPER|TOLOWER|TOHALF|TOFULL|TOSTR|ISNUMERIC|TOINT|STRLENS|STRLENSU|SUBSTRING|SUBSTRINGU|CHARATU|STRFIND|STRFINDU|STRCOUNT|SPLIT|REPLACE|UNICODE|POWER|ABS|SIGN|SQRT|GETBIT|MAX|MIN|LIMIT|INRANGE|SETBIT|CLEARBIT|INVERTBIT|ADDCHARA|DELCHARA|SWAPCHARA|SORTCHARA|GETCHARA|ADDDEFCHARA|ADDVOIDCHARA|DELALLCHARA|PICKUPCHARA|EXISTCSV|FINDCHARA|FINDLASTCHARA|COPYCHARA|ADDCOPYCHARA|VARSIZE|RESETDATA|RESETGLOBAL|RESET_STAIN|SWAP|CSVNAME|CSVCALLNAME|CSVNICKNAME|CSVMASTERNAME|CSVBASE|CSVCSTR|CSVABL|CSVTALENT|CSVMARK|CSVEXP|CSVRELATION|CSVJULE|CSVEQUIP|CSVCFLAG|GETNUM|GETPALAMLV|GETEXPLV|FINDELEMENT|FINDLASTELEMENT|VARSET|CVARSET|ARRAYSHIFT|ARRAYREMOVE|ARRAYSORT|ARRAYCOPY|CUPCHECK|SAVEDATA|LOADDATA|DELDATA|CHKDATA|SAVENOS|SAVEGLOBAL|LOADGLOBAL|OUTPUTLOG|SAVECHARA|LOADCHARA|CHKCHARADATA|FIND_CHARADATA|GETTIME|GETMILLISECOND|GETSECOND|FORCEWAIT|INPUT|TINPUT|TINPUTS|TWAIT|ONEINPUT|TONEINPUT|TONEINPUTS|WAITANYKEY|RANDOMIZE|DUMPRAND|INITRAND|DEBUGCLEAR|TOOLTIP_SETCOLOR|TOOLTIP_SETDELAY|HTML_PRINT|HTML_TAGSPLIT|CLEARTEXTBOX|STOPCALLTRAIN)\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.other.command.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					]
+				}
+			]
+		},
+		"assignment-statement": {
+			"name": "meta.assignment.erabasic",
+			"patterns": [
+				{
+					"begin": "([^*/%+\\-<>&|\\^'=!]=[^=])(?=\\s*(?:%|{|\\@))",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.assignment.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"include": "#form-string"
+						}
+					]
+				},
+				{
+					"begin": "\\*=|/=|%=|\\+=|-=|<<=|>>=|&=|\\|=|\\^=|'=|[^=!<>]=[^=]",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.operator.assignment.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					]
+				}
+			]
+		},
+		"form-string": {
+			"patterns": [
+				{
+					"include": "#string-conditional-operator"
+				},
+				{
+					"include": "#string-placeholder"
+				},
+				{
+					"include": "#numeric-placeholder"
+				}
+			]
+		},
+		"string-conditional-operator": {
+			"patterns": [
+				{
+					"name": "meta.template.expression.erabasic",
+					"match": "(\\\\@)(.+?)(\\?)(.*?)(#)(.*?)(\\\\@)",
+					"captures": {
+						"1": {
+							"name": "keyword.other.placeholder.erabasic"
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#expression"
+								}
+							]
+						},
+						"3": {
+							"name": "keyword.operator.conditional.erabasic"
+						},
+						"4": {
+							"patterns": [
+								{
+									"include": "#string-placeholder"
+								},
+								{
+									"include": "#numeric-placeholder"
+								}
+							]
+						},
+						"5": {
+							"name": "keyword.operator.conditional.erabasic"
+						},
+						"6": {
+							"patterns": [
+								{
+									"include": "#string-placeholder"
+								},
+								{
+									"include": "#numeric-placeholder"
+								}
+							]
+						},
+						"7": {
+							"name": "keyword.other.placeholder.erabasic"
+						}
+					}
+				}
+			]
+		},
+		"string-placeholder": {
+			"patterns": [
+				{
+					"name": "meta.template.expression.erabasic",
+					"begin": "(?<!\\\\)%",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.other.placeholder.erabasic"
+						}
+					},
+					"end": "(%)|$",
+					"endCaptures": {
+						"1": {
+							"name": "keyword.other.placeholder.erabasic"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					]
+				}
+			]
+		},
+		"numeric-placeholder": {
+			"patterns": [
+				{
+					"name": "meta.template.expression.erabasic",
+					"begin": "(?<!\\\\){",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.other.placeholder.erabasic"
+						}
+					},
+					"end": "(})|$",
+					"endCaptures": {
+						"1": {
+							"name": "keyword.other.placeholder.erabasic"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					]
+				}
+			]
+		},
+		"expression": {
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#round-braces"
+				},
+				{
+					"include": "#operators"
+				},
+				{
+					"include": "#string-literal"
+				},
+				{
+					"include": "#numeric-literal"
+				},
+				{
+					"include": "#function-call"
+				},
+				{
+					"include": "#predefined-variables"
+				},
+				{
+					"include": "#identifier"
+				},
+				{
+					"include": "#punctuation"
+				}
+			]
+		},
+		"round-braces": {
+			"patterns": [
+				{
+					"begin": "\\(",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.parenthesis.open.erabasic"
+						}
+					},
+					"end": "(\\))|$",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.parenthesis.close.erabasic"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					]
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "keyword.operator.bitwise.erabasic",
+					"match": "<<|>>"
+				},
+				{
+					"name": "keyword.operator.comparison.erabasic",
+					"match": "==|!=|<=|>=|<|>"
+				},
+				{
+					"name": "keyword.operator.logical.erabasic",
+					"match": "&&|\\|\\|\\^\\^|!&|!\\||!"
+				},
+				{
+					"name": "keyword.operator.bitwise.erabasic",
+					"match": "~|&|\\||\\^"
+				},
+				{
+					"name": "keyword.operator.assignment.erabasic",
+					"match": "="
+				},
+				{
+					"name": "keyword.operator.decrement.erabasic",
+					"match": "--"
+				},
+				{
+					"name": "keyword.operator.increment.erabasic",
+					"match": "\\+\\+"
+				},
+				{
+					"name": "keyword.operator.arithmetic.erabasic",
+					"match": "\\*|/|%|\\+|-"
+				},
+				{
+					"name": "keyword.operator.conditional.erabasic",
+					"match": "\\?|#"
+				},
+				{
+					"name": "keyword.operator.subscript.erabasic",
+					"match": ":"
+				}
+			]
+		},
+		"string-literal": {
+			"patterns": [
+				{
+					"name": "string.quoted.double.erabasic",
+					"begin": "@\"",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.erabasic"
+						}
+					},
+					"end": "(\")|$",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.definition.string.end.erabasic"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#form-string"
+						},
+						{
+							"name": "constant.character.escape.erabasic",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.quoted.double.erabasic",
+					"begin": "\"",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.erabasic"
+						}
+					},
+					"end": "(\")|$",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.definition.string.end.erabasic"
+						}
+					},
+					"patterns": [
+						{
+							"name": "constant.character.escape.erabasic",
+							"match": "\\\\."
+						}
+					]
+				}
+			]
+		},
+		"numeric-literal": {
+			"patterns": [
+				{
+					"name": "constant.numeric.hex.erabasic",
+					"match": "\\b0(x|X)[0-9a-fA-F]+\\b"
+				},
+				{
+					"name": "constant.numeric.binary.erabasic",
+					"match": "\\b0(b|B)[01]+\\b"
+				},
+				{
+					"name": "constant.numeric.erabasic",
+					"match": "\\b([0-9]+)\\.[0-9]+\\b"
+				},
+				{
+					"name": "constant.numeric.erabasic",
+					"match": "\\b[0-9]+(p|P|e|E)[0-9]+\\b"
+				},
+				{
+					"name": "constant.numeric.erabasic",
+					"match": "\\b[0-9]+\\b"
+				}
+			]
+		},
+		"function-call": {
+			"patterns": [
+				{
+					"begin": "\\b(?:(GETCHARA|FINDCHARA|FINDLASTCHARA|CSVNAME|CSVCALLNAME|CSVNICKNAME|CSVMASTERNAME|CSVCSTR|CSVBASE|CSVABL|CSVTALENT|CSVMARK|CSVEXP|CSVRELATION|CSVJUEL|CSVEQUIP|CSVCFLAG|EXISTCSV|GETNUM|STRLENS|STRLENSU|SUBSTRING|SUBSTRINGU|CHARATU|STRFIND|STRFINDU|STRCOUNT|UNICODE|ENCODETOUNI|REPLACE|ESCAPE|VARSIZE|GETTIME|GETTIMES|GETMILLISECOND|GETSECOND|CHKFONT|POWER|RAND|ABS|SIGN|MAX|MIN|LIMIT|INRANGE|SQRT|GETBIT|CBRT|LOG|LOG10|EXPONENT|GETFONT|GETCOLOR|GETDEFCOLOR|GETBGCOLOR|GETDEFBGCOLOR|GETFOCUSCOLOR|GETSTYLE|CURRENTALIGN|CURRENTREDRAW|TOSTR|GETPALAMLV|GETEXPLV|TOUPPER|TOLOWER|TOHALF|TOFULL|SUMARRAY|MATCH|MAXARRAY|MINARRAY|SUMCARRAY|CMATCH|MAXCARRAY|MINCARRAY|ISNUMERIC|TOINT|CHKDATA|CHKCHARADATA|FIND_CHARADATA|SAVENOS|PRINTCPERLINE|LINEISEMPTY|GROUPMATCH|NOSAMES|ALLSAMES|ISSKIP|MOUSESKIP|MESSKIP|CONVERT|MONEYSTR|FINDELEMENT|FINDLASTELEMENT|BARSTR|COLOR_FROMNAME|COLOR_FROMRGB|INRANGEARRAY|INRANGECARRAY|GETLINESTR|PRINTCLENGTH|STRFORM|GETCONFIG|GETCONFIGS|HTML_POPPRINTINGSTR|HTML_GETPRINTEDSTR|HTML_ESCAPE|HTML_TOPLAINTEXT)|([_[:alpha:]][_[:alnum:]]*))\\s*\\(",
+					"beginCaptures": {
+						"1": {
+							"name": "support.function.builtin.erabasic"
+						},
+						"2": {
+							"name": "entity.name.function.erabasic"
+						}
+					},
+					"end": "\\)|$",
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					]
+				}
+			]
+		},
+		"predefined-variables": {
+			"patterns": [
+				{
+					"name": "support.variable.global.erabasic",
+					"match": "\\b(DAY|MONEY|ITEM|FLAG|TFLAG|UP|PALAMLV|EXPLV|EJAC|DOWN|RESULT|COUNT|TARGET|ASSI|MASTER|NOITEM|LOSEBASE|SELECTCOM|ASSIPLAY|PREVCOM|TIME|ITEMSALES|PLAYER|NEXTCOM|PBAND|BOUGHT|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|GLOBAL|RANDDATA|SAVESTR|TSTR|STR|RESULTS|GLOBALS|SAVEDATA_TEXT|ISASSI|NO|BASE|MAXBASE|ABL|TALENT|EXP|MARK|PALAM|SOURCE|EX|CFLAG|JUEL|RELATION|EQUIP|TEQUIP|STAIN|GOTJUEL|NOWEX|DOWNBASE|CUP|CDOWN|TCVAR|NAME|CALLNAME|NICKNAME|MASTERNAME|CSTR|CDFLAG|DITEMTYPE|DA|DB|DC|DD|DE|TA|TB|ITEMPRICE|ABLNAME|TALENTNAME|EXPNAME|MARKNAME|PALAMNAME|ITEMNAME|TRAINNAME|BASENAME|SOURCENAME|EXNAME|EQUIPNAME|TEQUIPNAME|FLAGNAME|TFLAGNAME|CFLAGNAME|TCVARNAME|CSTRNAME|STAINNAME|CDFLAGNAME1|CDFLAGNAME2|STRNAME|TSTRNAME|SAVESTRNAME|GLOBALNAME|GLOBALSNAME|GAMEBASE_AUTHER|GAMEBASE_AUTHOR|GAMEBASE_INFO|GAMEBASE_YEAR|GAMEBASE_TITLE|GAMEBASE_GAMECODE|GAMEBASE_VERSION|GAMEBASE_ALLOWVERSION|GAMEBASE_DEFAULTCHARA|GAMEBASE_NOITEM|RAND|CHARANUM|LASTLOAD_TEXT|LASTLOAD_VERSION|LASTLOAD_NO|LINECOUNT|ISTIMEOUT|__INT_MAX__|__INT_MIN__|EMUERA_VERSION|WINDOW_TITLE|MONEYLABEL|DRAWLINESTR|__FILE__|__FUNCTION__|__LINE__|LOCAL|ARG|LOCALS|ARGS)\\b"
+				}
+			]
+		},
+		"identifier": {
+			"patterns": [
+				{
+					"name": "entity.name.variable.erabasic",
+					"match": "[_[:alpha:]][_[:alnum:]]*"
+				}
+			]
+		},
+		"punctuation": {
+			"patterns": [
+				{
+					"name": "punctuation.separator.expression.erabasic",
+					"match": ","
+				}
+			]
+		},
+		"comment": {
+			"patterns": [
+				{
+					"name": "comment.line.erabasic",
+					"begin": ";",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.erabasic"
+						}
+					},
+					"end": "$"
+				}
+			]
+		}
+	},
+	"scopeName": "source.erabasic"
+}
