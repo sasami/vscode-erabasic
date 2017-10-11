@@ -4,6 +4,7 @@ All notable changes to the "erabasic" extension will be documented in this file.
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
+- 識別子の判定を Emuera に準拠
 
 ## [0.0.2] - 2017-10-01
 ### Fixed
