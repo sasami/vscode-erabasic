@@ -70,7 +70,21 @@
 		"preprocessor-attribute": {
 			"patterns": [
 				{
-					"begin": "^\\s*#(SINGLE|PRI|LATER|ONLY|FUNCTION|FUNCTIONS|LOCALSIZE|LOCALSSIZE|DIM|DIMS|DEFINE)\\b",
+					"begin": "^\\s*#DIMS?(?:\\s+(?:SAVEDATA|CHARADATA|GLOBAL|DYNAMIC|STATIC|CONST|REF))*\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "meta.preprocessor.erabasic"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					]
+				},
+				{
+					"begin": "^\\s*#(?:SINGLE|PRI|LATER|ONLY|FUNCTION|FUNCTIONS|LOCALSIZE|LOCALSSIZE|DEFINE)\\b",
 					"beginCaptures": {
 						"0": {
 							"name": "meta.preprocessor.erabasic"
