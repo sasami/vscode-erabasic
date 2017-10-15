@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 - 識別子の判定を Emuera に準拠
 - 変数宣言のキーワードに対応
+- 制御文と命令文の分類を見直し
 
 ## [0.0.2] - 2017-10-01
 ### Fixed
