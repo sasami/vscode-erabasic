@@ -4,6 +4,8 @@ All notable changes to the "erabasic" extension will be documented in this file.
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
+
+## [0.0.4] - 2017-10-15
 ### Changed
 - 制御分と命令文の分類を再度見直し。「サクラエディタ設定ファイル」に合わせる
 
