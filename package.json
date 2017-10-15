@@ -2,8 +2,8 @@
     "name": "erabasic",
     "displayName": "EraBasic",
     "description": "Syntax Highlighter for EraBasic",
-    "license": "CC0",
-    "version": "0.0.2",
+    "license": "CC0-1.0",
+    "version": "0.0.3",
     "publisher": "sasami",
     "bugs": {
         "url": "https://github.com/sasami/vscode-erabasic/issues"
