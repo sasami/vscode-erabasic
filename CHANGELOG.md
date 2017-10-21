@@ -4,10 +4,17 @@ All notable changes to the "erabasic" extension will be documented in this file.
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
+### Added
+- コード補完(固定)を追加
+- スニペットに制御文を追加
+- シンボルへ移動を実装
+
+### Changed
+- スニペットの命令文をコード補完へ移動
 
 ## [0.0.4] - 2017-10-15
 ### Changed
-- 制御分と命令文の分類を再度見直し。「サクラエディタ設定ファイル」に合わせる
+- 制御文と命令文の分類を再度見直し。「サクラエディタ設定ファイル」に合わせる
 
 ## [0.0.3] - 2017-10-15
 ### Added

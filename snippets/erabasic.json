@@ -1,769 +1,270 @@
 {
-    "SIF Statement": {
-        "prefix": "SIF",
-        "body": [
-            "SIF ${1:条件式}",
-            "\t$0"
-        ]
-    },
-    "IF Statement": {
-        "prefix": "IF",
-        "body": [
-            "IF ${1:条件式}",
-            "\t$0",
-            "ENDIF"
-        ]
-    },
-    "PRINT Command": {
-        "prefix": "PRINT",
-        "description": "文字列を表示",
-        "body": [
-            "PRINT ${1:文字列}"
-        ]
-    },
-    "PRINTL Command": {
-        "prefix": "PRINTL",
-        "description": "文字列を表示+改行",
-        "body": [
-            "PRINTL ${1:文字列}"
-        ]
-    },
-    "PRINTW Command": {
-        "prefix": "PRINTW",
-        "description": "文字列を表示+待機",
-        "body": [
-            "PRINTW ${1:文字列}"
-        ]
-    },
-    "PRINTK Command": {
-        "prefix": "PRINTK",
-        "description": "文字列を表示+カナ強制",
-        "body": [
-            "PRINTK ${1:文字列}"
-        ]
-    },
-    "PRINTKL Command": {
-        "prefix": "PRINTKL",
-        "description": "文字列を表示+カナ強制+改行",
-        "body": [
-            "PRINTKL ${1:文字列}"
-        ]
-    },
-    "PRINTKW Command": {
-        "prefix": "PRINTKW",
-        "description": "文字列を表示+カナ強制+待機",
-        "body": [
-            "PRINTKW ${1:文字列}"
-        ]
-    },
-    "PRINTD Command": {
-        "prefix": "PRINTD",
-        "description": "文字列を表示+初期色",
-        "body": [
-            "PRINTD ${1:文字列}"
-        ]
-    },
-    "PRINTDL Command": {
-        "prefix": "PRINTDL",
-        "description": "文字列を表示+初期色+改行",
-        "body": [
-            "PRINTDL ${1:文字列}"
-        ]
-    },
-    "PRINTDW Command": {
-        "prefix": "PRINTDW",
-        "description": "文字列を表示+初期色+待機",
-        "body": [
-            "PRINTDW ${1:文字列}"
-        ]
-    },
-    "PRINTV Command": {
-        "prefix": "PRINTV",
-        "description": "数式を表示",
-        "body": [
-            "PRINTV ${1:数式}"
-        ]
-    },
-    "PRINTVL Command": {
-        "prefix": "PRINTVL",
-        "description": "数式を表示+改行",
-        "body": [
-            "PRINTVL ${1:数式}"
-        ]
-    },
-    "PRINTVW Command": {
-        "prefix": "PRINTVW",
-        "description": "数式を表示+待機",
-        "body": [
-            "PRINTVW ${1:数式}"
-        ]
-    },
-    "PRINTVK Command": {
-        "prefix": "PRINTVK",
-        "description": "数式を表示+カナ強制",
-        "body": [
-            "PRINTVK ${1:数式}"
-        ]
-    },
-    "PRINTVKL Command": {
-        "prefix": "PRINTVKL",
-        "description": "数式を表示+カナ強制+改行",
-        "body": [
-            "PRINTVKL ${1:数式}"
-        ]
-    },
-    "PRINTVKW Command": {
-        "prefix": "PRINTVKW",
-        "description": "数式を表示+カナ強制+待機",
-        "body": [
-            "PRINTVKW ${1:数式}"
-        ]
-    },
-    "PRINTVD Command": {
-        "prefix": "PRINTVD",
-        "description": "数式を表示+初期色",
-        "body": [
-            "PRINTVD ${1:数式}"
-        ]
-    },
-    "PRINTVDL Command": {
-        "prefix": "PRINTVDL",
-        "description": "数式を表示+初期色+改行",
-        "body": [
-            "PRINTVDL ${1:数式}"
-        ]
-    },
-    "PRINTVDW Command": {
-        "prefix": "PRINTVDW",
-        "description": "数式を表示+初期色+待機",
-        "body": [
-            "PRINTVDW ${1:数式}"
-        ]
-    },
-    "PRINTS Command": {
-        "prefix": "PRINTS",
-        "description": "文字列式を表示",
-        "body": [
-            "PRINTS ${1:文字列式}"
-        ]
-    },
-    "PRINTSL Command": {
-        "prefix": "PRINTSL",
-        "description": "文字列式を表示+改行",
-        "body": [
-            "PRINTSL ${1:文字列式}"
-        ]
-    },
-    "PRINTSW Command": {
-        "prefix": "PRINTSW",
-        "description": "文字列式を表示+待機",
-        "body": [
-            "PRINTSW ${1:文字列式}"
-        ]
-    },
-    "PRINTSK Command": {
-        "prefix": "PRINTSK",
-        "description": "文字列式を表示+カナ強制",
-        "body": [
-            "PRINTSK ${1:文字列式}"
-        ]
-    },
-    "PRINTSKL Command": {
-        "prefix": "PRINTSKL",
-        "description": "文字列式を表示+カナ強制+改行",
-        "body": [
-            "PRINTSKL ${1:文字列式}"
-        ]
-    },
-    "PRINTSKW Command": {
-        "prefix": "PRINTSKW",
-        "description": "文字列式を表示+カナ強制+待機",
-        "body": [
-            "PRINTSKW ${1:文字列式}"
-        ]
-    },
-    "PRINTSD Command": {
-        "prefix": "PRINTSD",
-        "description": "文字列式を表示+初期色",
-        "body": [
-            "PRINTSD ${1:文字列式}"
-        ]
-    },
-    "PRINTSDL Command": {
-        "prefix": "PRINTSDL",
-        "description": "文字列式を表示+初期色+改行",
-        "body": [
-            "PRINTSDL ${1:文字列式}"
-        ]
-    },
-    "PRINTSDW Command": {
-        "prefix": "PRINTSDW",
-        "description": "文字列式を表示+初期色+待機",
-        "body": [
-            "PRINTSDW ${1:文字列式}"
-        ]
-    },
-    "PRINTFORM Command": {
-        "prefix": "PRINTFORM",
-        "description": "書式付文字列を表示",
-        "body": [
-            "PRINTFORM ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORML Command": {
-        "prefix": "PRINTFORML",
-        "description": "書式付文字列を表示+改行",
-        "body": [
-            "PRINTFORML ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMW Command": {
-        "prefix": "PRINTFORMW",
-        "description": "書式付文字列を表示+待機",
-        "body": [
-            "PRINTFORMW ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMK Command": {
-        "prefix": "PRINTFORMK",
-        "description": "書式付文字列を表示+カナ強制",
-        "body": [
-            "PRINTFORMK ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMKL Command": {
-        "prefix": "PRINTFORMKL",
-        "description": "書式付文字列を表示+カナ強制+改行",
-        "body": [
-            "PRINTFORMKL ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMKW Command": {
-        "prefix": "PRINTFORMKW",
-        "description": "書式付文字列を表示+カナ強制+待機",
-        "body": [
-            "PRINTFORMKW ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMD Command": {
-        "prefix": "PRINTFORMD",
-        "description": "書式付文字列を表示+初期色",
-        "body": [
-            "PRINTFORMD ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMDL Command": {
-        "prefix": "PRINTFORMDL",
-        "description": "書式付文字列を表示+初期色+改行",
-        "body": [
-            "PRINTFORMDL ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMDW Command": {
-        "prefix": "PRINTFORMDW",
-        "description": "書式付文字列を表示+初期色+待機",
-        "body": [
-            "PRINTFORMDW ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMS Command": {
-        "prefix": "PRINTFORMS",
-        "description": "書式付文字列式を表示",
-        "body": [
-            "PRINTFORMS ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTFORMSL Command": {
-        "prefix": "PRINTFORMSL",
-        "description": "書式付文字列式を表示+改行",
-        "body": [
-            "PRINTFORMSL ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTFORMSW Command": {
-        "prefix": "PRINTFORMSW",
-        "description": "書式付文字列式を表示+待機",
-        "body": [
-            "PRINTFORMSW ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTFORMSK Command": {
-        "prefix": "PRINTFORMSK",
-        "description": "書式付文字列式を表示+カナ強制",
-        "body": [
-            "PRINTFORMSK ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTFORMSKL Command": {
-        "prefix": "PRINTFORMSKL",
-        "description": "書式付文字列式を表示+カナ強制+改行",
-        "body": [
-            "PRINTFORMSKL ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTFORMSKW Command": {
-        "prefix": "PRINTFORMSKW",
-        "description": "書式付文字列式を表示+カナ強制+待機",
-        "body": [
-            "PRINTFORMSKW ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTFORMSD Command": {
-        "prefix": "PRINTFORMSD",
-        "description": "書式付文字列式を表示+初期色",
-        "body": [
-            "PRINTFORMSD ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTFORMSDL Command": {
-        "prefix": "PRINTFORMSDL",
-        "description": "書式付文字列式を表示+初期色+改行",
-        "body": [
-            "PRINTFORMSDL ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTFORMSDW Command": {
-        "prefix": "PRINTFORMSDW",
-        "description": "書式付文字列式を表示+初期色+待機",
-        "body": [
-            "PRINTFORMSDW ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTSINGLE Command": {
-        "prefix": "PRINTSINGLE",
-        "description": "文字列を表示",
-        "body": [
-            "PRINTSINGLE ${1:文字列}"
-        ]
-    },
-    "PRINTSINGLEK Command": {
-        "prefix": "PRINTSINGLEK",
-        "description": "文字列を表示+カナ強制",
-        "body": [
-            "PRINTSINGLEK ${1:文字列}"
-        ]
-    },
-    "PRINTSINGLED Command": {
-        "prefix": "PRINTSINGLED",
-        "description": "文字列を表示+初期色",
-        "body": [
-            "PRINTSINGLED ${1:文字列}"
-        ]
-    },
-    "PRINTSINGLEV Command": {
-        "prefix": "PRINTSINGLEV",
-        "description": "数式を表示",
-        "body": [
-            "PRINTSINGLEV ${1:数式}"
-        ]
-    },
-    "PRINTSINGLEVK Command": {
-        "prefix": "PRINTSINGLEVK",
-        "description": "数式を表示+カナ強制",
-        "body": [
-            "PRINTSINGLEVK ${1:数式}"
-        ]
-    },
-    "PRINTSINGLEVD Command": {
-        "prefix": "PRINTSINGLEVD",
-        "description": "数式を表示+初期色",
-        "body": [
-            "PRINTSINGLEVD ${1:数式}"
-        ]
-    },
-    "PRINTSINGLES Command": {
-        "prefix": "PRINTSINGLES",
-        "description": "文字列式を表示",
-        "body": [
-            "PRINTSINGLES ${1:文字列式}"
-        ]
-    },
-    "PRINTSINGLESK Command": {
-        "prefix": "PRINTSINGLESK",
-        "description": "文字列式を表示+カナ強制",
-        "body": [
-            "PRINTSINGLESK ${1:文字列式}"
-        ]
-    },
-    "PRINTSINGLESD Command": {
-        "prefix": "PRINTSINGLESD",
-        "description": "文字列式を表示+初期色",
-        "body": [
-            "PRINTSINGLESD ${1:文字列式}"
-        ]
-    },
-    "PRINTSINGLEFORM Command": {
-        "prefix": "PRINTSINGLEFORM",
-        "description": "書式付文字列を表示",
-        "body": [
-            "PRINTSINGLEFORM ${1:書式付文字列}"
-        ]
-    },
-    "PRINTSINGLEFORMK Command": {
-        "prefix": "PRINTSINGLEFORMK",
-        "description": "書式付文字列を表示+カナ強制",
-        "body": [
-            "PRINTSINGLEFORMK ${1:書式付文字列}"
-        ]
-    },
-    "PRINTSINGLEFORMD Command": {
-        "prefix": "PRINTSINGLEFORMD",
-        "description": "書式付文字列を表示+初期色",
-        "body": [
-            "PRINTSINGLEFORMD ${1:書式付文字列}"
-        ]
-    },
-    "PRINTSINGLEFORMS Command": {
-        "prefix": "PRINTSINGLEFORMS",
-        "description": "書式付文字列式を表示",
-        "body": [
-            "PRINTSINGLEFORMS ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTSINGLEFORMSK Command": {
-        "prefix": "PRINTSINGLEFORMSK",
-        "description": "書式付文字列式を表示+カナ強制",
-        "body": [
-            "PRINTSINGLEFORMSK ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTSINGLEFORMSD Command": {
-        "prefix": "PRINTSINGLEFORMSD",
-        "description": "書式付文字列式を表示+初期色",
-        "body": [
-            "PRINTSINGLEFORMSD ${1:書式付文字列式}"
-        ]
-    },
-    "PRINTC Command": {
-        "prefix": "PRINTC",
-        "description": "文字列を表示+右揃え",
-        "body": [
-            "PRINTC ${1:文字列}"
-        ]
-    },
-    "PRINTCK Command": {
-        "prefix": "PRINTCK",
-        "description": "文字列を表示+右揃え+カナ強制",
-        "body": [
-            "PRINTCK ${1:文字列}"
-        ]
-    },
-    "PRINTCD Command": {
-        "prefix": "PRINTCD",
-        "description": "文字列を表示+右揃え+初期色",
-        "body": [
-            "PRINTCD ${1:文字列}"
-        ]
-    },
-    "PRINTLC Command": {
-        "prefix": "PRINTLC",
-        "description": "文字列を表示+左揃え",
-        "body": [
-            "PRINTLC ${1:文字列}"
-        ]
-    },
-    "PRINTLCK Command": {
-        "prefix": "PRINTLCK",
-        "description": "文字列を表示+左揃え+カナ強制",
-        "body": [
-            "PRINTLCK ${1:文字列}"
-        ]
-    },
-    "PRINTLCD Command": {
-        "prefix": "PRINTLCD",
-        "description": "文字列を表示+左揃え+初期色",
-        "body": [
-            "PRINTLCD ${1:文字列}"
-        ]
-    },
-    "PRINTFORMC Command": {
-        "prefix": "PRINTFORMC",
-        "description": "書式付文字列を表示+右揃え",
-        "body": [
-            "PRINTFORMC ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMCK Command": {
-        "prefix": "PRINTFORMCK",
-        "description": "書式付文字列を表示+右揃え+カナ強制",
-        "body": [
-            "PRINTFORMCK ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMCD Command": {
-        "prefix": "PRINTFORMCD",
-        "description": "書式付文字列を表示+右揃え+初期色",
-        "body": [
-            "PRINTFORMCD ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMLC Command": {
-        "prefix": "PRINTFORMLC",
-        "description": "書式付文字列を表示+左揃え",
-        "body": [
-            "PRINTFORMLC ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMLCK Command": {
-        "prefix": "PRINTFORMLCK",
-        "description": "書式付文字列を表示+左揃え+カナ強制",
-        "body": [
-            "PRINTFORMLCK ${1:書式付文字列}"
-        ]
-    },
-    "PRINTFORMLCD Command": {
-        "prefix": "PRINTFORMLCD",
-        "description": "書式付文字列を表示+左揃え+初期色",
-        "body": [
-            "PRINTFORMLCD ${1:書式付文字列}"
-        ]
-    },
-    "PRINTDATA Command": {
+    "PRINTDATA Statement": {
         "prefix": "PRINTDATA",
-        "description": "ランダムに表示",
+        "description": "PRINTDATA Statement",
         "body": [
             "PRINTDATA",
             "\t$0",
             "ENDDATA"
         ]
     },
-    "PRINTDATAL Command": {
+    "PRINTDATAL Statement": {
         "prefix": "PRINTDATAL",
-        "description": "ランダムに表示+改行",
+        "description": "PRINTDATAL Statement",
         "body": [
             "PRINTDATAL",
             "\t$0",
             "ENDDATA"
         ]
     },
-    "PRINTDATAW Command": {
+    "PRINTDATAW Statement": {
         "prefix": "PRINTDATAW",
-        "description": "ランダムに表示+待機",
+        "description": "PRINTDATAW Statement",
         "body": [
             "PRINTDATAW",
             "\t$0",
             "ENDDATA"
         ]
     },
-    "PRINTDATAK Command": {
+    "PRINTDATAK Statement": {
         "prefix": "PRINTDATAK",
-        "description": "ランダムに表示+カナ強制",
+        "description": "PRINTDATAK Statement",
         "body": [
             "PRINTDATAK",
             "\t$0",
             "ENDDATA"
         ]
     },
-    "PRINTDATAKL Command": {
+    "PRINTDATAKL Statement": {
         "prefix": "PRINTDATAKL",
-        "description": "ランダムに表示+カナ強制+改行",
+        "description": "PRINTDATAKL Statement",
         "body": [
             "PRINTDATAKL",
             "\t$0",
             "ENDDATA"
         ]
     },
-    "PRINTDATAKW Command": {
+    "PRINTDATAKW Statement": {
         "prefix": "PRINTDATAKW",
-        "description": "ランダムに表示+カナ強制+待機",
+        "description": "PRINTDATAKW Statement",
         "body": [
             "PRINTDATAKW",
             "\t$0",
             "ENDDATA"
         ]
     },
-    "PRINTDATAD Command": {
+    "PRINTDATAD Statement": {
         "prefix": "PRINTDATAD",
-        "description": "ランダムに表示+初期色",
+        "description": "PRINTDATAD Statement",
         "body": [
             "PRINTDATAD",
             "\t$0",
             "ENDDATA"
         ]
     },
-    "PRINTDATADL Command": {
+    "PRINTDATADL Statement": {
         "prefix": "PRINTDATADL",
-        "description": "ランダムに表示+初期色+改行",
+        "description": "PRINTDATADL Statement",
         "body": [
             "PRINTDATADL",
             "\t$0",
             "ENDDATA"
         ]
     },
-    "PRINTDATADW Command": {
+    "PRINTDATADW Statement": {
         "prefix": "PRINTDATADW",
-        "description": "ランダムに表示+初期色+待機",
+        "description": "PRINTDATADW Statement",
         "body": [
             "PRINTDATADW",
             "\t$0",
             "ENDDATA"
         ]
     },
-    "DATALIST Command": {
+    "STRDATA Statement": {
+        "prefix": "STRDATA",
+        "description": "STRDATA Statement",
+        "body": [
+            "STRDATA",
+            "\t$0",
+            "ENDDATA"
+        ]
+    },
+    "DATALIST Statement": {
         "prefix": "DATALIST",
+        "description": "DATALIST Statement",
         "body": [
             "DATALIST",
             "\t$0",
             "ENDLIST"
         ]
     },
-    "DATA Command": {
-        "prefix": "DATA",
+    "SIF Statement": {
+        "prefix": "SIF",
+        "description": "SIF Statement",
         "body": [
-            "DATA ${1:文字列}"
+            "SIF ${1:condition}",
+            "\t$0"
         ]
     },
-    "DATAFORM Command": {
-        "prefix": "DATAFORM",
+    "IF Statement": {
+        "prefix": "IF",
+        "description": "IF Statement",
         "body": [
-            "DATAFORM ${1:書式付文字列}"
+            "IF ${1:condition}",
+            "\t$0",
+            "ENDIF"
         ]
     },
-    "PRINTBUTTON Command": {
-        "prefix": "PRINTBUTTON",
-        "description": "ボタンを表示",
+    "IF-ELSE Statement": {
+        "prefix": "IFELSE",
+        "description": "IF-ELSE Statement",
         "body": [
-            "PRINTBUTTON ${1:文字列式}, ${2:式}"
+            "IF ${1:condition}",
+            "\t$0",
+            "ELSE",
+            "\t",
+            "ENDIF"
         ]
     },
-    "PRINTBUTTONC Command": {
-        "prefix": "PRINTBUTTONC",
-        "description": "ボタンを表示+右揃え",
+    "REPEAT Statement": {
+        "prefix": "REPEAT",
+        "description": "REPEAT Statement",
         "body": [
-            "PRINTBUTTONC ${1:文字列式}, ${2:式}"
+            "REPEAT ${1:count}",
+            "\t$0",
+            "REND"
         ]
     },
-    "PRINTBUTTONLC Command": {
-        "prefix": "PRINTBUTTONLC",
-        "description": "ボタンを表示+左揃え",
+    "FOR Statement": {
+        "prefix": "FOR",
+        "description": "FOR Statement",
         "body": [
-            "PRINTBUTTONLC ${1:文字列式}, ${2:式}"
+            "FOR ${1:count}, ${2:start}, ${3:end}",
+            "\t$0",
+            "NEXT"
         ]
     },
-    "PRINTPLAIN Command": {
-        "prefix": "PRINTPLAIN",
-        "description": "文字列を表示",
+    "WHILE Statement": {
+        "prefix": "WHILE",
+        "description": "WHILE Statement",
         "body": [
-            "PRINTPLAIN ${1:文字列}"
+            "WHILE ${1:condition}",
+            "\t$0",
+            "WEND"
         ]
     },
-    "PRINTPLAINFORM Command": {
-        "prefix": "PRINTPLAINFORM",
-        "description": "書式付文字列を表示",
+    "DO-LOOP Statement": {
+        "prefix": "DOLOOP",
+        "description": "DO-LOOP Statement",
         "body": [
-            "PRINTPLAINFORM ${1:書式付文字列}"
+            "DO",
+            "\t$0",
+            "LOOP ${1:condition}"
         ]
     },
-    "PRINT_ABL Command": {
-        "prefix": "PRINT_ABL",
-        "description": "キャラの能力を表示",
+    "SELECTCASE Statement": {
+        "prefix": "SELECTCASE",
+        "description": "SELECTCASE Statement",
         "body": [
-            "PRINT_ABL ${1:数式}"
+            "SELECTCASE ${1:key}",
+            "\tCASE ${2:value}",
+            "\t\t$0",
+            "\tCASEELSE",
+            "\t\t",
+            "ENDSELECT"
         ]
     },
-    "PRINT_TALENT Command": {
-        "prefix": "PRINT_TALENT",
-        "description": "キャラの素質を表示",
+    "TRYCCALL Statement": {
+        "prefix": "TRYCCALL",
+        "description": "TRYCCALL Statement",
         "body": [
-            "PRINT_TALENT ${1:数式}"
+            "TRYCCALL ${1:name}",
+            "\t$0",
+            "CATCH",
+            "\t",
+            "ENDCATCH"
         ]
     },
-    "PRINT_MARK Command": {
-        "prefix": "PRINT_MARK",
-        "description": "キャラの刻印を表示",
+    "TRYCJUMP Statement": {
+        "prefix": "TRYCJUMP",
+        "description": "TRYCJUMP Statement",
         "body": [
-            "PRINT_MARK ${1:数式}"
+            "TRYCJUMP ${1:name}",
+            "\t$0",
+            "CATCH",
+            "\t",
+            "ENDCATCH"
         ]
     },
-    "PRINT_EXP Command": {
-        "prefix": "PRINT_EXP",
-        "description": "キャラの経験を表示",
+    "TRYCGOTO Statement": {
+        "prefix": "TRYCGOTO",
+        "description": "TRYCGOTO Statement",
         "body": [
-            "PRINT_EXP ${1:数式}"
+            "TRYCGOTO ${1:name}",
+            "\t$0",
+            "CATCH",
+            "\t",
+            "ENDCATCH"
         ]
     },
-    "PRINT_PALAM Command": {
-        "prefix": "PRINT_PALAM",
-        "description": "キャラの調教中パラメータを表示",
+    "TRYCCALLFORM Statement": {
+        "prefix": "TRYCCALLFORM",
+        "description": "TRYCCALLFORM Statement",
         "body": [
-            "PRINT_PALAM ${1:数式}"
+            "TRYCCALLFORM ${1:name}",
+            "\t$0",
+            "CATCH",
+            "\t",
+            "ENDCATCH"
         ]
     },
-    "PRINT_ITEM Command": {
-        "prefix": "PRINT_ITEM",
-        "description": "所持アイテムを表示",
+    "TRYCJUMPFORM Statement": {
+        "prefix": "TRYCJUMPFORM",
+        "description": "TRYCJUMPFORM Statement",
         "body": [
-            "PRINT_ITEM"
+            "TRYCJUMPFORM ${1:name}",
+            "\t$0",
+            "CATCH",
+            "\t",
+            "ENDCATCH"
         ]
     },
-    "PRINT_SHOPITEM Command": {
-        "prefix": "PRINT_SHOPITEM",
-        "description": "販売アイテムを表示",
+    "TRYCGOTOFORM Statement": {
+        "prefix": "TRYCGOTOFORM",
+        "description": "TRYCGOTOFORM Statement",
         "body": [
-            "PRINT_SHOPITEM"
+            "TRYCGOTOFORM ${1:name}",
+            "\t$0",
+            "CATCH",
+            "\t",
+            "ENDCATCH"
         ]
     },
-    "UPCHECK Command": {
-        "prefix": "UPCHECK",
-        "description": "調教中パラメータの変化を表示",
+    "TRYCALLLIST Statement": {
+        "prefix": "TRYCALLLIST",
+        "description": "TRYCALLLIST Statement",
         "body": [
-            "UPCHECK"
+            "TRYCALLLIST",
+            "\tFUNC ${0:name}",
+            "ENDFUNC"
         ]
     },
-    "DRAWLINE Command": {
-        "prefix": "DRAWLINE",
-        "description": "横先を表示",
+    "TRYJUMPLIST Statement": {
+        "prefix": "TRYJUMPLIST",
+        "description": "TRYJUMPLIST Statement",
         "body": [
-            "DRAWLINE"
+            "TRYJUMPLIST",
+            "\tFUNC ${0:name}",
+            "ENDFUNC"
         ]
     },
-    "CUSTOMDRAWLINE Command": {
-        "prefix": "CUSTOMDRAWLINE",
-        "description": "横先を表示",
+    "TRYGOTOLIST Statement": {
+        "prefix": "TRYGOTOLIST",
+        "description": "TRYGOTOLIST Statement",
         "body": [
-            "CUSTOMDRAWLINE ${1:文字列}"
-        ]
-    },
-    "DRAWLINEFORM Command": {
-        "prefix": "DRAWLINEFORM",
-        "description": "横先を表示",
-        "body": [
-            "DRAWLINEFORM ${1:書式付文字列}"
-        ]
-    },
-    "REUSELASTLINE Command": {
-        "prefix": "REUSELASTLINE",
-        "description": "最終行を書き換え",
-        "body": [
-            "REUSELASTLINE ${1:書式付文字列}"
-        ]
-    },
-    "CLEARLINE Command": {
-        "prefix": "CLEARLINE",
-        "description": "行を削除",
-        "body": [
-            "CLEARLINE ${1:数式}"
-        ]
-    },
-    "PRINT_IMG Command": {
-        "prefix": "PRINT_IMG",
-        "description": "画像を表示",
-        "body": [
-            "PRINT_IMG ${1:文字列式}"
-        ]
-    },
-    "PRINT_RECT Command": {
-        "prefix": "PRINT_RECT",
-        "description": "矩形を表示",
-        "body": [
-            "PRINT_RECT ${1:数式}"
-        ]
-    },
-    "PRINT_SPACE Command": {
-        "prefix": "PRINT_SPACE",
-        "description": "空白を表示",
-        "body": [
-            "PRINT_SPACE ${1:数式}"
+            "TRYGOTOLIST",
+            "\tFUNC ${0:name}",
+            "ENDFUNC"
         ]
     }
 }

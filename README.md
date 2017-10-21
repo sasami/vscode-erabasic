@@ -1,4 +1,4 @@
 # EraBasic
-Syntax Highlighter for EraBasic.
+Language support for EraBasic.
 
 ![Screenshot](images/screenshot.png)

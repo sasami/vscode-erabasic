@@ -13,11 +13,22 @@
         "url": "https://github.com/sasami/vscode-erabasic.git"
     },
     "engines": {
-        "vscode": "^1.16.0"
+        "vscode": "^1.17.0"
     },
     "categories": [
         "Languages"
     ],
+    "activationEvents": [
+        "onLanguage:erabasic"
+    ],
+    "main": "./out/extension",
+    "scripts": {
+        "build": "vsce package --baseContentUrl . --baseImagesUrl https://rawgit.com/sasami/vscode-erabasic/master/ --out erabasic-latest.vsix",
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
     "contributes": {
         "languages": [
             {
@@ -46,5 +57,14 @@
                 "path": "./snippets/erabasic.json"
             }
         ]
+    },
+    "dependencies": {
+        "iconv-lite": "^0.4.19"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.0.46",
+        "typescript": "^2.5.3",
+        "vscode": "^1.1.6"
     }
 }
