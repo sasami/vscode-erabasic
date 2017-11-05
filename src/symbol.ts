@@ -78,14 +78,22 @@ export class SymbolInformationRepository implements Disposable {
     private cache: Map<string, SymbolInformation[]> = new Map();
     private dirty: Set<string> = new Set();
 
+    private encoding: string;
     private disposable: Disposable;
 
     constructor() {
+        let subscriptions: Disposable[] = [];
+
         let watcher = vscode.workspace.createFileSystemWatcher(`**/*.[Ee][Rr][BbHh]`);
         watcher.onDidCreate((e) => { this.dirty.add(e.fsPath) });
         watcher.onDidChange((e) => { this.dirty.add(e.fsPath) });
         watcher.onDidDelete((e) => { this.dirty.delete(e.fsPath); this.cache.delete(e.fsPath) });
-        this.disposable = watcher;
+        subscriptions.push(watcher);
+
+        vscode.workspace.onDidChangeConfiguration(this.onDidChangeConfiguration, this, subscriptions);
+
+        this.encoding = this.getWorkspaceEncoding();
+        this.disposable = Disposable.from(...subscriptions);
     }
 
     async sync(): Promise<void> {
@@ -97,7 +105,6 @@ export class SymbolInformationRepository implements Disposable {
         if (this.dirty.size === 0) {
             return;
         }
-        let encoding = vscode.workspace.getConfiguration('files').get('encoding', 'utf8');
         for (let path of Array.from(this.dirty)) {
             let input = await new Promise<string>((resolve, reject) => {
                 fs.readFile(path, (err, data) => {
@@ -108,7 +115,7 @@ export class SymbolInformationRepository implements Disposable {
                         }
                         reject(err);
                     } else {
-                        resolve(iconv.decode(data, encoding));
+                        resolve(iconv.decode(data, this.encoding));
                     }
                 });
             });
@@ -128,5 +135,23 @@ export class SymbolInformationRepository implements Disposable {
 
     dispose() {
         this.disposable.dispose();
+    }
+
+    private getWorkspaceEncoding(): string {
+        let encoding = vscode.workspace.getConfiguration('files').get('encoding', 'utf8');
+        if (encoding === 'utf8bom') {
+            return 'utf8';  // iconv-lite はデコード時にデフォルトで bom を削除するためこれで問題ない
+        }
+        return encoding;
+    }
+
+    private onDidChangeConfiguration() {
+        let encoding = this.getWorkspaceEncoding();
+        if (this.encoding === encoding) {
+            return;
+        }
+        this.encoding = encoding;
+        this.dirty.clear();
+        this.cache.clear();
     }
 }

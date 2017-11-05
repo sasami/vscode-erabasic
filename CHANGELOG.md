@@ -4,6 +4,9 @@ All notable changes to the "erabasic" extension will be documented in this file.
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
+### Fixed
+- files.encoding の変更が反映されないのを修正
+- files.encoding に utf8bom を指定すると死んでしまうのを修正
 
 ## [0.1.0] - 2017-10-21
 ### Added
