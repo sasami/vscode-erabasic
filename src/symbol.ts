@@ -109,16 +109,21 @@ export class SymbolInformationRepository implements Disposable {
             let input = await new Promise<string>((resolve, reject) => {
                 fs.readFile(path, (err, data) => {
                     if (err) {
-                        if (err.code === 'ENOENT') {
-                            this.dirty.delete(path);
-                            this.cache.delete(path);
+                        if (typeof err === 'object' && err.code === 'ENOENT') {
+                            resolve();
+                        } else {
+                            reject(err);
                         }
-                        reject(err);
                     } else {
                         resolve(iconv.decode(data, this.encoding));
                     }
                 });
             });
+            if (input === undefined) {
+                this.dirty.delete(path);
+                this.cache.delete(path);
+                continue;
+            }
             if (this.dirty.delete(path)) {
                 this.cache.set(path, readSymbolInformations(Uri.file(path), input));
             }
