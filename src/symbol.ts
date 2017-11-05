@@ -2,7 +2,10 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as iconv from 'iconv-lite';
 
-import { Disposable, SymbolInformation, SymbolKind, Location, Uri, Range, Position } from 'vscode';
+import {
+    Disposable, SymbolInformation, SymbolKind,
+    TextDocument, Location, Uri, Range, Position
+} from 'vscode';
 
 function* iterlines(input: string): IterableIterator<[number, string]> {
     let lines = input.split(/\r?\n/);
@@ -131,9 +134,18 @@ export class SymbolInformationRepository implements Disposable {
     }
 
     filter(cb: (s: SymbolInformation) => any): SymbolInformation[] {
+        let fresh: Set<string> = new Set();
         let matches: SymbolInformation[] = [];
-        for (let symbols of this.cache.values()) {
-            matches.push(...symbols.filter(cb));
+        for (let document of vscode.workspace.textDocuments) {
+            if (document.isDirty && /\.er[bh]/i.test(document.uri.path) && vscode.workspace.getWorkspaceFolder(document.uri) !== undefined) {
+                fresh.add(document.uri.fsPath);
+                matches.push(...readSymbolInformations(document.uri, document.getText()).filter(cb));
+            }
+        }
+        for (let [path, symbols] of this.cache.entries()) {
+            if (!fresh.has(path)) {
+                matches.push(...symbols.filter(cb));
+            }
         }
         return matches;
     }

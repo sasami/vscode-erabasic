@@ -5,8 +5,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 ### Fixed
-- files.encoding の変更が反映されないのを修正
 - files.encoding に utf8bom を指定すると死んでしまうのを修正
+- Go to Symbols in Workspace に files.encoding の変更が反映されないのを修正
+- Go to Symbols in Workspace に編集中のドキュメントが反映されないのを修正
 
 ## [0.1.0] - 2017-10-21
 ### Added
