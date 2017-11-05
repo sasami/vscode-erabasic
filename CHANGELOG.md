@@ -4,6 +4,8 @@ All notable changes to the "erabasic" extension will be documented in this file.
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 ## [Unreleased]
+
+## [0.1.1] - 2017-11-05
 ### Fixed
 - files.encoding に utf8bom を指定すると死んでしまうのを修正
 - Go to Symbols in Workspace に files.encoding の変更が反映されないのを修正
