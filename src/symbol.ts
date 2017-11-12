@@ -77,25 +77,52 @@ export function readSymbolInformations(uri: Uri, input: string): SymbolInformati
     return symbols;
 }
 
+class WorkspaceEncoding {
+    private encoding: string[][];
+
+    constructor() {
+        this.reset();
+    }
+
+    find(path: string): string {
+        return this.encoding.find((v) => path.startsWith(v[0]))[1];
+    }
+
+    reset() {
+        this.encoding = [];
+        for (let folder of vscode.workspace.workspaceFolders) {
+            this.encoding.push([folder.uri.fsPath, this.getConfiguration(folder.uri)]);
+        }
+    }
+
+    private getConfiguration(uri: Uri): string {
+        let encoding: string = vscode.workspace.getConfiguration('files', uri).get('encoding', 'utf8');
+        if (encoding === 'utf8bom') {
+            return 'utf8';  // iconv-lite はデコード時にデフォルトで bom を削除するためこれで問題ない
+        }
+        return encoding;
+    }
+}
+
 export class SymbolInformationRepository implements Disposable {
     private cache: Map<string, SymbolInformation[]> = new Map();
     private dirty: Set<string> = new Set();
 
-    private encoding: string;
+    private encoding: WorkspaceEncoding = new WorkspaceEncoding();
     private disposable: Disposable;
 
     constructor() {
         let subscriptions: Disposable[] = [];
 
-        let watcher = vscode.workspace.createFileSystemWatcher(`**/*.[Ee][Rr][BbHh]`);
+        let watcher = vscode.workspace.createFileSystemWatcher('**/*.[Ee][Rr][BbHh]');
         watcher.onDidCreate((e) => { this.dirty.add(e.fsPath) });
         watcher.onDidChange((e) => { this.dirty.add(e.fsPath) });
         watcher.onDidDelete((e) => { this.dirty.delete(e.fsPath); this.cache.delete(e.fsPath) });
         subscriptions.push(watcher);
 
-        vscode.workspace.onDidChangeConfiguration(this.onDidChangeConfiguration, this, subscriptions);
+        vscode.workspace.onDidChangeConfiguration(this.clear, this, subscriptions);
+        vscode.workspace.onDidChangeWorkspaceFolders(this.clear, this, subscriptions);
 
-        this.encoding = this.getWorkspaceEncoding();
         this.disposable = Disposable.from(...subscriptions);
     }
 
@@ -118,7 +145,7 @@ export class SymbolInformationRepository implements Disposable {
                             reject(err);
                         }
                     } else {
-                        resolve(iconv.decode(data, this.encoding));
+                        resolve(iconv.decode(data, this.encoding.find(path)));
                     }
                 });
             });
@@ -150,25 +177,13 @@ export class SymbolInformationRepository implements Disposable {
         return matches;
     }
 
-    dispose() {
-        this.disposable.dispose();
-    }
-
-    private getWorkspaceEncoding(): string {
-        let encoding = vscode.workspace.getConfiguration('files').get('encoding', 'utf8');
-        if (encoding === 'utf8bom') {
-            return 'utf8';  // iconv-lite はデコード時にデフォルトで bom を削除するためこれで問題ない
-        }
-        return encoding;
-    }
-
-    private onDidChangeConfiguration() {
-        let encoding = this.getWorkspaceEncoding();
-        if (this.encoding === encoding) {
-            return;
-        }
-        this.encoding = encoding;
+    clear() {
         this.dirty.clear();
         this.cache.clear();
+        this.encoding.reset();
+    }
+
+    dispose() {
+        this.disposable.dispose();
     }
 }
