@@ -71,13 +71,13 @@ export function readDeclarations(input: string): Declaration[] {
             funcEndChar = text.length;
         }
         {
-            const match = /^\s*#DIMS?\s+(?:[A-Z]+\s+)*([^\s\x21-\x2f\x3a-\x40\x5b-\x5e\x7b-\x7e]+)/.exec(text);
+            const match = /^\s*#(DIMS?(?:\s+[A-Z]+)*|DEFINE)\s+([^\s\x21-\x2f\x3a-\x40\x5b-\x5e\x7b-\x7e]+)/.exec(text);
             if (match !== null) {
                 symbols.push(new Declaration(
-                    match[1],
-                    SymbolKind.Variable,
+                    match[2],
+                    match[1].startsWith("DIM") ? SymbolKind.Variable : SymbolKind.Constant,
                     funcStart,
-                    new Range(line, match[0].length - match[1].length, line, match[0].length),
+                    new Range(line, match[0].length - match[2].length, line, match[0].length),
                     new Range(line, 0, line, text.length),
                 ));
                 continue;

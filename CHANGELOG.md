@@ -7,6 +7,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### Added
 - Multi-root Workspaces に対応
 - Go to Definition に対応
+- Go to Symbols の候補に #DEFINE を追加
 
 ## [0.1.1] - 2017-11-05
 ### Fixed
