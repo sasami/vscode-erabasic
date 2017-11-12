@@ -1,61 +1,62 @@
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
 import {
-    ExtensionContext, Disposable, CancellationToken,
-    CompletionItemProvider, CompletionContext, CompletionItem,
-    DocumentSymbolProvider, WorkspaceSymbolProvider, SymbolInformation,
-    TextDocument, Position,
-} from 'vscode';
+    CancellationToken, CompletionContext, CompletionItem, CompletionItemProvider, Definition, DefinitionProvider, Disposable,
+    DocumentSelector, DocumentSymbolProvider, ExtensionContext, Position, SymbolInformation, TextDocument, Uri, WorkspaceSymbolProvider,
+} from "vscode";
 
-import { BuiltinComplationItems } from './completion';
-import { SymbolInformationRepository, readSymbolInformations } from './symbol';
+import { BuiltinComplationItems } from "./completion";
+import { DeclarationProvider } from "./declaration";
+import { DefinitionRepository } from "./definition";
+import { readSymbolInformations, SymbolInformationRepository } from "./symbol";
 
 export function activate(context: ExtensionContext) {
-    let repo = new SymbolInformationRepository();
-    context.subscriptions.push(vscode.languages.registerCompletionItemProvider({ language: 'erabasic' }, new EraBasicCompletionItemProvider()));
-    context.subscriptions.push(vscode.languages.registerDocumentSymbolProvider({ language: 'erabasic' }, new EraBasicDocumentSymbolProvider()));
-    context.subscriptions.push(vscode.languages.registerWorkspaceSymbolProvider(new EraBasicWorkspaceSymbolProvider(repo)));
-    context.subscriptions.push(repo);
+    const selector: DocumentSelector = { language: "erabasic" };
+    const provider: DeclarationProvider = new DeclarationProvider();
+    context.subscriptions.push(vscode.languages.registerCompletionItemProvider(selector, new EraBasicCompletionItemProvider()));
+    context.subscriptions.push(vscode.languages.registerDefinitionProvider(selector, new EraBasicDefinitionProvider(provider)));
+    context.subscriptions.push(vscode.languages.registerDocumentSymbolProvider(selector, new EraBasicDocumentSymbolProvider()));
+    context.subscriptions.push(vscode.languages.registerWorkspaceSymbolProvider(new EraBasicWorkspaceSymbolProvider(provider)));
+    context.subscriptions.push(provider);
 }
 
 export function deactivate() {
+    // Nothing to do
 }
 
 class EraBasicCompletionItemProvider implements CompletionItemProvider {
-    provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext): CompletionItem[] {
+    public provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext): CompletionItem[] {
         // 可視範囲のシンボル数がメガテンで 65000 を越えるため諸々見送り
         return BuiltinComplationItems;
     }
 }
 
+class EraBasicDefinitionProvider implements DefinitionProvider {
+    private repo: DefinitionRepository;
+
+    constructor(provider: DeclarationProvider) {
+        this.repo = new DefinitionRepository(provider);
+    }
+
+    public provideDefinition(document: TextDocument, position: Position, token: CancellationToken): Promise<Definition> {
+        return this.repo.sync().then(() => Array.from(this.repo.find(document, position)));
+    }
+}
+
 class EraBasicDocumentSymbolProvider implements DocumentSymbolProvider {
-    provideDocumentSymbols(document: TextDocument, token: CancellationToken): SymbolInformation[] {
+    public provideDocumentSymbols(document: TextDocument, token: CancellationToken): SymbolInformation[] {
         return readSymbolInformations(document.uri, document.getText());
     }
 }
 
 class EraBasicWorkspaceSymbolProvider implements WorkspaceSymbolProvider {
-    constructor(private repo: SymbolInformationRepository) {
+    private repo: SymbolInformationRepository;
+
+    constructor(provider: DeclarationProvider) {
+        this.repo = new SymbolInformationRepository(provider);
     }
 
-    provideWorkspaceSymbols(query: string, token: CancellationToken): Promise<SymbolInformation[]> {
-        return this.repo.sync().then(() => {
-            let pattern = this.compileQuery(query);
-            if (pattern !== undefined) {
-                return this.repo.filter((s) => pattern.test(s.name));
-            }
-        });
-    }
-
-    private compileQuery(query: string): RegExp {
-        if (query.length === 0) {
-            return;
-        }
-        let chars = Array.from(query).map((c) => {
-            let uc = c.toUpperCase();
-            let lc = c.toLowerCase();
-            return uc === lc ? c : `[${uc}${lc}]`;
-        });
-        return new RegExp(chars.join('.*'));
+    public provideWorkspaceSymbols(query: string, token: CancellationToken): Promise<SymbolInformation[]> {
+        return this.repo.sync().then(() => Array.from(this.repo.find(query)));
     }
 }

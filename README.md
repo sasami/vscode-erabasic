@@ -7,4 +7,5 @@ Language Support for EraBasic.
 - Syntax Highlighting
 - Snippets
 - Simple Code Completion
+- Go to Definition
 - Go to Symbols in File/Workspace

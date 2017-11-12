@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 ### Added
 - Multi-root Workspaces に対応
+- Go to Definition に対応
 
 ## [0.1.1] - 2017-11-05
 ### Fixed
