@@ -1229,6 +1229,78 @@ export const BuiltinComplationItems: CompletionItem[] = [
         kind: Command,
     },
     {
+        label: "TOOLTIP_SETDURATION",
+        kind: Command,
+    },
+    {
+        label: "AWAIT",
+        kind: Command,
+    },
+    {
+        label: "STRJOIN",
+        kind: Command,
+    },
+    {
+        label: "GETKEY",
+        kind: Command,
+    },
+    {
+        label: "GETKEYTRIGGERD",
+        kind: Command,
+    },
+    {
+        label: "MOUSEX",
+        kind: Command,
+    },
+    {
+        label: "MOUSEY",
+        kind: Command,
+    },
+    {
+        label: "ISACTIVE",
+        kind: Command,
+    },
+    {
+        label: "SAVETEXT",
+        kind: Command,
+    },
+    {
+        label: "LOADTEXT",
+        kind: Command,
+    },
+    {
+        label: "SPRITECREATED",
+        kind: Command,
+    },
+    {
+        label: "SPRITEWIDTH",
+        kind: Command,
+    },
+    {
+        label: "SPRITEHEIGHT",
+        kind: Command,
+    },
+    {
+        label: "SPRITEPOSX",
+        kind: Command,
+    },
+    {
+        label: "SPRITEPOSY",
+        kind: Command,
+    },
+    {
+        label: "SPRITESETPOS",
+        kind: Command,
+    },
+    {
+        label: "SPRITEMOVE",
+        kind: Command,
+    },
+    {
+        label: "ARRAYMSORT",
+        kind: Command,
+    },
+    {
         label: "GETTIMES",
         kind: Function,
     },
@@ -1354,6 +1426,14 @@ export const BuiltinComplationItems: CompletionItem[] = [
     },
     {
         label: "HTML_TOPLAINTEXT",
+        kind: Function,
+    },
+    {
+        label: "CLIENTWIDTH",
+        kind: Function,
+    },
+    {
+        label: "CLIENTHEIGHT",
         kind: Function,
     },
     {
