@@ -1301,6 +1301,138 @@ export const BuiltinComplationItems: CompletionItem[] = [
         kind: Command,
     },
     {
+        label: "GCREATED",
+        kind: Command,
+    },
+    {
+        label: "GWIDTH",
+        kind: Command,
+    },
+    {
+        label: "GHEIGHT",
+        kind: Command,
+    },
+    {
+        label: "GGETCOLOR",
+        kind: Command,
+    },
+    {
+        label: "GCREATE",
+        kind: Command,
+    },
+    {
+        label: "GCREATEFROMFILE",
+        kind: Command,
+    },
+    {
+        label: "GDISPOSE",
+        kind: Command,
+    },
+    {
+        label: "GCLEAR",
+        kind: Command,
+    },
+    {
+        label: "GFILLRECTANGLE",
+        kind: Command,
+    },
+    {
+        label: "GDRAWSPRITE",
+        kind: Command,
+    },
+    {
+        label: "GSETCOLOR",
+        kind: Command,
+    },
+    {
+        label: "GDRAWG",
+        kind: Command,
+    },
+    {
+        label: "GDRAWGWITHMASK",
+        kind: Command,
+    },
+    {
+        label: "GSETBRUSH",
+        kind: Command,
+    },
+    {
+        label: "GSETFONT",
+        kind: Command,
+    },
+    {
+        label: "GSETPEN",
+        kind: Command,
+    },
+    {
+        label: "GSAVE",
+        kind: Command,
+    },
+    {
+        label: "GLOAD",
+        kind: Command,
+    },
+    {
+        label: "SPRITECREATE",
+        kind: Command,
+    },
+    {
+        label: "SPRITEANIMECREATE",
+        kind: Command,
+    },
+    {
+        label: "SPRITEANIMEADDFRAME",
+        kind: Command,
+    },
+    {
+        label: "SPRITEDISPOSE",
+        kind: Command,
+    },
+    {
+        label: "SPRITEGETCOLOR",
+        kind: Command,
+    },
+    {
+        label: "CBGSETG",
+        kind: Command,
+    },
+    {
+        label: "CBGSETSPRITE",
+        kind: Command,
+    },
+    {
+        label: "CBGCLEAR",
+        kind: Command,
+    },
+    {
+        label: "CBGREMOVERANGE",
+        kind: Command,
+    },
+    {
+        label: "CBGSETBUTTONSPRITE",
+        kind: Command,
+    },
+    {
+        label: "CBGCLEARBUTTON",
+        kind: Command,
+    },
+    {
+        label: "CBGSETBMAPG",
+        kind: Command,
+    },
+    {
+        label: "CBGREMOVEBMAP",
+        kind: Command,
+    },
+    {
+        label: "INPUTMOUSEKEY",
+        kind: Command,
+    },
+    {
+        label: "SETANIMETIMER",
+        kind: Command,
+    },
+    {
         label: "GETTIMES",
         kind: Function,
     },
