@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to the "erabasic" extension will be documented in this file.
 
+## [0.3.0] - 2020-05-12
+### Added
+- Emuera v1.824 までの追加命令/関数に対応
+
 ## [0.2.0] - 2017-11-12
 ### Added
 - Multi-root Workspaces に対応
