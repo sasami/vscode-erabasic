@@ -1238,67 +1238,67 @@ export const BuiltinComplationItems: CompletionItem[] = [
     },
     {
         label: "STRJOIN",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GETKEY",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GETKEYTRIGGERD",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "MOUSEX",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "MOUSEY",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "ISACTIVE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SAVETEXT",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "LOADTEXT",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITECREATED",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITEWIDTH",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITEHEIGHT",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITEPOSX",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITEPOSY",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITESETPOS",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITEMOVE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "ARRAYMSORT",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GCREATED",
