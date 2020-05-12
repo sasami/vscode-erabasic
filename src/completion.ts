@@ -1302,127 +1302,127 @@ export const BuiltinComplationItems: CompletionItem[] = [
     },
     {
         label: "GCREATED",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GWIDTH",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GHEIGHT",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GGETCOLOR",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GCREATE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GCREATEFROMFILE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GDISPOSE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GCLEAR",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GFILLRECTANGLE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GDRAWSPRITE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GSETCOLOR",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GDRAWG",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GDRAWGWITHMASK",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GSETBRUSH",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GSETFONT",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GSETPEN",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GSAVE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "GLOAD",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITECREATE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITEANIMECREATE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITEANIMEADDFRAME",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITEDISPOSE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "SPRITEGETCOLOR",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "CBGSETG",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "CBGSETSPRITE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "CBGCLEAR",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "CBGREMOVERANGE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "CBGSETBUTTONSPRITE",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "CBGCLEARBUTTON",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "CBGSETBMAPG",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "CBGREMOVEBMAP",
-        kind: Command,
+        kind: Function,
     },
     {
         label: "INPUTMOUSEKEY",
