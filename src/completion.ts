@@ -2,8 +2,8 @@ import { CompletionItem, CompletionItemKind } from "vscode";
 
 const Keyword = CompletionItemKind.Keyword;
 const Control = CompletionItemKind.Keyword;
-const Command = CompletionItemKind.Function;
-const Function = CompletionItemKind.Function;
+const Command = CompletionItemKind.Function;   // 命令と呼ばれてるもののうち、関数では無いもの
+const Function = CompletionItemKind.Function;  // 関数と呼ばれてるもの (Emueraの仕様上、全ての式中関数は命令としても機能する)
 const Variable = CompletionItemKind.Variable;
 
 export const BuiltinComplationItems: CompletionItem[] = [
