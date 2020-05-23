@@ -2,7 +2,7 @@
     "name": "erabasic",
     "displayName": "EraBasic",
     "description": "Language Support for EraBasic",
-    "license": "CC0-1.0",
+    "license": "MIT",
     "version": "0.3.0",
     "publisher": "sasami",
     "bugs": {
