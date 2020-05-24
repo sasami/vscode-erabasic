@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to the "erabasic" extension will be documented in this file.
 
+## [Unreleased]
+### Added
+- Go to Definition/Symbols: UTF-8, UTF-16 の BOM 判定を追加
+
 ## [0.3.0] - 2020-05-12
 ### Added
 - Emuera v1.824 までの追加命令/関数に対応

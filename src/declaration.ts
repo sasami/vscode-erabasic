@@ -97,7 +97,16 @@ class WorkspaceEncoding {
         this.reset();
     }
 
-    public find(path: string): string {
+    public detect(path: string, data: Buffer): string {
+        if (data[0] === 0xef && data[1] === 0xbb && data[2] === 0xbf) {
+            return "utf8";
+        }
+        if (data[0] === 0xff && data[1] === 0xfe) {
+            return "utf16le";
+        }
+        if (data[0] === 0xfe && data[1] === 0xff) {
+            return "utf16be";
+        }
         return this.encoding.find((v) => path.startsWith(v[0]))[1];
     }
 
@@ -217,7 +226,7 @@ export class DeclarationProvider implements Disposable {
                             reject(err);
                         }
                     } else {
-                        resolve(iconv.decode(data, this.encoding.find(path)));
+                        resolve(iconv.decode(data, this.encoding.detect(path, data)));
                     }
                 });
             });
