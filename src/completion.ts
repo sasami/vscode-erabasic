@@ -6,366 +6,386 @@ const Command = CompletionItemKind.Function;   // 命令と呼ばれてるもの
 const Function = CompletionItemKind.Function;  // 関数と呼ばれてるもの (Emueraの仕様上、全ての式中関数は命令としても機能する)
 const Variable = CompletionItemKind.Variable;
 
-export const BuiltinComplationItems: CompletionItem[] = [
+type NLSLocale = "ja" | "en";
+
+class NLSCompletionItem extends CompletionItem {
+    nlsDetail?: { [locale in NLSLocale]?: string };
+}
+
+function localizedComplationItems(items: NLSCompletionItem[]): CompletionItem[] {
+    const conf = process.env.VSCODE_NLS_CONFIG ? JSON.parse(process.env.VSCODE_NLS_CONFIG) : {};
+    const locale = conf.locale || "ja";
+    return items.map((item) => {
+        if (item.detail === undefined && item.nlsDetail !== undefined) {
+            item.detail = item.nlsDetail[locale] || item.nlsDetail["ja"];
+            delete item.nlsDetail;
+        }
+        return item;
+    });
+}
+
+// PRINT系を埋めて力尽きただけなので、気の向くまま埋めちゃって下されば取り込みます。
+// もちろん、日本語だけ、英語だけ、detailなんか無くてもOK！
+export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "PRINT",
         kind: Command,
-        detail: "文字列を表示",
+        nlsDetail: { "ja": "文字列を表示", "en": "Show String" },
     },
     {
         label: "PRINTL",
         kind: Command,
-        detail: "文字列を表示+改行",
+        nlsDetail: { "ja": "文字列を表示+改行", "en": "Show String + Line Break" },
     },
     {
         label: "PRINTW",
         kind: Command,
-        detail: "文字列を表示+待機",
+        nlsDetail: { "ja": "文字列を表示+待機", "en": "Show String + Wait" },
     },
     {
         label: "PRINTK",
         kind: Command,
-        detail: "文字列を表示+カナ強制",
+        nlsDetail: { "ja": "文字列を表示+カナ強制", "en": "Show String + Forced Kana" },
     },
     {
         label: "PRINTKL",
         kind: Command,
-        detail: "文字列を表示+カナ強制+改行",
+        nlsDetail: { "ja": "文字列を表示+カナ強制+改行", "en": "Show String + Forced Kana + Line Break" },
     },
     {
         label: "PRINTKW",
         kind: Command,
-        detail: "文字列を表示+カナ強制+待機",
+        nlsDetail: { "ja": "文字列を表示+カナ強制+待機", "en": "Show String + Forced Kana + Wait" },
     },
     {
         label: "PRINTD",
         kind: Command,
-        detail: "文字列を表示+初期色",
+        nlsDetail: { "ja": "文字列を表示+初期色", "en": "Show String + Initial Color" },
     },
     {
         label: "PRINTDL",
         kind: Command,
-        detail: "文字列を表示+初期色+改行",
+        nlsDetail: { "ja": "文字列を表示+初期色+改行", "en": "Show String + Initial Color + Line Break" },
     },
     {
         label: "PRINTDW",
         kind: Command,
-        detail: "文字列を表示+初期色+待機",
+        nlsDetail: { "ja": "文字列を表示+初期色+待機", "en": "Show String + Initial Color + Wait" },
     },
     {
         label: "PRINTV",
         kind: Command,
-        detail: "数式を表示",
+        nlsDetail: { "ja": "数式を表示", "en": "Show Formula" },
     },
     {
         label: "PRINTVL",
         kind: Command,
-        detail: "数式を表示+改行",
+        nlsDetail: { "ja": "数式を表示+改行", "en": "Show Formula + Line Break" },
     },
     {
         label: "PRINTVW",
         kind: Command,
-        detail: "数式を表示+待機",
+        nlsDetail: { "ja": "数式を表示+待機", "en": "Show Formula + Wait" },
     },
     {
         label: "PRINTVK",
         kind: Command,
-        detail: "数式を表示+カナ強制",
+        nlsDetail: { "ja": "数式を表示+カナ強制", "en": "Show Formula + Forced Kana" },
     },
     {
         label: "PRINTVKL",
         kind: Command,
-        detail: "数式を表示+カナ強制+改行",
+        nlsDetail: { "ja": "数式を表示+カナ強制+改行", "en": "Show Formula + Forced Kana + Line Break" },
     },
     {
         label: "PRINTVKW",
         kind: Command,
-        detail: "数式を表示+カナ強制+待機",
+        nlsDetail: { "ja": "数式を表示+カナ強制+待機", "en": "Show Formula + Forced Kana + Wait" },
     },
     {
         label: "PRINTVD",
         kind: Command,
-        detail: "数式を表示+初期色",
+        nlsDetail: { "ja": "数式を表示+初期色", "en": "Show Formula + Initial Color" },
     },
     {
         label: "PRINTVDL",
         kind: Command,
-        detail: "数式を表示+初期色+改行",
+        nlsDetail: { "ja": "数式を表示+初期色+改行", "en": "Show Formula + Initial Color + Line Break" },
     },
     {
         label: "PRINTVDW",
         kind: Command,
-        detail: "数式を表示+初期色+待機",
+        nlsDetail: { "ja": "数式を表示+初期色+待機", "en": "Show Formula + Initial Color + Wait" },
     },
     {
         label: "PRINTS",
         kind: Command,
-        detail: "文字列式を表示",
+        nlsDetail: { "ja": "文字列式を表示", "en": "Display String Expression" },
     },
     {
         label: "PRINTSL",
         kind: Command,
-        detail: "文字列式を表示+改行",
+        nlsDetail: { "ja": "文字列式を表示+改行", "en": "Display String Expression + Line Break" },
     },
     {
         label: "PRINTSW",
         kind: Command,
-        detail: "文字列式を表示+待機",
+        nlsDetail: { "ja": "文字列式を表示+待機", "en": "Display String Expression + Wait" },
     },
     {
         label: "PRINTSK",
         kind: Command,
-        detail: "文字列式を表示+カナ強制",
+        nlsDetail: { "ja": "文字列式を表示+カナ強制", "en": "Display String Expression + Forced Kana" },
     },
     {
         label: "PRINTSKL",
         kind: Command,
-        detail: "文字列式を表示+カナ強制+改行",
+        nlsDetail: { "ja": "文字列式を表示+カナ強制+改行", "en": "Display String Expression + Forced Kana + Line Break" },
     },
     {
         label: "PRINTSKW",
         kind: Command,
-        detail: "文字列式を表示+カナ強制+待機",
+        nlsDetail: { "ja": "文字列式を表示+カナ強制+待機", "en": "Display String Expression + Forced Kana + Wait" },
     },
     {
         label: "PRINTSD",
         kind: Command,
-        detail: "文字列式を表示+初期色",
+        nlsDetail: { "ja": "文字列式を表示+初期色", "en": "Display String Expression + Initial Color" },
     },
     {
         label: "PRINTSDL",
         kind: Command,
-        detail: "文字列式を表示+初期色+改行",
+        nlsDetail: { "ja": "文字列式を表示+初期色+改行", "en": "Display String Expression + Initial Color + Line Break" },
     },
     {
         label: "PRINTSDW",
         kind: Command,
-        detail: "文字列式を表示+初期色+待機",
+        nlsDetail: { "ja": "文字列式を表示+初期色+待機", "en": "Display String Expression + Initial Color + Wait" },
     },
     {
         label: "PRINTFORM",
         kind: Command,
-        detail: "書式付文字列を表示",
+        nlsDetail: { "ja": "書式付文字列を表示", "en": "Formatted Show String" },
     },
     {
         label: "PRINTFORML",
         kind: Command,
-        detail: "書式付文字列を表示+改行",
+        nlsDetail: { "ja": "書式付文字列を表示+改行", "en": "Formatted Show String + Line Break" },
     },
     {
         label: "PRINTFORMW",
         kind: Command,
-        detail: "書式付文字列を表示+待機",
+        nlsDetail: { "ja": "書式付文字列を表示+待機", "en": "Formatted Show String + Wait" },
     },
     {
         label: "PRINTFORMK",
         kind: Command,
-        detail: "書式付文字列を表示+カナ強制",
+        nlsDetail: { "ja": "書式付文字列を表示+カナ強制", "en": "Formatted Show String + Forced Kana" },
     },
     {
         label: "PRINTFORMKL",
         kind: Command,
-        detail: "書式付文字列を表示+カナ強制+改行",
+        nlsDetail: { "ja": "書式付文字列を表示+カナ強制+改行", "en": "Formatted Show String + Forced Kana + Line Break" },
     },
     {
         label: "PRINTFORMKW",
         kind: Command,
-        detail: "書式付文字列を表示+カナ強制+待機",
+        nlsDetail: { "ja": "書式付文字列を表示+カナ強制+待機", "en": "Formatted Show String + Forced Kana + Wait" },
     },
     {
         label: "PRINTFORMD",
         kind: Command,
-        detail: "書式付文字列を表示+初期色",
+        nlsDetail: { "ja": "書式付文字列を表示+初期色", "en": "Formatted Show String + Initial Color" },
     },
     {
         label: "PRINTFORMDL",
         kind: Command,
-        detail: "書式付文字列を表示+初期色+改行",
+        nlsDetail: { "ja": "書式付文字列を表示+初期色+改行", "en": "Formatted Show String + Initial Color + Line Break" },
     },
     {
         label: "PRINTFORMDW",
         kind: Command,
-        detail: "書式付文字列を表示+初期色+待機",
+        nlsDetail: { "ja": "書式付文字列を表示+初期色+待機", "en": "Formatted Show String + Initial Color + Wait" },
     },
     {
         label: "PRINTFORMS",
         kind: Command,
-        detail: "書式付文字列式を表示",
+        nlsDetail: { "ja": "書式付文字列式を表示", "en": "Formatted Display String Expression" },
     },
     {
         label: "PRINTFORMSL",
         kind: Command,
-        detail: "書式付文字列式を表示+改行",
+        nlsDetail: { "ja": "書式付文字列式を表示+改行", "en": "Formatted Display String Expression + Line Break" },
     },
     {
         label: "PRINTFORMSW",
         kind: Command,
-        detail: "書式付文字列式を表示+待機",
+        nlsDetail: { "ja": "書式付文字列式を表示+待機", "en": "Formatted Display String Expression + Wait" },
     },
     {
         label: "PRINTFORMSK",
         kind: Command,
-        detail: "書式付文字列式を表示+カナ強制",
+        nlsDetail: { "ja": "書式付文字列式を表示+カナ強制", "en": "Formatted Display String Expression + Forced Kana" },
     },
     {
         label: "PRINTFORMSKL",
         kind: Command,
-        detail: "書式付文字列式を表示+カナ強制+改行",
+        nlsDetail: { "ja": "書式付文字列式を表示+カナ強制+改行", "en": "Formatted Display String Expression + Forced Kana + Line Break" },
     },
     {
         label: "PRINTFORMSKW",
         kind: Command,
-        detail: "書式付文字列式を表示+カナ強制+待機",
+        nlsDetail: { "ja": "書式付文字列式を表示+カナ強制+待機", "en": "Formatted Display String Expression + Forced Kana + Wait" },
     },
     {
         label: "PRINTFORMSD",
         kind: Command,
-        detail: "書式付文字列式を表示+初期色",
+        nlsDetail: { "ja": "書式付文字列式を表示+初期色", "en": "Formatted Display String Expression + Initial Color" },
     },
     {
         label: "PRINTFORMSDL",
         kind: Command,
-        detail: "書式付文字列式を表示+初期色+改行",
+        nlsDetail: { "ja": "書式付文字列式を表示+初期色+改行", "en": "Formatted Display String Expression + Initial Color + Line Break" },
     },
     {
         label: "PRINTFORMSDW",
         kind: Command,
-        detail: "書式付文字列式を表示+初期色+待機",
+        nlsDetail: { "ja": "書式付文字列式を表示+初期色+待機", "en": "Formatted Display String Expression + Initial Color + Wait" },
     },
     {
         label: "PRINTSINGLE",
         kind: Command,
-        detail: "文字列を表示",
+        nlsDetail: { "ja": "文字列を表示", "en": "Show String" },
     },
     {
         label: "PRINTSINGLEK",
         kind: Command,
-        detail: "文字列を表示+カナ強制",
+        nlsDetail: { "ja": "文字列を表示+カナ強制", "en": "Show String + Forced Kana" },
     },
     {
         label: "PRINTSINGLED",
         kind: Command,
-        detail: "文字列を表示+初期色",
+        nlsDetail: { "ja": "文字列を表示+初期色", "en": "Show String + Initial Color" },
     },
     {
         label: "PRINTSINGLEV",
         kind: Command,
-        detail: "数式を表示",
+        nlsDetail: { "ja": "数式を表示", "en": "Show Formula" },
     },
     {
         label: "PRINTSINGLEVK",
         kind: Command,
-        detail: "数式を表示+カナ強制",
+        nlsDetail: { "ja": "数式を表示+カナ強制", "en": "Show Formula + Forced Kana" },
     },
     {
         label: "PRINTSINGLEVD",
         kind: Command,
-        detail: "数式を表示+初期色",
+        nlsDetail: { "ja": "数式を表示+初期色", "en": "Show Formula + Initial Color" },
     },
     {
         label: "PRINTSINGLES",
         kind: Command,
-        detail: "文字列式を表示",
+        nlsDetail: { "ja": "文字列式を表示", "en": "Display String Expression" },
     },
     {
         label: "PRINTSINGLESK",
         kind: Command,
-        detail: "文字列式を表示+カナ強制",
+        nlsDetail: { "ja": "文字列式を表示+カナ強制", "en": "Display String Expression + Forced Kana" },
     },
     {
         label: "PRINTSINGLESD",
         kind: Command,
-        detail: "文字列式を表示+初期色",
+        nlsDetail: { "ja": "文字列式を表示+初期色", "en": "Display String Expression + Initial Color" },
     },
     {
         label: "PRINTSINGLEFORM",
         kind: Command,
-        detail: "書式付文字列を表示",
+        nlsDetail: { "ja": "書式付文字列を表示", "en": "Formatted Show String" },
     },
     {
         label: "PRINTSINGLEFORMK",
         kind: Command,
-        detail: "書式付文字列を表示+カナ強制",
+        nlsDetail: { "ja": "書式付文字列を表示+カナ強制", "en": "Formatted Show String + Forced Kana" },
     },
     {
         label: "PRINTSINGLEFORMD",
         kind: Command,
-        detail: "書式付文字列を表示+初期色",
+        nlsDetail: { "ja": "書式付文字列を表示+初期色", "en": "Formatted Show String + Initial Color" },
     },
     {
         label: "PRINTSINGLEFORMS",
         kind: Command,
-        detail: "書式付文字列式を表示",
+        nlsDetail: { "ja": "書式付文字列式を表示", "en": "Formatted Display String Expression" },
     },
     {
         label: "PRINTSINGLEFORMSK",
         kind: Command,
-        detail: "書式付文字列式を表示+カナ強制",
+        nlsDetail: { "ja": "書式付文字列式を表示+カナ強制", "en": "Formatted Display String Expression + Forced Kana" },
     },
     {
         label: "PRINTSINGLEFORMSD",
         kind: Command,
-        detail: "書式付文字列式を表示+初期色",
+        nlsDetail: { "ja": "書式付文字列式を表示+初期色", "en": "Formatted Display String Expression + Initial Color" },
     },
     {
         label: "PRINTC",
         kind: Command,
-        detail: "文字列を表示+右揃え",
+        nlsDetail: { "ja": "文字列を表示+右揃え", "en": "Show String + Right Justified" },
     },
     {
         label: "PRINTCK",
         kind: Command,
-        detail: "文字列を表示+右揃え+カナ強制",
+        nlsDetail: { "ja": "文字列を表示+右揃え+カナ強制", "en": "Show String + Right Justified + Forced Kana" },
     },
     {
         label: "PRINTCD",
         kind: Command,
-        detail: "文字列を表示+右揃え+初期色",
+        nlsDetail: { "ja": "文字列を表示+右揃え+初期色", "en": "Show String + Right Justified + Initial Color" },
     },
     {
         label: "PRINTLC",
         kind: Command,
-        detail: "文字列を表示+左揃え",
+        nlsDetail: { "ja": "文字列を表示+左揃え", "en": "Show String + Left Justified" },
     },
     {
         label: "PRINTLCK",
         kind: Command,
-        detail: "文字列を表示+左揃え+カナ強制",
+        nlsDetail: { "ja": "文字列を表示+左揃え+カナ強制", "en": "Show String + Left Justified + Forced Kana" },
     },
     {
         label: "PRINTLCD",
         kind: Command,
-        detail: "文字列を表示+左揃え+初期色",
+        nlsDetail: { "ja": "文字列を表示+左揃え+初期色", "en": "Show String + Left Justified + Initial Color" },
     },
     {
         label: "PRINTFORMC",
         kind: Command,
-        detail: "書式付文字列を表示+右揃え",
+        nlsDetail: { "ja": "書式付文字列を表示+右揃え", "en": "Formatted Show String + Right Justified" },
     },
     {
         label: "PRINTFORMCK",
         kind: Command,
-        detail: "書式付文字列を表示+右揃え+カナ強制",
+        nlsDetail: { "ja": "書式付文字列を表示+右揃え+カナ強制", "en": "Formatted Show String + Right Justified + Forced Kana" },
     },
     {
         label: "PRINTFORMCD",
         kind: Command,
-        detail: "書式付文字列を表示+右揃え+初期色",
+        nlsDetail: { "ja": "書式付文字列を表示+右揃え+初期色", "en": "Formatted Show String + Right Justified + Initial Color" },
     },
     {
         label: "PRINTFORMLC",
         kind: Command,
-        detail: "書式付文字列を表示+左揃え",
+        nlsDetail: { "ja": "書式付文字列を表示+左揃え", "en": "Formatted Show String + Left Justified" },
     },
     {
         label: "PRINTFORMLCK",
         kind: Command,
-        detail: "書式付文字列を表示+左揃え+カナ強制",
+        nlsDetail: { "ja": "書式付文字列を表示+左揃え+カナ強制", "en": "Formatted Show String + Left Justified + Forced Kana" },
     },
     {
         label: "PRINTFORMLCD",
         kind: Command,
-        detail: "書式付文字列を表示+左揃え+初期色",
+        nlsDetail: { "ja": "書式付文字列を表示+左揃え+初期色", "en": "Formatted Show String + Left Justified + Initial Color" },
     },
     {
         label: "DATA",
@@ -378,107 +398,107 @@ export const BuiltinComplationItems: CompletionItem[] = [
     {
         label: "PRINTBUTTON",
         kind: Command,
-        detail: "ボタンを表示",
+        nlsDetail: { "ja": "ボタンを表示", "en": "Show Button" },
     },
     {
         label: "PRINTBUTTONC",
         kind: Command,
-        detail: "ボタンを表示+右揃え",
+        nlsDetail: { "ja": "ボタンを表示+右揃え", "en": "Show Button + Right Justified" },
     },
     {
         label: "PRINTBUTTONLC",
         kind: Command,
-        detail: "ボタンを表示+左揃え",
+        nlsDetail: { "ja": "ボタンを表示+左揃え", "en": "Show Button + Left Justified" },
     },
     {
         label: "PRINTPLAIN",
         kind: Command,
-        detail: "文字列を表示",
+        nlsDetail: { "ja": "文字列を表示", "en": "Show String" },
     },
     {
         label: "PRINTPLAINFORM",
         kind: Command,
-        detail: "書式付文字列を表示",
+        nlsDetail: { "ja": "書式付文字列を表示", "en": "Formatted Show String" },
     },
     {
         label: "CUSTOMDRAWLINE",
         kind: Command,
-        detail: "横先を表示",
+        nlsDetail: { "ja": "横線を表示", "en": "Show Line" },
     },
     {
         label: "DRAWLINEFORM",
         kind: Command,
-        detail: "横先を表示",
+        nlsDetail: { "ja": "横線を表示", "en": "Show Line" },
     },
     {
         label: "REUSELASTLINE",
         kind: Command,
-        detail: "最終行を書き換え",
+        nlsDetail: { "ja": "最終行を書き換え", "en": "Rewrite Last Line" },
     },
     {
         label: "PRINT_ABL",
         kind: Command,
-        detail: "キャラの能力を表示",
+        nlsDetail: { "ja": "キャラの能力を表示", "en": "Display Character's ABL" },
     },
     {
         label: "PRINT_TALENT",
         kind: Command,
-        detail: "キャラの素質を表示",
+        nlsDetail: { "ja": "キャラの素質を表示", "en": "Display Character's Talent" },
     },
     {
         label: "PRINT_MARK",
         kind: Command,
-        detail: "キャラの刻印を表示",
+        nlsDetail: { "ja": "キャラの刻印を表示", "en": "Display Character's Stamp" },
     },
     {
         label: "PRINT_EXP",
         kind: Command,
-        detail: "キャラの経験を表示",
+        nlsDetail: { "ja": "キャラの経験を表示", "en": "Display Character's EXP" },
     },
     {
         label: "PRINT_PALAM",
         kind: Command,
-        detail: "キャラの調教中パラメータを表示",
+        nlsDetail: { "ja": "キャラの調教中パラメータを表示", "en": "Display Character's PARAMS" },
     },
     {
         label: "PRINT_ITEM",
         kind: Command,
-        detail: "所持アイテムを表示",
+        nlsDetail: { "ja": "所持アイテムを表示", "en": "Display Possessed Items" },
     },
     {
         label: "PRINT_SHOPITEM",
         kind: Command,
-        detail: "販売アイテムを表示",
+        nlsDetail: { "ja": "販売アイテムを表示", "en": "Display Sales Items" },
     },
     {
         label: "UPCHECK",
         kind: Command,
-        detail: "調教中パラメータの変化を表示",
+        nlsDetail: { "ja": "調教中パラメータの変化を表示", "en": "Display changes in training parameters" },
     },
     {
         label: "DRAWLINE",
         kind: Command,
-        detail: "横先を表示",
+        nlsDetail: { "ja": "横線を表示", "en": "Show Line" },
     },
     {
         label: "CLEARLINE",
         kind: Command,
-        detail: "行を削除",
+        nlsDetail: { "ja": "行を削除", "en": "Delete Line" },
     },
     {
         label: "PRINT_IMG",
         kind: Command,
-        detail: "画像を表示",
+        nlsDetail: { "ja": "画像を表示", "en": "Display IMG" },
     },
     {
         label: "PRINT_RECT",
         kind: Command,
-        detail: "矩形を表示",
+        nlsDetail: { "ja": "矩形を表示", "en": "Display Rectangle" },
     },
     {
         label: "PRINT_SPACE",
         kind: Command,
-        detail: "空白を表示",
+        nlsDetail: { "ja": "空白を表示", "en": "Show Blank" },
     },
     {
         label: "SETCOLOR",
@@ -2500,4 +2520,4 @@ export const BuiltinComplationItems: CompletionItem[] = [
         label: "ARGS",
         kind: Variable,
     },
-];
+]);
