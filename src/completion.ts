@@ -1265,7 +1265,7 @@ export const BuiltinComplationItems = localizedComplationItems([
         kind: Function,
     },
     {
-        label: "GETKEYTRIGGERD",
+        label: "GETKEYTRIGGERED",
         kind: Function,
     },
     {
