@@ -54,7 +54,7 @@ export class DefinitionRepository {
             if (!this.cache.has(doc.uri.fsPath)) {
                 continue;
             }
-            if (!doc.uri.fsPath.startsWith(ws.uri.fsPath)) {
+            if (!this.provider.isReachable(ws, doc.uri.fsPath)) {
                 continue;
             }
             fresh.add(doc.uri.fsPath);
@@ -64,7 +64,7 @@ export class DefinitionRepository {
             if (fresh.has(path)) {
                 continue;
             }
-            if (!path.startsWith(ws.uri.fsPath)) {
+            if (!this.provider.isReachable(ws, path)) {
                 continue;
             }
             yield* defs.filter((d) => d.name === word).map((d) => d.location);

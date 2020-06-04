@@ -2,7 +2,9 @@ import * as fs from "fs";
 import * as iconv from "iconv-lite";
 import * as vscode from "vscode";
 
-import { Disposable, Event, EventEmitter, Position, Range, SymbolInformation, SymbolKind, Uri } from "vscode";
+import {
+    ExtensionContext, WorkspaceFolder, Disposable, Event, EventEmitter, Position, Range, SymbolKind, Uri
+} from "vscode";
 
 export class Declaration {
     constructor(
@@ -90,6 +92,26 @@ export function readDeclarations(input: string): Declaration[] {
     return symbols;
 }
 
+class BuiltinDeclarationFiles {
+    private files: Uri[];
+
+    constructor(context: ExtensionContext) {
+        // 他の拡張でも管理下のファイルを直接開くケースがまま見られるため良しとする
+        this.files = [
+            Uri.joinPath(context.extensionUri, "emuera", "exmeth.erb"),
+            Uri.joinPath(context.extensionUri, "emuera", "exvar.erh"),
+        ];
+    }
+
+    public has(path: string): boolean {
+        return this.files.find((uri) => uri.fsPath === path) !== undefined;
+    }
+
+    public uris(): Uri[] {
+        return this.files;
+    }
+}
+
 class WorkspaceEncoding {
     private encoding: string[][];
 
@@ -142,7 +164,9 @@ export class DeclarationProvider implements Disposable {
     private dirty: Map<string, Uri> = new Map();
 
     private syncing: Promise<void>;
-    private encoding: WorkspaceEncoding = new WorkspaceEncoding();
+
+    private builtin: BuiltinDeclarationFiles;
+    private encoding: WorkspaceEncoding;
 
     private disposable: Disposable;
 
@@ -150,7 +174,10 @@ export class DeclarationProvider implements Disposable {
     private onDidDeleteEmitter: EventEmitter<DeclarationDeleteEvent> = new EventEmitter();
     private onDidResetEmitter: EventEmitter<void> = new EventEmitter();
 
-    constructor() {
+    constructor(context: ExtensionContext) {
+        this.builtin = new BuiltinDeclarationFiles(context);
+        this.encoding = new WorkspaceEncoding();
+
         const subscriptions: Disposable[] = [];
 
         const watcher = vscode.workspace.createFileSystemWatcher("**/*.[Ee][Rr][BbHh]");
@@ -175,6 +202,10 @@ export class DeclarationProvider implements Disposable {
 
     get onDidReset(): Event<void> {
         return this.onDidResetEmitter.event;
+    }
+
+    public isReachable(ws: WorkspaceFolder, path: string): boolean {
+        return path.startsWith(ws.uri.fsPath) || this.builtin.has(path);
     }
 
     public sync(): Promise<void> {
@@ -209,6 +240,9 @@ export class DeclarationProvider implements Disposable {
     private async flush(): Promise<void> {
         if (this.fullscan) {
             this.fullscan = false;
+            for (const uri of this.builtin.uris()) {
+                this.dirty.set(uri.fsPath, uri);
+            }
             for (const uri of await vscode.workspace.findFiles("**/*.[Ee][Rr][BbHh]")) {
                 this.dirty.set(uri.fsPath, uri);
             }
