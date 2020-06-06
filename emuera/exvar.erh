@@ -2,12 +2,6 @@
 
 ;; Generic Variables
 
-#DIM  LOCAL,  _
-#DIMS LOCALS, _
-
-#DIM  DYNAMIC ARG,  _
-#DIMS DYNAMIC ARGS, _
-
 #DIM SAVEDATA A, _
 #DIM SAVEDATA B, _
 #DIM SAVEDATA C, _
