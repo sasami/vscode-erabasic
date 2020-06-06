@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to the "erabasic" extension will be documented in this file.
 
-## [Unreleased]
+## [0.4.0] - 2020-06-06
 ### Added
 - Simple Code Completion: L10N に対応
 - Go to Definition/Symbols: UTF-8, UTF-16 の BOM 判定を追加

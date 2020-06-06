@@ -3,7 +3,7 @@
     "displayName": "EraBasic",
     "description": "Language Support for EraBasic",
     "license": "MIT",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "publisher": "sasami",
     "bugs": {
         "url": "https://github.com/sasami/vscode-erabasic/issues"
