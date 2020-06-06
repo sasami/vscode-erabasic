@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 
 import {
-    CancellationToken, CompletionContext, CompletionItem, CompletionItemProvider, Definition, DefinitionProvider, Disposable,
-    DocumentSelector, DocumentSymbolProvider, ExtensionContext, Position, SymbolInformation, TextDocument, Uri, WorkspaceSymbolProvider,
+    CancellationToken, CompletionContext, CompletionItem, CompletionItemProvider, Definition, DefinitionProvider,
+    DocumentSelector, DocumentSymbolProvider, ExtensionContext, Position, SymbolInformation, TextDocument, WorkspaceSymbolProvider,
 } from "vscode";
 
 import { BuiltinComplationItems } from "./completion";

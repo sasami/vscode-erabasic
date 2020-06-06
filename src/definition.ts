@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-import { Definition, Location, Position, TextDocument, Uri } from "vscode";
+import { Location, Position, TextDocument, Uri } from "vscode";
 
 import { Declaration, DeclarationProvider, readDeclarations } from "./declaration";
 
@@ -54,7 +54,7 @@ export class DefinitionRepository {
             if (!this.cache.has(doc.uri.fsPath)) {
                 continue;
             }
-            if (!this.provider.isReachable(ws, doc.uri.fsPath)) {
+            if (!this.provider.reachable(ws, doc.uri.fsPath)) {
                 continue;
             }
             fresh.add(doc.uri.fsPath);
@@ -64,7 +64,7 @@ export class DefinitionRepository {
             if (fresh.has(path)) {
                 continue;
             }
-            if (!this.provider.isReachable(ws, path)) {
+            if (!this.provider.reachable(ws, path)) {
                 continue;
             }
             yield* defs.filter((d) => d.name === word).map((d) => d.location);

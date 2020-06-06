@@ -2,9 +2,7 @@ import * as fs from "fs";
 import * as iconv from "iconv-lite";
 import * as vscode from "vscode";
 
-import {
-    ExtensionContext, WorkspaceFolder, Disposable, Event, EventEmitter, Position, Range, SymbolKind, Uri
-} from "vscode";
+import { Disposable, Event, EventEmitter, ExtensionContext, Position, Range, SymbolKind, Uri, WorkspaceFolder } from "vscode";
 
 export class Declaration {
     constructor(
@@ -17,10 +15,6 @@ export class Declaration {
 
     get isGlobal(): boolean {
         return this.container === undefined;
-    }
-
-    get containerName(): string {
-        return this.container && this.container.name;
     }
 
     public visible(position: Position): boolean {
@@ -204,7 +198,7 @@ export class DeclarationProvider implements Disposable {
         return this.onDidResetEmitter.event;
     }
 
-    public isReachable(ws: WorkspaceFolder, path: string): boolean {
+    public reachable(ws: WorkspaceFolder, path: string): boolean {
         return path.startsWith(ws.uri.fsPath) || this.builtin.has(path);
     }
 

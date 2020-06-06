@@ -8,7 +8,7 @@ function declToSymbolInformation(uri: Uri, decl: Declaration): SymbolInformation
     return new SymbolInformation(
         decl.name,
         decl.kind,
-        decl.containerName,
+        decl.container?.name,
         new Location(uri, decl.bodyRange),
     );
 }
