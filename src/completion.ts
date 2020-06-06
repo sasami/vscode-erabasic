@@ -14,7 +14,7 @@ class NLSCompletionItem extends CompletionItem {
 
 function localizedComplationItems(items: NLSCompletionItem[]): CompletionItem[] {
     const conf = process.env.VSCODE_NLS_CONFIG ? JSON.parse(process.env.VSCODE_NLS_CONFIG) : {};
-    const locale = conf.locale || "ja";
+    const locale = conf.locale || "en";
     return items.map((item) => {
         if (item.detail === undefined && item.nlsDetail !== undefined) {
             item.detail = item.nlsDetail[locale] || item.nlsDetail["ja"];
