@@ -267,4 +267,13 @@
             "ENDFUNC"
         ]
     }
+    "NOSKIP Statement": {
+        "prefix": "NOSKIP",
+        "description": "NOSKIP Statement",
+        "body": [
+            "NOSKIP",
+            "\t$0",
+            "ENDNOSKIP"
+        ]
+    }
 }
