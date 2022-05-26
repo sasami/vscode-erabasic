@@ -1205,17 +1205,17 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "RANDOMIZE",
         kind: Command,
-        nlsDetail: { "ja": "疑似乱数を指定の値で初期化、生成する", "en": "" },
+        nlsDetail: { "ja": "乱数テーブルを指定の値で初期化、生成する", "en": "" },
     },
     {
         label: "DUMPRAND",
         kind: Command,
-        nlsDetail: { "ja": "現在の疑似乱数の状態をRANDDATA変数に保存する", "en": "" },
+        nlsDetail: { "ja": "現在の乱数テーブルをRANDDATA変数に保存する", "en": "" },
     },
     {
         label: "INITRAND",
         kind: Command,
-        nlsDetail: { "ja": "RANDDATAに保存された値で疑似乱数を初期化、生成する", "en": "" },
+        nlsDetail: { "ja": "RANDDATAに保存された値で乱数テーブルを初期化、生成する", "en": "" },
     },
     {
         label: "BEGIN",
@@ -2719,4 +2719,336 @@ export const BuiltinComplationItems = localizedComplationItems([
         label: "ARGS",
         kind: Variable,
     },
+	//#region EE+EM
+    {
+        label: "QUIT_AND_RESTART",
+        kind: Command,
+        nlsDetail: { "ja": "再起動命令 QUIT同様に1回のWAITを挟む", "en": "" },
+    },
+    {
+        label: "FORCE_QUIT",
+        kind: Command,
+        nlsDetail: { "ja": "WAITを挟まずに強制終了する", "en": "" },
+    },
+    {
+        label: "FORCE_QUIT_AND_RESTART",
+        kind: Command,
+        nlsDetail: { "ja": "WAITを挟まずに強制再起動する 連続実行された場合はダイアログボックスで警告が出る", "en": "" },
+    },
+    {
+        label: "FORCE_BEGIN",
+        kind: Command,
+        nlsDetail: { "ja": "常に使用可能なBEGIN フローの制約を受けない", "en": "" },
+    },
+    {
+        label: "STOPSOUND",
+        kind: Command,
+        nlsDetail: { "ja": "PLAYSOUNDで再生中の音声を停止する", "en": "" },
+    },
+    {
+        label: "STOPBGM",
+        kind: Command,
+        nlsDetail: { "ja": "PLAYBGMで再生中の音声を停止する", "en": "" },
+    },
+    {
+        label: "SETSOUNDVOLUME",
+        kind: Command,
+        nlsDetail: { "ja": "PLAYSOUNDの音量を変更する 0～100を指定可能", "en": "" },
+    },
+    {
+        label: "SETBGMVOLUME",
+        kind: Command,
+        nlsDetail: { "ja": "PLAYBGMの音量を変更する 0～100を指定可能", "en": "" },
+    },
+    {
+        label: "UPDATECHECK",
+        kind: Command,
+        nlsDetail: { "ja": "アップデートを確認する 詳細はEM+EEのリファレンスを参照", "en": "" },
+    },
+    {
+        label: "TRYCALLF",
+        kind: Command,
+        nlsDetail: { "ja": "TRYを用いてCALLFする 関数が存在しなくともエラーにならないが、返り値は破棄される", "en": "" },
+    },
+    {
+        label: "TRYCALLFORMF",
+        kind: Command,
+        nlsDetail: { "ja": "TRYを用いてCALLFORMFする 関数が存在しなくともエラーにならないが、返り値は破棄される", "en": "" },
+    },
+    {
+        label: "HTML_STRINGLEN",
+        kind: Function,
+        nlsDetail: { "ja": "引数をHTML_PRINTで表示した際の幅を返す", "en": "" },
+    },
+    {
+        label: "HTML_SUBSTRING",
+        kind: Function,
+        nlsDetail: { "ja": "引数をHTML_PRINTで表示した結果からSUBSTRINGする", "en": "" },
+    },
+    {
+        label: "REGEXPMATCH",
+        kind: Function,
+        nlsDetail: { "ja": "第一引数が第二引数の正規表現パターンに合うなら一致数を返す", "en": "" },
+    },
+    {
+        label: "ISDEFINED",
+        kind: Function,
+        nlsDetail: { "ja": "引数のマクロが定義されてるかを確認する", "en": "" },
+    },
+    {
+        label: "EXISTVAR",
+        kind: Function,
+        nlsDetail: { "ja": "引数の変数が定義されてるかを確認する", "en": "" },
+    },
+    {
+        label: "ENUMFUNCBEGINSWITH",
+        kind: Function,
+        nlsDetail: { "ja": "引数で始まる関数の総数を返す", "en": "" },
+    },
+    {
+        label: "ENUMVARBEGINSWITH",
+        kind: Function,
+        nlsDetail: { "ja": "引数で始まる変数の総数を返す", "en": "" },
+    },
+    {
+        label: "ENUMMACROBEGINSWITH",
+        kind: Function,
+        nlsDetail: { "ja": "引数で始まるマクロの総数を返す", "en": "" },
+    },
+    {
+        label: "ENUMFUNCENDSWITH",
+        kind: Function,
+        nlsDetail: { "ja": "引数で終わる関数の総数を返す", "en": "" },
+    },
+    {
+        label: "ENUMVARENDSWITH",
+        kind: Function,
+        nlsDetail: { "ja": "引数で終わる変数の総数を返す", "en": "" },
+    },
+    {
+        label: "ENUMMACROENDSWITH",
+        kind: Function,
+        nlsDetail: { "ja": "引数で終わるマクロの総数を返す", "en": "" },
+    },
+    {
+        label: "ENUMFUNCWITH",
+        kind: Function,
+        nlsDetail: { "ja": "引数を含む関数の総数を返す", "en": "" },
+    },
+    {
+        label: "ENUMVARWITH",
+        kind: Function,
+        nlsDetail: { "ja": "引数を含む変数の総数を返す", "en": "" },
+    },
+    {
+        label: "ENUMMACROWITH",
+        kind: Function,
+        nlsDetail: { "ja": "引数を含むマクロの総数を返す", "en": "" },
+    },
+    {
+        label: "GETVAR",
+        kind: Function,
+        nlsDetail: { "ja": "FORM構文を用いて変数の値を取得する(数値型)", "en": "" },
+    },
+    {
+        label: "GETVARS",
+        kind: Function,
+        nlsDetail: { "ja": "FORM構文を用いて変数の値を取得する(文字列型)", "en": "" },
+    },
+    {
+        label: "SETVAR",
+        kind: Function,
+        nlsDetail: { "ja": "FORM構文を用いて変数に代入する", "en": "" },
+    },
+    {
+        label: "VARSETEX",
+        kind: Function,
+        nlsDetail: { "ja": "FORM構文を用いてVARSETする", "en": "" },
+    },
+    {
+        label: "ARRAYMSORTEX",
+        kind: Function,
+        nlsDetail: { "ja": "FORM構文を用いてARRAYMSORTする", "en": "" },
+    },
+    {
+        label: "EXISTFUNCTION",
+        kind: Function,
+        nlsDetail: { "ja": "引数で指定した関数が存在するか確認する", "en": "" },
+    },
+    {
+        label: "GDRAWTEXT",
+        kind: Function,
+        nlsDetail: { "ja": "指定のgIDにテキストを描写する", "en": "" },
+    },
+    {
+        label: "GGETFONT",
+        kind: Function,
+        nlsDetail: { "ja": "指定したgIDの、GSETFONTで指定したフォント名を返す", "en": "" },
+    },
+    {
+        label: "GGETFONTSIZE",
+        kind: Function,
+        nlsDetail: { "ja": "指定したgIDの、GSETFONTで指定したフォントサイズを返す", "en": "" },
+    },
+    {
+        label: "GGETFONTSTYLE",
+        kind: Function,
+        nlsDetail: { "ja": "指定したgIDの、GSETFONTで指定したフォントスタイルを返す", "en": "" },
+    },
+    {
+        label: "GGETTEXTSIZE",
+        kind: Function,
+        nlsDetail: { "ja": "同じ引数でGDRAWTEXTを行った場合のサイズを取得する", "en": "" },
+    },
+    {
+        label: "GDRAWGWITHROTATE",
+        kind: Function,
+        nlsDetail: { "ja": "コピー元gIDのイメージを、指定した角度回転させてコピー先gIDに貼り付ける", "en": "" },
+    },
+    {
+        label: "PLAYSOUND",
+        kind: Function,
+        nlsDetail: { "ja": "指定の音声ファイルを1回再生する", "en": "" },
+    },
+    {
+        label: "PLAYBGM",
+        kind: Function,
+        nlsDetail: { "ja": "指定の音声ファイルをループ再生する", "en": "" },
+    },
+    {
+        label: "EXISTSOUND",
+        kind: Function,
+        nlsDetail: { "ja": "指定の音声ファイルが存在するか確認する", "en": "" },
+    },
+    {
+        label: "XML_DOCUMENT",
+        kind: Function,
+        nlsDetail: { "ja": "指定したIDにXmlDocumentを保存する", "en": "" },
+    },
+    {
+        label: "XML_RELEASE",
+        kind: Function,
+        nlsDetail: { "ja": "指定したIDのXmlDocumentを削除する", "en": "" },
+    },
+    {
+        label: "XML_EXIST",
+        kind: Function,
+        nlsDetail: { "ja": "指定したIDのXmlDocumentが存在するか確認する", "en": "" },
+    },
+    {
+        label: "XML_GET",
+        kind: Function,
+        nlsDetail: { "ja": "指定したXmlからノードを選択し、結果数を返す", "en": "" },
+    },
+    {
+        label: "XML_SET",
+        kind: Function,
+        nlsDetail: { "ja": "指定のXmlからノードを選択肢、引数を代入する", "en": "" },
+    },
+    {
+        label: "XML_TOSTR",
+        kind: Function,
+        nlsDetail: { "ja": "指定したIDのXmlDocumentを文字列に変換して返す", "en": "" },
+    },
+    {
+        label: "XML_ADDNODE",
+        kind: Function,
+        nlsDetail: { "ja": "指定のXmlにノードを追加する", "en": "" },
+    },
+    {
+        label: "XML_REMOVENODE",
+        kind: Function,
+        nlsDetail: { "ja": "指定のXmlからノードを削除する", "en": "" },
+    },
+    {
+        label: "XML_REPLACE",
+        kind: Function,
+        nlsDetail: { "ja": "指定したIDのXmlを置換する", "en": "" },
+    },
+    {
+        label: "XML_ADDATTRIBUTE",
+        kind: Function,
+        nlsDetail: { "ja": "指定したXmlに属性を追加する", "en": "" },
+    },
+    {
+        label: "XML_REMOVEATTRIBUTE",
+        kind: Function,
+        nlsDetail: { "ja": "指定したXmlから属性を削除する", "en": "" },
+    },
+    {
+        label: "MAP_CREATE",
+        kind: Function,
+        nlsDetail: { "ja": "連想配列を作成する", "en": "" },
+    },
+    {
+        label: "MAP_EXIST",
+        kind: Function,
+        nlsDetail: { "ja": "指定の連想配列が存在するか確認する", "en": "" },
+    },
+    {
+        label: "MAP_RELEASE",
+        kind: Function,
+        nlsDetail: { "ja": "指定の連想配列を削除する", "en": "" },
+    },
+    {
+        label: "MAP_GET",
+        kind: Function,
+        nlsDetail: { "ja": "指定の連想配列から、第二引数をキーとして値を取得する", "en": "" },
+    },
+    {
+        label: "MAP_HAS",
+        kind: Function,
+        nlsDetail: { "ja": "指定の連想配列に、第二引数のキーが存在するか確認する", "en": "" },
+    },
+    {
+        label: "MAP_SET",
+        kind: Function,
+        nlsDetail: { "ja": "指定の連想配列に、キーと値を代入する", "en": "" },
+    },
+    {
+        label: "MAP_REMOVE",
+        kind: Function,
+        nlsDetail: { "ja": "指定の連想配列から、第二引数で指定したキーと値を削除する", "en": "" },
+    },
+    {
+        label: "MAP_SIZE",
+        kind: Function,
+        nlsDetail: { "ja": "指定した連想配列の要素数を返す", "en": "" },
+    },
+    {
+        label: "MAP_CLEAR",
+        kind: Function,
+        nlsDetail: { "ja": "指定した連想配列の要素を全て削除する", "en": "" },
+    },
+    {
+        label: "MAP_GETKEYS",
+        kind: Function,
+        nlsDetail: { "ja": "指定の連想配列から複数の要素を同時に返す", "en": "" },
+    },
+    {
+        label: "MAP_TOXML",
+        kind: Function,
+        nlsDetail: { "ja": "指定の連想配列をXML文字列に変換する", "en": "" },
+    },
+    {
+        label: "MAP_FROMXML",
+        kind: Function,
+        nlsDetail: { "ja": "XML文字列から連想配列に変換して上書きする", "en": "" },
+    },
+    {
+        label: "EXISTFILE",
+        kind: Function,
+        nlsDetail: { "ja": "Emueraを相対パスとして、指定したファイルが存在するか確認する", "en": "" },
+    },
+    {
+        label: "GETMEMORYUSAGE",
+        kind: Function,
+        nlsDetail: { "ja": "現在起動中のEmueraのメモリ使用量を返す(byte)", "en": "" },
+    },
+    {
+        label: "CLEARMEMORY",
+        kind: Function,
+        nlsDetail: { "ja": "Emueraで使用しているメモリを解放する 解放量を返す(byte)", "en": "" },
+    },
+	//#endregion
 ]);
