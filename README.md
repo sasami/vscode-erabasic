@@ -1,11 +1,4 @@
 # EraBasic
-Language Support for EraBasic.
+Language Support for EmueraEM+EE.
+Based [EraBasic extension](https://marketplace.visualstudio.com/items?itemName=sasami.erabasic)Åideveloped by sasamiÅj
 
-![Screenshot](images/screenshot.png)
-
-## Features
-- Syntax Highlighting
-- Snippets
-- Simple Code Completion
-- Go to Definition
-- Go to Symbols in File/Workspace

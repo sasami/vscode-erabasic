@@ -870,7 +870,7 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "ADDVOIDCHARA",
         kind: Command,
-        nlsDetail: { "ja": "全てのキャラクタ変数が0もしくは""(空文字列)のキャラを追加する", "en": "" },
+        nlsDetail: { "ja": "全てのキャラクタ変数が0及び空文字列のキャラを追加する", "en": "" },
     },
     {
         label: "DELALLCHARA",
