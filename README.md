@@ -1,4 +1,4 @@
-# EraBasic
-Language Support for EmueraEM+EE.
-Based [EraBasic extension](https://marketplace.visualstudio.com/items?itemName=sasami.erabasic)Åideveloped by sasamiÅj
+Ôªø# EraBasic
+Language Support for EmueraEM+EE.  
+Based [EraBasic extension](https://marketplace.visualstudio.com/items?itemName=sasami.erabasic)Ôºàdeveloped by sasamiÔºâ
 
