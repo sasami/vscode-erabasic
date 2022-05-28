@@ -1676,46 +1676,57 @@ export const GetBuiltinComplationItems = () => {
         {
             label: "#DIM",
             kind: Keyword,
+            insertText: "DIM",
         },
         {
             label: "#DIMS",
             kind: Keyword,
+            insertText: "DIMS",
         },
         {
             label: "#SINGLE",
             kind: Keyword,
+            insertText: "SINGLE",
         },
         {
             label: "#PRI",
             kind: Keyword,
+            insertText: "PRI",
         },
         {
             label: "#LATER",
             kind: Keyword,
+            insertText: "LATER",
         },
         {
             label: "#ONLY",
             kind: Keyword,
+            insertText: "ONLY",
         },
         {
             label: "#FUNCTION",
             kind: Keyword,
+            insertText: "FUNCTION",
         },
         {
             label: "#FUNCTIONS",
             kind: Keyword,
+            insertText: "FUNCTIONS",
         },
         {
             label: "#LOCALSIZE",
             kind: Keyword,
+            insertText: "LOCALSIZE",
         },
         {
             label: "#LOCALSSIZE",
             kind: Keyword,
+            insertText: "LOCALSSIZE",
         },
         {
             label: "#DEFINE",
             kind: Keyword,
+            insertText: "DEFINE",
         },
         {
             label: "IF_DEBUG",
