@@ -5,14 +5,17 @@ import {
     DocumentSelector, DocumentSymbolProvider, ExtensionContext, Position, SymbolInformation, TextDocument, WorkspaceSymbolProvider,
 } from "vscode";
 
-import { BuiltinComplationItems } from "./completion";
+import { GetBuiltinComplationItems } from "./completion";
 import { DeclarationProvider } from "./declaration";
 import { DefinitionRepository } from "./definition";
 import { readSymbolInformations, SymbolInformationRepository } from "./symbol";
 
+export let extensionPath: string;
+
 export function activate(context: ExtensionContext) {
     const selector: DocumentSelector = { language: "erabasic" };
     const provider: DeclarationProvider = new DeclarationProvider(context);
+    extensionPath = context.extensionPath;
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider(selector, new EraBasicCompletionItemProvider()));
     context.subscriptions.push(vscode.languages.registerDefinitionProvider(selector, new EraBasicDefinitionProvider(provider)));
     context.subscriptions.push(vscode.languages.registerDocumentSymbolProvider(selector, new EraBasicDocumentSymbolProvider()));
@@ -27,7 +30,7 @@ export function deactivate() {
 class EraBasicCompletionItemProvider implements CompletionItemProvider {
     public provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext): CompletionItem[] {
         // 可視範囲のシンボル数がメガテンで 65000 を越えるため諸々見送り
-        return BuiltinComplationItems;
+        return GetBuiltinComplationItems();
     }
 }
 

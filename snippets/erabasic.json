@@ -266,7 +266,7 @@
             "\tFUNC ${0:name}",
             "ENDFUNC"
         ]
-    }
+    },
     "NOSKIP Statement": {
         "prefix": "NOSKIP",
         "description": "NOSKIP Statement",
