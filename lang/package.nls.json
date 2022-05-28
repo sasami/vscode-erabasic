@@ -287,7 +287,7 @@
     "completion.build-in.GETKEY": "命令実行時点で指定のキーが押下されているか確認",
     "completion.build-in.GETKEYTRIGGERED": "命令実行時点で指定のキーが押されたか確認",
     "completion.build-in.MOUSEX": "マウスカーソルのX座標を返す",
-    "completion.build-in.MOUSEY": "マイスカーソルのY座標を返す",
+    "completion.build-in.MOUSEY": "マウスカーソルのY座標を返す",
     "completion.build-in.ISACTIVE": "Emueraのウィンドウがアクティブかどうかを返す",
     "completion.build-in.SAVETEXT": "テキストを指定したナンバーで外部ファイルに保存する",
     "completion.build-in.LOADTEXT": "指定したナンバーの外部ファイルを読み込む"

@@ -1,62 +1,72 @@
 {
-	"name": "erabasic-emee",
-	"displayName": "EraBasic-EM+EE",
-	"description": "Language Support for EraBasic and EM+EE",
-	"license": "MIT",
-	"version": "0.1.0",
-	"publisher": "deletedenter",
-	"bugs": {
-		"url": "https://discord.gg/p5rb5uK"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/CatQOh/vscode-erabasic.git"
-	},
-	"engines": {
-		"vscode": "^1.67.0"
-	},
-	"categories": [
-		"Programming Languages"
-	],
-	"activationEvents": [
-		"onLanguage:erabasic"
-	],
-	"main": "./out/extension",
-	"scripts": {
-		"build": "vsce package --baseContentUrl . --baseImagesUrl https://raw.githubusercontent.com/CatQOh/vscode-erabasic/master --out erabasic-latest.vsix",
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"lint": "tslint -p ./",
-		"watch": "tsc -watch -p ./"
-	},
-	"contributes": {
-		"languages": [{
-			"id": "erabasic",
-			"aliases": ["EraBasic", "erabasic"],
-			"extensions": [".erb", ".erh", ".erd"],
-			"configuration": "./language-configuration.json"
-		}],
-		"grammars": [
-		{
-			"language": "erabasic",
-			"scopeName": "source.erabasic",
-			"path": "./syntaxes/erabasic.tmLanguage.json"
-		}
-		],
-		"snippets": [
-		{
-			"language": "erabasic",
-			"path": "./snippets/erabasic.json"
-		}
-		],
-	"devDependencies": {
-		"@types/node": "^17.0.35",
-		"@types/vscode": "^1.67.0",
-		"tslint": "^6.1.3",
-		"typescript": "^4.7.2"
-	},
-	"dependencies": {
-		"iconv-lite": "^0.6.3"
-		}
-	}
+    "name": "erabasic-emee",
+    "displayName": "EraBasic-EM+EE",
+    "description": "Language Support for EraBasic and EM+EE",
+    "license": "MIT",
+    "version": "0.2.1",
+    "publisher": "deletedenter",
+    "bugs": {
+        "url": "https://discord.gg/p5rb5uK"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CatQOh/vscode-erabasic.git"
+    },
+    "engines": {
+        "vscode": "^1.67.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "activationEvents": [
+        "onLanguage:erabasic"
+    ],
+    "main": "./out/extension",
+    "scripts": {
+        "build": "vsce package --baseContentUrl . --baseImagesUrl https://raw.githubusercontent.com/CatQOh/vscode-erabasic/master --out erabasic-latest.vsix",
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "tslint -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "contributes": {
+        "languages": [
+            {
+                "id": "erabasic",
+                "aliases": [
+                    "EraBasic",
+                    "erabasic"
+                ],
+                "extensions": [
+                    ".erb",
+                    ".erh",
+                    ".erd"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "erabasic",
+                "scopeName": "source.erabasic",
+                "path": "./syntaxes/erabasic.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "erabasic",
+                "path": "./snippets/erabasic.json"
+            }
+        ]
+    },
+    "dependencies": {
+        "fs-extra": "^10.1.0",
+        "iconv-lite": "^0.4.24"
+    },
+    "devDependencies": {
+        "@types/node": "^12.12.0",
+        "@types/vscode": "^1.34.0",
+        "tslint": "^5.19.0",
+        "typescript": "^3.8.3"
+    }
 }
