@@ -1021,98 +1021,267 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "POWER",
         kind: Command,
+        nlsDetail: { "ja": "(Command) POWER int variable, int x, int y || (Function) int POWER(int x, int y)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "(Command)`x`の`y`乗を計算し変数に代入します。\n\n"+
+            "*@param* {数値型変数} `variable` - 格納先変数  \n"+
+            "*@param* `x` - 底  \n"+
+            "*@param* `y` - 指数  \n\n"+
+            "(Function)`x`の`y`乗を計算します。\n\n"+
+            "*@param* `x` - 底  \n"+
+            "*@param* `y` - 指数  \n"+
+            "*@return* - 累乗の計算結果\n"+
+            "") },
     },
     {
         label: "ABS",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ABS int value || (Function) int ABS(int value)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値の絶対値を返します。\n\n"+
+            "*@param* `value` - 数値  \n"+
+            "*@return* - 数値の絶対値\n"+
+            "") },
     },
     {
         label: "SIGN",
         kind: Command,
+        nlsDetail: { "ja": "(Command) SIGN int value || (Function) int SIGN(int value)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値の符号を返します。\n\n"+
+            "*@param* `value` - 数値  \n"+
+            "*@return* - 符号\n\n"+
+            "- -1:負\n"+
+            "- 0:0\n"+
+            "- 1:正\n"+
+            "") },
     },
     {
         label: "SQRT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) SQRT int value || (Function) int SQRT(int value)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値の平方根を返します。端数は切り捨てます。\n\n"+
+            "*@param* `value` - 数値  \n"+
+            "*@return* - 平方根\n\n"+
+            "") },
     },
     {
         label: "GETBIT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) GETBIT int n, int m || (Function) int GETBIT(int n, int m)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "引数の特定のビットを取得します。\n\n"+
+            "*@param* `n` - 対象の数値  \n"+
+            "*@param* `m` - ビットの位置。0～63まで  \n"+
+            "*@return* - 指定したビットの値  \n"+
+            "*@example*\n\n"+
+            "```\n"+
+            "A = GETBIT(X, 5)\n"+
+            "B = (X & 1p5) != 0\n"+
+            ";A == B\n"+
+            "```\n"+
+            "") },
     },
     {
         label: "MAX",
         kind: Command,
+        nlsDetail: { "ja": "(Command) MAX int n, int m, ... || (Function) int MAX(int n, int m, ...)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定された数値のうち、最大の数値を返します。\n\n"+
+            "*@param* `n` - 対象の数値  \n"+
+            "*@return* - 引数の中で最大の値"+
+            "") },
     },
     {
         label: "MIN",
         kind: Command,
+        nlsDetail: { "ja": "(Command) MIN int n, int m, ... || (Function) int MIN(int n, int m, ...)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定された数値のうち、最小の数値を返します。\n\n"+
+            "*@param* `n` - 対象の数値  \n"+
+            "*@return* - 引数の中で最小の値"+
+            "") },
     },
     {
         label: "LIMIT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) LIMIT int value, int min, int max || (Function) int LIMIT(int value, int min, int max)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "`value`の値を返します。ただし、`value`が`min`より小さいなら`min`を、`max`より大きいなら`max`を返します。\n\n"+
+            "*@param* `value` - 対象の数値  \n"+
+            "*@param* `min` - 最低値  \n"+
+            "*@param* `max` - 最大値  \n"+
+            "*@return* - valueの値"+
+            "") },
     },
     {
         label: "INRANGE",
         kind: Command,
+        nlsDetail: { "ja": "(Command) INRANGE int value, int min, int max || (Function) int INRANGE(int value, int min, int max)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "`value`の値が`min`より大きく、`max`より小さいかを調べます。\n\n"+
+            "*@param* `value` - 対象の数値  \n"+
+            "*@param* `min` - 最低値  \n"+
+            "*@param* `max` - 最大値  \n"+
+            "*@return* - \n\n"+
+            "- 0:`value`が範囲外\n"+
+            "- 1:`value`が範囲内に収まっている"+
+            "") },
     },
     {
         label: "SETBIT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) SETBIT int variable, int position1, ..." },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "変数の指定した位置のビットを1にします。\n\n"+
+            "*@param* {数値型変数} `variable` - 対象の変数  \n"+
+            "*@param* `position1` - ビットの位置  \n"+
+            "") },
     },
     {
         label: "CLEARBIT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CLEARBIT int variable, int position1, ..." },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "変数の指定した位置のビットを0にします。\n\n"+
+            "*@param* {数値型変数} `variable` - 対象の変数  \n"+
+            "*@param* `position1` - ビットの位置  \n"+
+            "") },
     },
     {
         label: "INVERTBIT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) INVERTBIT int variable, int position1, ..." },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "変数の指定した位置のビットを反転します。\n\n"+
+            "*@param* {数値型変数} `variable` - 対象の変数  \n"+
+            "*@param* `position1` - ビットの位置  \n"+
+            "") },
     },
     {
         label: "ADDCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ADDCHARA int CSVNo1, ..." },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定したキャラ番号のキャラを追加します。\n\n"+
+            "*@param* `CSVNo1` - CSVで指定されているキャラ番号  \n"+
+            "") },
     },
     {
         label: "DELCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) DELCHARA int id1, ..." },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した登録番号のキャラを削除します。\n\n"+
+            "*@param* `id1` - キャラの登録番号  \n"+
+            "") },
     },
     {
         label: "SWAPCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) SWAPCHARA int id1, int id2" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定したキャラの登録番号を入れ替えます。\n\n"+
+            "*@param* `id1` - キャラの登録番号  \n"+
+            "*@param* `id2` - キャラの登録番号  \n"+
+            "") },
     },
     {
         label: "SORTCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) SORTCHARA {int | str} charaVariable = NO, int order = FORWARD" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "任意のキーでキャラリストをソートします。MASTERはソートの対象になりません。TARGET:0、ASSI:0は自動で追尾されます。\n\n"+
+            "*@param* {キャラクタ変数} `charaVariable` - キーとするキャラクタ変数  \n"+
+            "*@param* {FORWARD | BACK} `order` - ソートの方向。FORWARDが昇順  \n"+
+            "") },
     },
     {
         label: "GETCHARA",
         kind: Command,
-    },
+        nlsDetail: { "ja": "(Command) GETCHARA int CSVNo | (Function) int GETCHARA(int CSVNo)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "所有しているキャラの中に、指定したキャラ番号のキャラがいるかを調べます。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@return* - キャラの登録番号。いなければ`-1`  \n"+
+            "") },
+        },
     {
         label: "ADDDEFCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ADDDEFCHARA" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "ゲーム開始時のシステム的なキャラ追加処理を行う命令です。"+
+            "chara0*.csvで定義されたキャラと、gamebase.csvで指定された初期キャラを追加します。"+
+            "`ADDCHARA 0`はキャラNOが0であるキャラを探して追加しますが、ADDDEFCHARAはcsvの番号でキャラを追加します。"+
+            "該当するcsvが存在しない場合、ADDVOIDCHARA同様に空のキャラクタを作成します。"+
+            "これはeramakerの初期化処理を再現するための命令であり、@SYSTEM_TITLE以外では使用できません。\n\n"+
+            "") },
     },
     {
         label: "ADDVOIDCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ADDVOIDCHARA" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "csvに依らずにキャラを追加する命令です。"+
+            "ADDVOIDCHARAで追加されたキャラは全ての変数に0又は\"\"(空文字列)が代入されています。"+
+            "") },
     },
     {
         label: "DELALLCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) DELALLCHARA" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "登録されている全てのキャラクタを削除します。"+
+            "") },
     },
     {
         label: "PICKUPCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) PICKUPCHARA int id1, ..." },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "引数で指定したキャラのみを残し、他のキャラを全て削除する命令です。`MASTER:0`、`TARGET:0`、`ASSI:0`などは自動で追随します。命令後手動で設定し直す必要はありません。対象キャラに負の値を指定した場合エラーになりますが、MASTER、TARGET、ASSI等を対象に設定し、その結果それらの変数の中身が負の値だった場合は、例外でエラーになりません（無視される）。\n\n"+
+            "*@param* `id1` - キャラの登録番号  \n"+
+            "") },
     },
     {
         label: "EXISTCSV",
         kind: Command,
+        nlsDetail: { "ja": "(Command) EXISTCSV int CSVNo | (Function) EXISTCSV(int CSVNo)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "対応するキャラが定義されているかどうかをチェックします。`ADDCHARA no`がエラーにならずに実行できるかどうかを調べることができます。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@return* - \n\n"+
+            "- 0:キャラが定義されていない\n"+
+            "- 1:キャラが定義されている"+
+            "") },
     },
     {
         label: "FINDCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) FINDCHARA {int | str} charaVariable, {int | str} value, int start = 0, int end = *** | (Function) int FINDCHARA({int | str} charaVariable, {int | str} value, int start = 0, int end = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "キャラクタ変数とその値を指定し、変数がその値である最初のキャラクタの登録番号を返します。見つからなかった場合は-1を返します。start以上end未満の登録番号のキャラを検索範囲とします。ただし、検索範囲がキャラクタ数の範囲を超える場合はエラーとなります。 \n\n"+
+            "*@param* {キャラクタ変数} `charaVariable` - キーとするキャラクタ変数  \n"+
+            "*@param* `value` - 検索する値  \n"+
+            "*@param* `start` - 検索開始位置  \n"+
+            "*@param* `end` - 検索終了位置  \n"+
+            "*@return* - キャラの登録番号\n\n"+
+            "") },
     },
     {
         label: "FINDLASTCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) FINDLASTCHARA {int | str} charaVariable, {int | str} value, int start = 0, int end = *** | (Function) int FINDLASTCHARA({int | str} charaVariable, {int | str} value, int start = 0, int end = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "キャラクタ変数とその値を指定し、変数がその値である最後のキャラクタの登録番号を返します。見つからなかった場合は-1を返します。start以上end未満の登録番号のキャラを検索範囲とします。ただし、検索範囲がキャラクタ数の範囲を超える場合はエラーとなります。 \n\n"+
+            "*@param* {キャラクタ変数} `charaVariable` - キーとするキャラクタ変数  \n"+
+            "*@param* `value` - 検索する値  \n"+
+            "*@param* `start` - 検索開始位置  \n"+
+            "*@param* `end` - 検索終了位置  \n"+
+            "*@return* - キャラの登録番号\n\n"+
+            "") },
     },
     {
         label: "COPYCHARA",
