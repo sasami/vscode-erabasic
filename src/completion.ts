@@ -710,7 +710,7 @@ export const BuiltinComplationItems = localizedComplationItems([
             "- 0:無視しないようにする\n"+
             "- 1:無視するようにする\n\n"+
             "*@return* - 引数にかかわらず `RESULT:0 = 0`  \n"+
-            "*@see* - 注意点、詳細は[emuera wiki](https://ja.osdn.net/projects/emuera/wiki/excom#h5-SKIPDISP.20.3C.E6.95.B0.E5.80.A4.3E)を参照"+
+            "*@see* - 注意点、詳細は[Emuera wiki](https://ja.osdn.net/projects/emuera/wiki/excom#h5-SKIPDISP.20.3C.E6.95.B0.E5.80.A4.3E)を参照"+
             "") },
     },
     {
@@ -1998,26 +1998,75 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "CALLTRAIN",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CALLTRAIN int n" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "連続してコマンドを実行する命令です。あらかじめSELECTCOM:(1～)にコマンド番号を代入しておき、実行するコマンドの数を引数にして実行します。\n\n"+
+            "*@param* `num` - 実行するコマンドの数  \n"+
+            "*@example* - \n\n"+
+            "```\n"+
+            "SELECTCOM:1 = XXX\n"+
+            "SELECTCOM:2 = YYY\n"+
+            "...\n"+
+            "SELECTCOM:n = ZZZ\n"+
+            "\n"+
+            "CALLTRAIN n\n"+
+            "```\n"+
+            "") },
     },
     {
         label: "DOTRAIN",
         kind: Command,
+        nlsDetail: { "ja": "(Command) DOTRAIN int comNo" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "強制的にTRAINを行う命令です。`@EVENTTRAIN`、`@SHOW_STATUS`、`@SHOW_USERCOM`、`@USERCOM`、`@EVENTCOMEND`及びそこから呼び出された関数の中でのみ使用可能です。`@COM_ABLE`を呼び出さず、強制的に実行されます。\n\n"+
+            "*@param* `comNo` - 実行するコマンド番号  \n"+
+            "") },
     },
     {
         label: "THROW",
         kind: Command,
+        nlsDetail: { "ja": "(Command) THROW str message" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "強制的にエラーとし、エラー表示を行う命令です。\n\n"+
+            "*@param* {書式付き文字列} `message` - エラーメッセージ  \n"+
+            "") },
     },
     {
         label: "CALL",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CALL str commandName, var args, ..." },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "他の関数を実行する命令です。呼び出した関数が終了した後、元の関数の`CALL`を実行した位置から処理を続行します。\n\n"+
+            "*@param* `commandName` - 実行する関数名  \n"+
+            "*@param* `args` - 実行する関数に渡す引数  \n"+
+            "") },
     },
     {
         label: "JUMP",
         kind: Command,
+        nlsDetail: { "ja": "(Command) JUMP str commandName, var args, ..." },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "他の関数を実行する命令です。呼び出した関数が終了した後、元の関数には復帰しません。\n\n"+
+            "*@param* `commandName` - 実行する関数名  \n"+
+            "*@param* `args` - 実行する関数に渡す引数  \n"+
+            "") },
     },
     {
         label: "GOTO",
         kind: Command,
+        nlsDetail: { "ja": "(Command) GOTO" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "`$***`で定義されたラベルに移動する関数です。\n\n"+
+            "*@example* - \n\n"+
+            "```\n"+
+            "$INPUT_LOOP\n"+
+            "PRINTL ０から９までの数字を入力してください。\n"+
+            "INPUT\n"+
+            "SIF RESULT < 0 || RESULT > 9\n"+
+            "   GOTO INPUT_LOOP\n"+
+            "PRINTFORML {RESULT}が入力されました。\n"+
+            "```\n"+
+            "") },
     },
     {
         label: "CALLFORM",
@@ -2058,6 +2107,12 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "CALLF",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CALLF str commandName, var args, ..." },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "式中関数を返り値無視で呼び出す命令です。呼び出した関数が終了した後、元の関数の`CALLF`を実行した位置から処理を続行します。\n\n"+
+            "*@param* `commandName` - 実行する関数名  \n"+
+            "*@param* `args` - 実行する関数に渡す引数  \n"+
+            "") },
     },
     {
         label: "CALLFORMF",
@@ -2066,6 +2121,11 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "CALLEVENT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CALLF str commandName" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "イベント関数をイベント関数として呼び出します。イベント関数中やイベント関数から呼び出された関数中で使用することもできません。\n\n"+
+            "*@param* `commandName` - 実行する関数名  \n"+
+            "") },
     },
     {
         label: "FUNC",
@@ -2086,6 +2146,12 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "DEBUGPRINT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) DEBUGPRINT str value" },
+        nlsDocumentation: { 
+            "ja": new MarkdownString(
+                "デバッグコンソールに文字列を表示する命令です。\n\n"+
+                "*@param* `value` - 表示する文字列。\n\n"
+            ),
     },
     {
         label: "DEBUGPRINTL",
@@ -2102,174 +2168,439 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "DEBUGCLEAR",
         kind: Command,
+        nlsDetail: { "ja": "(Command) DEBUGCLEAR" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "デバッグコンソールのPRINT内容を全て削除します。\n\n"+
+            "") },
     },
     {
         label: "ASSERT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ASSERT int object" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "引数が真(非0)のとき、何もしません。引数が偽(0)の時、エラーを出力してスクリプトの実行を停止します。\n\n"+
+            "*@param* `object` - 検査対象  \n"+
+            "") },
     },
     {
         label: "TOOLTIP_SETCOLOR",
         kind: Command,
+        nlsDetail: { "ja": "(Command) TOOLTIP_SETCOLOR int color, int backgroundColor" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "ツールチップの前景色及び背景色を0xRRGGBB形式の数値で設定します。\n\n"+
+            "*@param* `color` - フォントの色  \n"+
+            "*@param* `backgroundColor` - 背景色  \n"+
+            "") },
     },
     {
         label: "TOOLTIP_SETDELAY",
         kind: Command,
+        nlsDetail: { "ja": "(Command) TOOLTIP_SETDELAY int ms" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "ツールチップが表示されるまでの時間をミリ秒単位で設定します。デフォルトは500(ミリ秒)、最大値は32767です。\n\n"+
+            "*@param* `ms` - ツールチップが表示されるまでの時間(ms)  \n"+
+            "") },
     },
     {
         label: "HTML_PRINT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) HTML_PRINT str value" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "htmlっぽいタグを利用してPRINTする命令です。引数がPRINTのような文字列ではなくPRINTSと同じ文字列式でり、自動的に改行するので実際はPRINTSLの動作に近いです。HTML_PRINTによる描画はALIGNMENT、SETFONT、COLOR、FONTSTYLE命令とその類似命令の影響を受けません。これらの効果を得るには全てタグで指定する必要があります。\n\n"+
+            "*@param* {文字列式} `value` - 表示する文字列  \n"+
+            "*@see* - 詳細は[Emuera Wiki](https://ja.osdn.net/projects/emuera/wiki/exhtml)を参照  \n"+
+            "") },
     },
     {
         label: "HTML_TAGSPLIT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) HTML_TAGSPLIT str value, int intVariable = RESULT, str[] strVariable = RESULTS" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "対象文字列をHTML文字列と解釈し、タグと平文に分割します。\n\n"+
+            "*@param* {文字列式} `value` - 分割対象の文字列  \n"+
+            "*@param* {数値型変数} `intVariable` - 分割数を格納します。分割処理中にエラーが生じた場合、-1が代入されます。  \n"+
+            "*@param* {文字列型配列変数} `strVariable` - 分割後文字列を格納します。分割数が配列サイズを超えた場合、超えた分は代入されません。  \n"+
+            "") },
     },
     {
         label: "CLEARTEXTBOX",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CLEARTEXTBOX" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "最下部の入力欄のテキストを全て消去します。\n\n"+
+            "") },
     },
     {
         label: "STOPCALLTRAIN",
         kind: Command,
+        nlsDetail: { "ja": "(Command) STOPCALLTRAIN" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "実行中の`CALLTRAIN`の処理を終了します。\n\n"+
+            "") },
     },
     {
         label: "TIMES",
         kind: Command,
+        nlsDetail: { "ja": "(Command) TIMES int variable, number multiplier" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "小数を含む掛け算を行い、結果を変数に代入します。計算結果の小数は切り捨てられます。\n\n"+
+            "*@param* {数値型変数} `variable` - 被乗数。元の値は計算結果で上書きされる。  \n"+
+            "*@param* {小数を含む数値} `multiplier` - 乗数  \n"+
+            "") },
     },
     {
         label: "BAR",
         kind: Command,
+        nlsDetail: { "ja": "(Command) BAR int value, int max, int length" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "グラフを文字列で表示します。\n\n"+
+            "*@param* `value` - 値  \n"+
+            "*@param* `max` - 最大値  \n"+
+            "*@param* `length` - グラフの長さ  \n"+
+            "*@see* - `BARSTR`  \n"+
+            "") },
     },
     {
         label: "BARL",
         kind: Command,
+        nlsDetail: { "ja": "(Command) BARL int value, int max, int length" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "グラフを文字列で表示し、改行します。\n\n"+
+            "*@param* `value` - 値  \n"+
+            "*@param* `max` - 最大値  \n"+
+            "*@param* `length` - グラフの長さ  \n"+
+            "*@see* - `BARSTR`  \n"+
+            "") },
     },
     {
         label: "PUTFORM",
         kind: Command,
+        nlsDetail: { "ja": "(Command) PUTFORM str info" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "`@SAVEINFO`でのみ使えます。セーブデータに概要をつけることができます。\n\n"+
+            "*@param* {書式付き文字列} `info` - 概要  \n"+
+            "*@see* - `SAVEDATA`  \n"+
+            "") },
     },
     {
         label: "SAVEGAME",
         kind: Command,
+        nlsDetail: { "ja": "(Command) SAVEGAME" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "`@SHOP`でのみ使えます。セーブ画面を呼び出します。\n\n"+
+            "*@see* - `SAVEDATA`  \n"+
+            "") },
     },
     {
         label: "LOADGAME",
         kind: Command,
+        nlsDetail: { "ja": "(Command) LOADGAME" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "`@SHOP`でのみ使えます。ロード画面を呼び出します。\n\n"+
+            "*@see* - `LOADDATA`  \n"+
+            "") },
     },
     {
         label: "WAIT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) WAIT" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "処理の実行を停止し、プレイヤーの入力を待機します。\n\n"+
+            "") },
     },
     {
         label: "RESTART",
         kind: Command,
+        nlsDetail: { "ja": "(Command) RESTART" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "関数の最初から処理をやり直します。\n\n"+
+            "") },
     },
     {
         label: "QUIT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) QUIT" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "ゲームを終了します。\n\n"+
+            "") },
     },
     {
         label: "TOOLTIP_SETDURATION",
         kind: Command,
+        nlsDetail: { "ja": "(Command) TOOLTIP_SETDURATION int ms" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "ツールチップの表示時間を設定します。\n\n"+
+            "*@param* `ms` - ツールチップの最大表示時間(ms) 0の場合デフォルトの挙動になります。 \n"+
+            "") },
     },
     {
         label: "AWAIT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) AWAIT int ms = ?" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "ERBの実行を一時停止し、Windowsの処理を行います。AWAIT命令はEmueraの無限ループ警告を中断し、Emueraのプロセスが「応答なし」になることを防ぎます。時間がかかる処理を行うときに使用して下さい。\n\n"+
+            "*@param* `ms` - 待機時間(ms) \n"+
+            "") },
     },
     {
         label: "STRJOIN",
         kind: Function,
+        nlsDetail: { "ja": "(Command) STRJOIN str[] array, str separator = \",\", int start = 0, int length = *** || (Function) str STRJOIN(str[] array, str separator = \",\", int start = 0, int length = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "文字列配列を結合した結果を取得します。\n\n"+
+            "*@param* {配列変数} `array` - 対象変数  \n"+
+            "*@param* `separator` - 区切り文字  \n"+
+            "*@param* `start` - 開始位置  \n"+
+            "*@param* `length` - 範囲の長さ  \n"+
+            "*@returns*  - 結合した文字列  \n"+
+            "") },
     },
     {
         label: "GETKEY",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GETKEY int vkey || (Function) GETKEY(int vkey)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "キーボード及びマウスボタンの状態を返します。この関数はEmueraのウインドウがアクティブのときのみ1を返し、アクティブ状態でなければキー状態にかかわらず0を返します。\n\n"+
+            "*@param* `vkey` - 対象のキーコード \n"+
+            "*@return* - キーが押されていれば1、押されていなければ0を返します。 \n"+
+            "*@see* - キーコードの詳細は[microsoft](https://learn.microsoft.com/ja-jp/windows/win32/inputdev/virtual-key-codes)を参照 \n"+
+            "") },
     },
     {
         label: "GETKEYTRIGGERED",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GETKEYTRIGGERED int vkey || (Function) int GETKEYTRIGGERED(int vkey)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "キーボード及びマウスボタンの状態を返します。この関数はEmueraのウインドウがアクティブのときのみ1を返し、アクティブ状態でなければキー状態にかかわらず0を返します。\n\n"+
+            "*@param* `vkey` - 対象のキーコード \n"+
+            "*@return* - キーが押された直後のみ1を返します。それ以外は0を返します。 \n"+
+            "*@see* - キーコードの詳細は[microsoft](https://learn.microsoft.com/ja-jp/windows/win32/inputdev/virtual-key-codes)を参照 \n"+
+            "") },
     },
     {
         label: "MOUSEX",
         kind: Function,
+        nlsDetail: { "ja": "(Command) MOUSEX || (Function) int MOUSEX()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "マウスカーソルの現在のX座標を取得します。座標はクライアント領域の左下位置を(0,0)とする相対位置であり、右方向がx軸の正です。クライアント領域の広さは`CLIENTWIDTH`関数によって取得できます。この関数はEmueraのウインドウがアクティブでなくても、また、マウスカーソルがウインドウ外であっても正常に動作します。\n\n"+
+            "*@return* - マウスカーソルの現在のX座標  \n"+
+            "*@see* - `CLIENTWIDTH`  \n"+
+            "") },
     },
     {
         label: "MOUSEY",
         kind: Function,
+        nlsDetail: { "ja": "(Command) MOUSEY || (Function) int MOUSEY()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "マウスカーソルの現在のY座標を取得します。座標はクライアント領域の左下位置を(0,0)とする相対位置であり、下方向がy軸の正です。カーソルがクライアント領域内にある場合MOUSEYは負の値を返すことに注意してください。クライアント領域の広さは`CLIENTHEIGHT`関数によって取得できます。（クライアント領域左上を基準とするY座標が必要なら、MOUSEY()+CLIENTHEIGHT()によって取得できます）この関数はEmueraのウインドウがアクティブでなくても、また、マウスカーソルがウインドウ外であっても正常に動作します。\n\n"+
+            "*@return* - マウスカーソルの現在のY座標  \n"+
+            "*@see* - `CLIENTHEIGHT`  \n"+
+            "") },
     },
     {
         label: "ISACTIVE",
         kind: Function,
-    },
+        nlsDetail: { "ja": "(Command) ISACTIVE || (Function) int ISACTIVE()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "Emueraのウインドウの状態を返します。\n\n"+
+            "*@return* - アクティブであれば1、アクティブでなければ0を返します。  \n"+
+            "") },
+        },
     {
         label: "SAVETEXT",
         kind: Function,
+        nlsDetail: { "ja": "(Command) SAVETEXT str text, int fileNo, int force_savDir = 0, int force_UTF8 = 0 || (Function) int SAVETEXT(str text, int fileNo, int force_savDir = 0, int force_UTF8 = 0)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "テキストをファイルに保存します。この命令はテキストにヘッダーなどを付け加えたり変更したりすることなく文字列そのままを保存します。この命令は通常はオプション設定の影響を受け、savフォルダ内に作成されたり、UTF-8で保存されます。短い時間中に同一ファイルに書き込むことを繰り返した場合、ウイルス対策ソフト等の影響で書き込みに失敗する可能性があります。\n\n"+
+            "*@param* `text` - 保存するテキスト内容  \n"+
+            "*@param* `fileNo` - ファイル番号。2なら保存先ファイルは\"text02.txt\"  \n"+
+            "*@param* `force_savDir` - savフォルダの作成を強制するか。非0を指定した場合、オプションを無視して強制的にsavフォルダ内に保存します。savフォルダは必要に応じて作成されます。  \n"+
+            "*@param* `force_UTF8` - UTF-8での保存を強制するか。非0を指定した場合、オプションを無視して強制的にUTF-8エンコードで保存します。  \n"+
+            "*@return* - 成功した場合に非0が、失敗した場合0が返ります。  \n"+
+            "") },
     },
     {
         label: "LOADTEXT",
         kind: Function,
+        nlsDetail: { "ja": "(Command) LOADTEXT int fileNo, int force_savDir = 0, int force_UTF8 = 0 || (Function) str LOADTEXT(int fileNo, int force_savDir = 0, int force_UTF8 = 0)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "ファイルからテキストを読み込みます。\n\n"+
+            "*@param* `fileNo` - ファイル番号。2なら読み込み先ファイルは\"text02.txt\"  \n"+
+            "*@param* `force_savDir` - savフォルダの探索を強制するか。非0を指定した場合、オプションによらずsavフォルダ内のファイルを探します。  \n"+
+            "*@param* `force_UTF8` - UTF-8での読み込みを強制するか。非0を指定した場合、UTF-8エンコードで保存されているものとして読み取ります。  \n"+
+            "*@returns* - 読み込んだテキスト。失敗した場合、空文字列を返します。  \n"+
+            "") },
     },
     {
         label: "SPRITECREATED",
         kind: Function,
+        nlsDetail: { "ja": "(Command) SPRITECREATED str spriteName || (Function) int SPRITECREATED(str spriteName)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "スプライトが作成済みかを調べます。\n\n"+
+            "*@param* `spriteName` - 調べるスプライトの名称  \n"+
+            "*@return* - 作成済みであるなら1を、未作成又は廃棄済みであるなら0を返します。  \n"+
+            "") },
     },
     {
         label: "SPRITEWIDTH",
         kind: Function,
+        nlsDetail: { "ja": "(Command) SPRITEWIDTH str spriteName || (Function) int SPRITEWIDTH(str spriteName)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "スプライトの幅を取得します。\n\n"+
+            "*@param* `spriteName` - 調べるスプライトの名称  \n"+
+            "*@return* - スプライトの幅。未作成又は廃棄済みであるなら0を返します。  \n"+
+            "") },
     },
     {
         label: "SPRITEHEIGHT",
         kind: Function,
+        nlsDetail: { "ja": "(Command) SPRITEHEIGHT str spriteName || (Function) int SPRITEHEIGHT(str spriteName)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "スプライトの高さを取得します。\n\n"+
+            "*@param* `spriteName` - 調べるスプライトの名称  \n"+
+            "*@return* - スプライトの高さ。未作成又は廃棄済みであるなら0を返します。  \n"+
+            "") },
     },
     {
         label: "SPRITEPOSX",
         kind: Function,
+        nlsDetail: { "ja": "(Command) SPRITEPOSX str spriteName || (Function) int SPRITEPOSX(str spriteName)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "スプライトの相対位置のXを取得します。\n\n"+
+            "*@param* `spriteName` - 調べるスプライトの名称  \n"+
+            "*@return* - スプライトの位置。未作成又は廃棄済みであるなら0を返します。  \n"+
+            "") },
     },
     {
         label: "SPRITEPOSY",
         kind: Function,
+        nlsDetail: { "ja": "(Command) SPRITEPOSY str spriteName || (Function) int SPRITEPOSY(str spriteName)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "スプライトの相対位置のYを取得します。\n\n"+
+            "*@param* `spriteName` - 調べるスプライトの名称  \n"+
+            "*@return* - スプライトの位置。未作成又は廃棄済みであるなら0を返します。  \n"+
+            "") },
     },
     {
         label: "SPRITESETPOS",
         kind: Function,
+        nlsDetail: { "ja": "(Command) SPRITESETPOS str spriteName, int posX, int posY || (Function) int SPRITESETPOS(str spriteName, int posX, int posY)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "スプライトの相対位置を設定します。\n\n"+
+            "*@param* `spriteName` - スプライトの名称  \n"+
+            "*@param* `posX` - 相対位置X  \n"+
+            "*@param* `posY` - 相対位置Y  \n"+
+            "*@return* - 成功した場合は非0を、指定したスプライトが未作成又は廃棄済み等の理由で失敗した場合には0を返します。  \n"+
+            "") },
     },
     {
         label: "SPRITEMOVE",
         kind: Function,
+        nlsDetail: { "ja": "(Command) SPRITEMOVE str spriteName, int posX, int posY || (Function) int SPRITEMOVE(str spriteName, int posX, int posY)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "スプライトの相対位置に指定した値を加算します。\n\n"+
+            "*@param* `spriteName` - スプライトの名称  \n"+
+            "*@param* `posX` - 相対位置X  \n"+
+            "*@param* `posY` - 相対位置Y  \n"+
+            "*@return* - 成功した場合は非0を、指定したスプライトが未作成又は廃棄済み等の理由で失敗した場合には0を返します。  \n"+
+            "") },
     },
     {
         label: "ARRAYMSORT",
         kind: Function,
+        nlsDetail: { "ja": "(Command) STRJOIN var[] array1, var[] array2, ..." },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "array1を昇順でソートし、それと同じ順序でarray2以降の配列を並び替えます。array1に0または空文字列の要素があるとき、それを配列の終端とみなし以降の要素はソートしません。array2以降の配列の要素数がarray1のソートされた要素数よりも少ない場合場合、命令を中断しRESULT:0に0を代入して終了します。全ての配列のソートに成功した場合、この命令はRESULT:0に非0を代入して終了します。\n\n"+
+            "*@param* {配列変数} `array1` - 対象配列変数。一次元配列である必要があります。  \n"+
+            "*@param* {配列変数} `array2` - 対象配列変数。array2以降は多次元配列も受け付けます。  \n"+
+            "*@returns* - 成功したか。 0:失敗, 0以外:成功  \n"+
+            "") },
     },
     {
         label: "GCREATED",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GCREATED int gId || (Function) int GCREATED(int gId)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "Graphicsが作成済みかを調べます。\n\n"+
+            "*@param* `gId` - 調べるGraphicsのId  \n"+
+            "*@return* - 作成済みであるなら1を、未作成又は廃棄済みであるなら0を返します。  \n"+
+            "") },
     },
     {
         label: "GWIDTH",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GWIDTH int gId || (Function) int GWIDTH(int gId)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "Graphicsの幅を調べます。\n\n"+
+            "*@param* `gId` - 調べるGraphicsのId  \n"+
+            "*@return* - Graphicsの幅。未作成又は廃棄済みであるなら0を返します。  \n"+
+            "") },
     },
     {
         label: "GHEIGHT",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GHEIGHT int gId || (Function) int GHEIGHT(int gId)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "Graphicsの高さを調べます。\n\n"+
+            "*@param* `gId` - 調べるGraphicsのId  \n"+
+            "*@return* - Graphicsの高さ。未作成又は廃棄済みであるなら0を返します。  \n"+
+            "") },
     },
     {
         label: "GGETCOLOR",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GGETCOLOR int gId, int posX, int posY || (Function) int GGETCOLOR(int gId, int posX, int posY)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "Graphicsの指定位置の色を取得します。この命令のみ、失敗した場合に0ではなく**-1**を返すことに注意してください。黒色かつ完全透明の位置の色を取得した場合に、この命令は0を返します。\n\n"+
+            "*@param* `gId` - GraphicsのId  \n"+
+            "*@param* `posX` - 相対位置X  \n"+
+            "*@param* `posY` - 相対位置Y  \n"+
+            "*@return* - 0xAARRGGBB形式の整数値。未作成又は廃棄済み等の理由で失敗した場合には**-1**を返します。  \n"+
+            "") },
     },
     {
         label: "GCREATE",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GCREATE int gId, int width, int height || (Function) int GCREATE(int gId, int width, int height)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定したサイズで指定したIDのGraphicsを作成します。\n\n"+
+            "*@param* `gId` - GraphicsのId。0以上の整数。  \n"+
+            "*@param* `width` - 相対位置X。1以上8192以下の間の整数値でなければなりません。  \n"+
+            "*@param* `height` - 相対位置Y。1以上8192以下の間の整数値でなければなりません。  \n"+
+            "*@return* - 作成に成功した場合、非0を返します。指定したIDのGraphicsが既に作成されている場合、0を返します。  \n"+
+            "") },
     },
     {
         label: "GCREATEFROMFILE",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GCREATEFROMFILE int gId, str filePath || (Function) int GCREATEFROMFILE(int gId, str filePath)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "resourcesフォルダ内の画像ファイルを相対パスで指定し、その画像を開いてGraphicsを作成します。resourcesフォルダ内のcsvファイルでリソースを宣言した場合と異なり、画像ファイルはロックされません。\n\n"+
+            "*@param* `gId` - GraphicsのId。0以上の整数。  \n"+
+            "*@param* `filePath` - resourcesフォルダ内の画像ファイル。相対パス  \n"+
+            "*@return* - 作成に成功した場合、非0を返します。指定したIDのGraphicsが既に作成されている場合、0を返します。ファイルが存在しない、画像として認識できない、ファイルのサイズが大きすぎる、などで失敗した場合も0を返します。  \n"+
+            "") },
     },
     {
         label: "GDISPOSE",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GDISPOSE int gId || (Function) int GDISPOSE(int gId)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定したIDのGraphicsを廃棄します。\n\n"+
+            "*@param* `gId` - GraphicsのId  \n"+
+            "*@return* - 廃棄に成功した場合、非0を返します。指定したIDのGraphicsが未作成（廃棄済の場合を含む）の場合、0を返します。  \n"+
+            "") },
     },
     {
         label: "GCLEAR",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GCLEAR int gId, int cARGB || (Function) int GCLEAR(int gId, int cARGB)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定したIDのGraphicsの全域を指定した色で置き換えます。\n\n"+
+            "*@param* `gId` - GraphicsのId  \n"+
+            "*@param* `cARGB` - 0xAARRGGBB形式の整数値  \n"+
+            "*@return* - 処理に成功した場合、非0を返します。指定したIDのGraphicsが未作成（廃棄済の場合を含む）の場合、0を返します。  \n"+
+            "") },
     },
     {
         label: "GFILLRECTANGLE",
