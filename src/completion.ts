@@ -1610,7 +1610,7 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "CVARSET",
         kind: Command,
-        nlsDetail: { "ja": "(Command) VARSET {int[] | str[]} array, int index = 0, {int | str} value = 0 | \"\", int start = 0, int end = ***" },
+        nlsDetail: { "ja": "(Command) CVARSET {int[] | str[]} array, int index = 0, {int | str} value = 0 | \"\", int start = 0, int end = ***" },
         nlsDocumentation: { "ja": new MarkdownString(
             "指定した登録キャラクタについてキャラクタ変数の特定要素へ代入する命令です。\n\n"+
             "*@param* {キャラクタ変数} `array` - 配列変数  \n"+
@@ -2705,42 +2705,111 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "GETTIMES",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GETTIMES || (Function) int GETTIMES()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "パソコンの現在日時・時刻に関する情報を取得します。精度は実行する環境にもよりますが、十数～数十ミリ秒程度です。\n\n"+
+            "*@returns* - 現在日時の文字列表記。  \n"+
+            "") },
     },
     {
         label: "RAND",
         kind: Function,
+        nlsDetail: { "ja": "(Variable) RAND || (Function) int RAND(int min = 0, int max)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "(Function)乱数を生成します。RAND(X)はRAND:Xと全く同じ動作をします。RAND関数では2つの引数を指定することができ、2つ指定された場合は1つ目の引数が乱数の最小値として使われます。\n\n"+
+            "*@param* `min` - 生成される数値の最小値。  \n"+
+            "*@param* `max` - 生成される数値の最大値。  \n"+
+            "*@returns* - 現在日時の文字列表記。  \n"+
+            "") },
     },
     {
         label: "CBRT",
         kind: Function,
+        nlsDetail: { "ja": "(Command) CBRT int value || (Function) int CBRT(int value)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値の三重根を返します。端数は切り捨てます。\n\n"+
+            "*@param* `value` - 数値  \n"+
+            "*@return* - 三重根\n\n"+
+            "") },
     },
     {
         label: "LOG",
         kind: Function,
+        nlsDetail: { "ja": "(Command) LOG int value || (Function) int LOG(int value)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値の自然対数を返します。端数は切り捨てます。\n\n"+
+            "*@param* `value` - 数値  \n"+
+            "*@return* - 自然対数\n\n"+
+            "") },
     },
     {
         label: "LOG10",
         kind: Function,
+        nlsDetail: { "ja": "(Command) LOG10 int value || (Function) int LOG10(int value)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値の常用対数を返します。端数は切り捨てます。\n\n"+
+            "*@param* `value` - 数値  \n"+
+            "*@return* - 常用対数\n\n"+
+            "") },
     },
     {
         label: "EXPONENT",
         kind: Function,
+        nlsDetail: { "ja": "(Command) EXPONENT int value || (Function) int EXPONENT(int value)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値のネイピア数を底とする指数関数を返します。端数は切り捨てます。\n\n"+
+            "*@param* `value` - 数値  \n"+
+            "*@return* - 指数関数\n\n"+
+            "") },
     },
     {
         label: "SUMARRAY",
         kind: Function,
+        nlsDetail: { "ja": "(Command) SUMARRAY int[] array, int start = 0, int end = *** || (Function) int SUMARRAY(int[] array, int start = 0, int end = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "配列の値の総和を返します。\n\n"+
+            "*@param* {1次元数値型配列} `array` - 配列変数。指定できるものは数値型1次元配列変数のみで文字列変数や多次元配列は指定できません。CFLAGなどのキャラクタ配列を指定した場合、指定されたキャラについてのみ合計します。  \n"+
+            "*@param* `start` - 開始位置  \n"+
+            "*@param* `end` - 終了位置  \n"+
+            "*@return* - 総和\n\n"+
+            "") },
     },
     {
         label: "MATCH",
         kind: Function,
+        nlsDetail: { "ja": "(Command) SUMARRAY var[] array, var value, int start = 0, int end = *** || (Function) int SUMARRAY(var[] array, var value, int start = 0, int end = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した配列変数の中に`value`と一致する要素がいくつあるかを返します。\n\n"+
+            "*@param* {1次元配列} `array` - 配列変数。指定できるものは1次元配列変数のみで文字列変数や多次元配列は指定できません。CFLAGなどのキャラクタ配列を指定した場合、指定されたキャラについてのみ数え上げます。  \n"+
+            "*@param* `value` - 検索内容  \n"+
+            "*@param* `start` - 開始位置  \n"+
+            "*@param* `end` - 終了位置  \n"+
+            "*@return* - 一致した数\n\n"+
+            "") },
     },
     {
         label: "MAXARRAY",
         kind: Function,
+        nlsDetail: { "ja": "(Command) MAXARRAY int[] array, int start = 0, int end = *** || (Function) int MAXARRAY(int[] array, int start = 0, int end = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "配列の値の最大値を返します。\n\n"+
+            "*@param* {1次元数値型配列} `array` - 配列変数。指定できるものは数値型1次元配列変数のみで文字列変数や多次元配列は指定できません。CFLAGなどのキャラクタ配列を指定した場合、指定されたキャラについてのみ検索します。  \n"+
+            "*@param* `start` - 開始位置  \n"+
+            "*@param* `end` - 終了位置  \n"+
+            "*@return* - 最大値\n\n"+
+            "") },
     },
     {
         label: "MINARRAY",
         kind: Function,
+        nlsDetail: { "ja": "(Command) MINARRAY int[] array, int start = 0, int end = *** || (Function) int MINARRAY(int[] array, int start = 0, int end = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "配列の値の最小値を返します。\n\n"+
+            "*@param* {1次元数値型配列} `array` - 配列変数。指定できるものは数値型1次元配列変数のみで文字列変数や多次元配列は指定できません。CFLAGなどのキャラクタ配列を指定した場合、指定されたキャラについてのみ検索します。  \n"+
+            "*@param* `start` - 開始位置  \n"+
+            "*@param* `end` - 終了位置  \n"+
+            "*@return* - 最小値\n\n"+
+            "") },
     },
     {
         label: "SUMCARRAY",
@@ -2841,6 +2910,21 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "PRINTDATA",
         kind: Control,
+        nlsDetail: { "ja": "(Command) PRINTDATA int x" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した文字列を確率均一でランダムで表示する命令です。IFとRANDを使わずにランダム表示を実装可能です。引数に数値変数を指定した場合は表示された変数DATAの番号が入ります。表示された文字列によって後の処理を分岐したい場合に利用できます。DATALIST～ENDLIST内ではDATAorDATAFORM1個が1行に相当します\n\n"+
+            "*@param* `x` - 表示された候補の番号が格納される。 \n"+
+            "*@example*\n\n"+
+            "```\n"+
+            "PRINTDATA LOCAL\n"+
+            "    DATA (文字)\n"+
+            "    DATAFORM (FORM文字列)\n"+
+            "    DATALIST\n"+
+            "        (DATA or DATAFORMの羅列)\n"+
+            "    ENDLIST\n"+
+            "ENDDATA\n"+
+            "```\n"+
+            "") },
     },
     {
         label: "PRINTDATAL",
