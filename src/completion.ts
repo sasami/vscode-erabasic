@@ -2152,6 +2152,7 @@ export const BuiltinComplationItems = localizedComplationItems([
                 "デバッグコンソールに文字列を表示する命令です。\n\n"+
                 "*@param* `value` - 表示する文字列。\n\n"
             ),
+        },
     },
     {
         label: "DEBUGPRINTL",
