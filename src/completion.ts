@@ -1286,238 +1286,673 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "COPYCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) COPYCHARA int from, int to" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "第一引数で指定された登録番号のキャラの全てのデータを第二引数で指定された登録番号のキャラにコピーします。\n\n"+
+            "*@param* `from` - 元になるキャラの登録番号  \n"+
+            "*@param* `to` - 上書きされるキャラの登録番号  \n"+
+            "") },
     },
     {
         label: "ADDCOPYCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ADDCOPYCHARA int id" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "引数で指定された登録番号のキャラと同じデータであるキャラを新たに追加します。\n\n"+
+            "*@param* `id` - 複製するキャラの登録番号  \n"+
+            "") },
     },
     {
         label: "VARSIZE",
         kind: Command,
+        nlsDetail: { "ja": "(Command) VARSIZE str variableName | (Function) int VARSIZE(str variableName, int dimension = 0)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "(Command)指定した変数の配列のサイズを取得します。多次元配列変数の場合、一番左の要素から順にRESULT:0, RESULT:1, RESULT:2と代入されます。\n\n"+
+            "*@param* `variableName` - 変数名  \n"+
+            "*@return* - 変数の各要素サイズの配列\n\n"+
+            "(Function)指定した変数の配列のサイズを取得します。多次元配列変数の場合、指定された要素のサイズを取得します。\n\n"+
+            "*@param* {文字列式} `variableName` - 変数名  \n"+
+            "*@param* `dimension` - 要素位置  \n"+
+            "*@return* - 変数の要素のサイズ  \n"+
+            "") },
     },
     {
         label: "RESETDATA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) RESETDATA" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "GLOBALとGLOBALSを除く全ての変数を初期化します。具体的には全てのキャラを削除し、全てのローカル変数および全ての通常の変数に0又は空文字列を代入します。また、PALAMLVやSTRなど初期値が設定されている変数については初期値を代入します。\n\n"+
+            "") },
     },
     {
         label: "RESETGLOBAL",
         kind: Command,
+        nlsDetail: { "ja": "(Command) RESETGLOBAL" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "グローバル変数を初期化します。具体的にはGLOBALに0を代入し、GLOBALSに空文字列を代入します。\n\n"+
+            "") },
     },
     {
         label: "RESET_STAIN",
         kind: Command,
+        nlsDetail: { "ja": "(Command) RESET_STAIN int id" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "第1引数で指定したキャラクタのSTAINを初期化する命令です。 初期値はBEGIN TRAINのときに代入される値と同様で、_replace.csvの「汚れの初期値」で指定できます。\n\n"+
+            "*@param* `id` - キャラの登録番号  \n"+
+            "") },
     },
     {
         label: "SWAP",
         kind: Command,
+        nlsDetail: { "ja": "(Command) SWAP {int | str} variable1, {int | str} variable2" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "変数1と変数2の中身を入れ替えます。交換する2つの変数は同じ型（整数型と整数型、文字列型と文字列型）である必要があります。\n\n"+
+            "*@param* {変数} `variable1` - 変数  \n"+
+            "*@param* {変数} `variable2` - 変数  \n"+
+            "") },
     },
     {
         label: "CSVNAME",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVNAME int CSVNo | (Function) str CSVNAME(int CSVNo)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義された名前を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@returns* - CSVで定義されている名前  \n"+
+            "") },
+            // 第二引数を渡すとSPキャラを参照できる隠された仕様があるみたいだけど非推奨っぽいから省略していいよね……
     },
     {
         label: "CSVCALLNAME",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVCALLNAME int CSVNo | (Function) str CSVCALLNAME(int CSVNo)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義された呼び名を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@returns* - CSVで定義されている呼び名  \n"+
+            "") },
     },
     {
         label: "CSVNICKNAME",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVNICKNAME int CSVNo | (Function) str CSVNICKNAME(int CSVNo)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義されたあだ名を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@returns* - CSVで定義されているあだ名  \n"+
+            "") },
     },
     {
         label: "CSVMASTERNAME",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVMASTERNAME int CSVNo | (Function) str CSVMASTERNAME(int CSVNo)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義された主人の呼び方を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@returns* - CSVで定義されている主人の呼び方  \n"+
+            "") },
     },
     {
         label: "CSVBASE",
         kind: Command,
-    },
+        nlsDetail: { "ja": "(Command) CSVBASE int CSVNo, int index | (Function) int CSVBASE(int CSVNo, int index)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義された基礎の値を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@param* `index` - 変数のインデックス  \n"+
+            "*@return* - CSVで定義されている基礎の値  \n"+
+            "") },
+            // 第三引数を渡すとSPキャラを参照できる隠された仕様があるみたいだけど非推奨っぽいから省略していいよね……
+        },
     {
         label: "CSVCSTR",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVCSTR int CSVNo, int index | (Function) str CSVCSTR(int CSVNo, int index)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義されたCSTRの値を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@param* `index` - 変数のインデックス  \n"+
+            "*@returns* - CSVで定義されているCSTRの値  \n"+
+            "") },
     },
     {
         label: "CSVABL",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVABL int CSVNo, int index | (Function) int CSVABL(int CSVNo, int index)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義された能力の値を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@param* `index` - 変数のインデックス  \n"+
+            "*@return* - CSVで定義されている能力の値  \n"+
+            "") },
     },
     {
         label: "CSVTALENT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVTALENT int CSVNo, int index | (Function) int CSVTALENT(int CSVNo, int index)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義された素質の値を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@param* `index` - 変数のインデックス  \n"+
+            "*@return* - CSVで定義されている素質の値  \n"+
+            "") },
     },
     {
         label: "CSVMARK",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVMARK int CSVNo, int index | (Function) int CSVMARK(int CSVNo, int index)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義された刻印の値を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@param* `index` - 変数のインデックス  \n"+
+            "*@return* - CSVで定義されている刻印の値  \n"+
+            "") },
     },
     {
         label: "CSVEXP",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVEXP int CSVNo, int index | (Function) int CSVEXP(int CSVNo, int index)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義された経験の値を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@param* `index` - 変数のインデックス  \n"+
+            "*@return* - CSVで定義されている経験の値  \n"+
+            "") },
     },
     {
         label: "CSVRELATION",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVRELATION int CSVNo, int index | (Function) int CSVRELATION(int CSVNo, int index)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義された相性の値を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@param* `index` - 変数のインデックス  \n"+
+            "*@return* - CSVで定義されている相性の値  \n"+
+            "") },
     },
     {
         label: "CSVJUEL",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVJUEL int CSVNo, int index | (Function) int CSVJUEL(int CSVNo, int index)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義された珠の値を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@param* `index` - 変数のインデックス  \n"+
+            "*@return* - CSVで定義されている珠の値  \n"+
+            "") },
     },
     {
         label: "CSVEQUIP",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVEQUIP int CSVNo, int index | (Function) int CSVEQUIP(int CSVNo, int index)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義された装着物の値を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@param* `index` - 変数のインデックス  \n"+
+            "*@return* - CSVで定義されている装着物の値  \n"+
+            "") },
     },
     {
         label: "CSVCFLAG",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CSVCFLAG int CSVNo, int index | (Function) int CSVCFLAG(int CSVNo, int index)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "CSVで定義されたフラグの値を直接取得します。\n\n"+
+            "*@param* `CSVNo` - CSVで指定されているキャラ番号  \n"+
+            "*@param* `index` - 変数のインデックス  \n"+
+            "*@return* - CSVで定義されているフラグの値  \n"+
+            "") },
     },
     {
         label: "GETNUM",
         kind: Command,
+        nlsDetail: { "ja": "(Command) GETNUM str variableName, str key | (Function) int GETNUM(str variableName, str key)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "各csvで定義されている名称からその数値を取得します。定義されていない場合は-1になります。\n\n"+
+            "*@param* `variableName` - 変数名  \n"+
+            "*@param* {文字列式} `key` - 定義済みの名称  \n"+
+            "*@return* - CSVで定義されている値  \n"+
+            "*@example* - \n\n"+
+            "```\n"+
+            ";ABL.csv\n"+
+            "2, 技巧\n"+
+            "\n"+
+            ";ERB\n"+
+            "GETNUM(ABL, \"技巧\")\n"+
+            ";2\n"+
+            "```\n"+
+            "") },
     },
     {
         label: "GETPALAMLV",
         kind: Command,
+        nlsDetail: { "ja": "(Command) GETPALAMLV int value, int maxLV | (Function) int GETPALAMLV(int value, int maxLV)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "与えられた値の内容とPALAMLVを比較し、その引数がPALAMLVでどこまで以上かを取得します。\n\n"+
+            "*@param* `value` - PALAMの値  \n"+
+            "*@param* `maxLV` - 調査する最大のLV  \n"+
+            "*@return* - PALAMLV  \n"+
+            "") },
     },
     {
         label: "GETEXPLV",
         kind: Command,
+        nlsDetail: { "ja": "(Command) GETEXPLV int value, int maxLV | (Function) int GETEXPLV(int value, int maxLV)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "与えられた値の内容とEXPLVを比較し、その引数がEXPLVでどこまで以上かを取得します。\n\n"+
+            "*@param* `value` - EXPの値  \n"+
+            "*@param* `maxLV` - 調査する最大のLV  \n"+
+            "*@return* - EXPLV  \n"+
+            "") },
     },
     {
         label: "FINDELEMENT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) FINDELEMENT {int[] | str[]} array, {int | str} value, int start = 0, int end = ***, int exact = 0 | (Function) int FINDELEMENT({int | str} array, {int | str} value, int start = 0, int end = ***, int exact = 0)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "配列中の特定範囲から、指定した内容と最初に一致する要素の位置を取得します。CFLAGなどのキャラクタ配列を指定した場合、指定されたキャラについてのみ数え上げます。\n\n"+
+            "*@param* {一次元配列変数} `array` - EXPの値  \n"+
+            "*@param* `value` - 検索対象、文字列の場合は正規表現を使用できます。  \n"+
+            "*@param* `start` - 検索開始位置  \n"+
+            "*@param* `end` - 検索終了位置  \n"+
+            "*@param* `exact` - 文字列型でのみ有効\n\n"+
+            "- 0:部分一致\n"+
+            "- 1:完全一致\n\n"+
+            "*@return* - 一致した要素の位置  \n"+
+            "") },
     },
     {
         label: "FINDLASTELEMENT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) FINDELEMENT {int[] | str[]} array, {int | str} value, int start = 0, int end = ***, int exact = 0 | (Function) int FINDELEMENT({int | str} array, {int | str} value, int start = 0, int end = ***, int exact = 0)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "配列中の特定範囲から、指定した内容と最後に一致する要素の位置を取得します。CFLAGなどのキャラクタ配列を指定した場合、指定されたキャラについてのみ数え上げます。\n\n"+
+            "*@param* {一次元配列変数} `array` - 検索対象の配列変数  \n"+
+            "*@param* `value` - 検索する値、文字列の場合は正規表現を使用できます。  \n"+
+            "*@param* `start` - 検索開始位置  \n"+
+            "*@param* `end` - 検索終了位置  \n"+
+            "*@param* `exact` - 文字列型でのみ有効\n\n"+
+            "- 0:部分一致\n"+
+            "- 1:完全一致\n\n"+
+            "*@return* - 一致した要素の位置  \n"+
+            "") },
     },
     {
         label: "VARSET",
         kind: Command,
+        nlsDetail: { "ja": "(Command) VARSET {int[] | str[]} array, {int | str} value = 0 | \"\", int start = 0, int end = ***" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した変数の配列の指定範囲に第二引数の値を代入します。\n\n"+
+            "*@param* {一次元配列変数} `array` - 配列変数  \n"+
+            "*@param* `value` - 代入する値  \n"+
+            "*@param* `start` - 開始位置  \n"+
+            "*@param* `end` - 終了位置  \n"+
+            "*@example* - \n\n"+
+            "```\n"+
+            "VARSET FLAG, 0\n"+
+            "VARSET STR, \"あああ\", 0, 10\n"+
+            "VARSET TA:0:0:0,5678\n"+
+            "```\n"+
+            "この例ではFLAGの要素全てが0になります。\n"+
+            "STR:0からSTR:9には\"あああ\"が代入され、TAについても三次元配列の全ての要素に5678が代入されます。\n"+
+            "同じことはERB上でFOR-NEXTループなどを使って行うこともできますが、ループ回数が数十万回程度になると実行時間が無視できなくなります。\n"+
+            "VARSET命令はERB上での代入よりはるかに早く処理を終わらせることができます。\n"+
+            "キャラクタ変数をVARSET命令の対象にした場合、指定したキャラの要素のみに代入されます。\n"+
+            "\n"+
+            "```\n"+
+            "VARSET CFLAG:MASTER:0, 0\n"+
+            "VARSET CSTR, \"\"\n"+
+            "```\n"+
+            "この例ではMASTERのCFLAG:0～999（変更していなければ）が0になりますが、他のキャラのCFLAGは影響を受けません。\n"+
+            "また、対象を省略した場合は通常通りTARGETとみなされるのでTARGETのCSTRが全て\"\"になります。他のキャラのCSTRは影響を受けません。\n\n"+
+            "") },
     },
     {
         label: "CVARSET",
         kind: Command,
+        nlsDetail: { "ja": "(Command) VARSET {int[] | str[]} array, int index = 0, {int | str} value = 0 | \"\", int start = 0, int end = ***" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した登録キャラクタについてキャラクタ変数の特定要素へ代入する命令です。\n\n"+
+            "*@param* {キャラクタ変数} `array` - 配列変数  \n"+
+            "*@param* `index` - 代入する要素のインデックス  \n"+
+            "*@param* `value` - 代入する値  \n"+
+            "*@param* `start` - キャラクタ範囲開始位置  \n"+
+            "*@param* `end` - キャラクタ範囲終了位置  \n"+
+            "") },
     },
     {
         label: "ARRAYSHIFT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ARRAYSHIFT {int[] | str[]} array, int shiftLength, {int | str} defaultValue = 0 | \"\", int start = 0, int length = ***" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "配列変数を指定した数だけずらす命令です。配列の範囲からはみでた値は掃き捨てとなり、ずらして出来た空白領域は第2引数で指定した値で満たします。1次元配列および配列型キャラクタ変数のみに対応しています。DITEMTYPEやTA等に使用することはできません。\n\n"+
+            "*@param* {配列変数} `array` - 対象変数  \n"+
+            "*@param* `shiftLength` - ずらす数。正の値で添え字の大きい方へ、負の値で小さい方にずらします。  \n"+
+            "*@param* `defaultValue` - 空白となった領域に代入する値  \n"+
+            "*@param* `start` - 範囲開始位置  \n"+
+            "*@param* `length` - ずらす要素の範囲の長さ  \n"+
+            "") },
     },
     {
         label: "ARRAYREMOVE",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ARRAYREMOVE {int[] | str[]} array, int start, int length" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "配列変数を指定した初期値から要素数分だけ削除し、後ろの値を前へ詰めます。1次元配列および配列型キャラクタ変数のみに対応しています。DITEMTYPEやTA等に使用することはできません。\n\n"+
+            "*@param* {配列変数} `array` - 対象変数  \n"+
+            "*@param* `start` - 開始位置  \n"+
+            "*@param* `length` - 対象範囲の長さ。0以下にすると初期値から後ろ全て消去になります。  \n"+
+            "") },
     },
     {
         label: "ARRAYSORT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ARRAYSORT {int[] | str[]} array, str order, int start, int length" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "配列変数の指定した位置から対象要素数個の配列データをソートします。\n\n"+
+            "*@param* {配列変数} `array` - 対象変数  \n"+
+            "*@param* {FORWARD | BACK} `order` - ソート方向  \n"+
+            "*@param* `start` - 開始位置  \n"+
+            "*@param* `length` - 対象範囲の長さ  \n"+
+            "") },
     },
     {
         label: "ARRAYCOPY",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ARRAYCOPY str from, str to" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "コピー元変数の値をコピー先変数へコピーします。要素数が異なる場合はコピーできる分だけコピーします。キャラクター変数には非対応です。\n\n"+
+            "*@param* {文字列式} `from` - コピー元変数名  \n"+
+            "*@param* {文字列式} `to` - コピー先変数名  \n"+
+            "") },
     },
     {
         label: "CUPCHECK",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CUPCHECK int id" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "`CUP`, `CDOWN`を参照し、指定したキャラに対し`UPCHECK`に相当する処理を実行します。CUPCHECKによる結果は表示されません。\n\n"+
+            "*@param* `id` - キャラ登録番号  \n"+
+            "") },
     },
     {
         label: "SAVEDATA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) SAVEDATA int index, str comment" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した番号のファイルに現在の状態をセーブします。\n\n"+
+            "*@param* `index` - セーブファイル番号  \n"+
+            "*@param* {文字列式} `comment` - コメント  \n"+
+            "") },
     },
     {
         label: "LOADDATA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) LOADDATA int index" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した番号のファイルのデータをロードします。ロードに失敗した場合、エラー終了します。必ずCHKDATA命令でロード可能かどうかを調べてから実行してください。\n\n"+
+            "*@param* `index` - セーブファイル番号  \n"+
+            "") },
     },
     {
         label: "DELDATA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) DELDATA int index" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した番号のファイルのデータを削除します。\n\n"+
+            "*@param* `index` - セーブファイル番号  \n"+
+            "") },
     },
     {
         label: "CHKDATA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CHKDATA int index || (Function) int CHKDATA(int index)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "(Command)指定した番号のファイルのデータを取得します。\n\n"+
+            "*@param* `index` - セーブファイル番号  \n"+
+            "*@return* RESULT:0 - ロード可能か\n\n"+
+            "- 0:このファイルはロード可能です。\n"+
+            "- 1:指定されたファイルは存在しません。\n"+
+            "- 2:ゲームのコードが違います。(gamebase.csvの\"コード\"の値が違うデータ)\n"+
+            "- 3:バージョンが違います。(gamebase.csvの\"バージョン\"の値が異なり、許容されるバージョンでもないデータ)\n"+
+            "- 4:上記以外の問題があるファイルです。\n\n"+
+            "*@returns* RESULTS:0 - セーブデータのコメント。ロード不可能な場合\"セーブデータのバーションが異なります\"などのエラーメッセージが代入されます。\n\n"+
+            "(Function)指定した番号のファイルのデータを取得します。\n\n"+
+            "*@param* `index` - セーブファイル番号  \n"+
+            "*@return* - ロード可能か。値はCommand版と同様。  \n"+
+            "*@return* RESULT:0 - セーブデータのタイムスタンプ。2009年3月28日13時5分23秒678ミリ秒であれば、`RESULT = 20090328130523678`  \n"+
+            "*@returns* RESULTS:0 - セーブデータのコメント。ロード不可能な場合\"セーブデータのバーションが異なります\"などのエラーメッセージが代入されます。\n\n"+
+            "") },
     },
     {
         label: "SAVENOS",
         kind: Command,
+        nlsDetail: { "ja": "(Command) SAVENOS int variable || (Function) int SAVENOS()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "(Command)コンフィグ\"表示するセーブデータ数\"で指定された数を取得します。結果は指定された数値変数に代入します。\n\n"+
+            "*@param* `variable` - 格納先変数  \n"+
+            "(Function)コンフィグ\"表示するセーブデータ数\"で指定された数を取得します。\n\n"+
+            "*@return* - 表示するセーブデータ数  \n"+
+            "") },
     },
     {
         label: "SAVEGLOBAL",
         kind: Command,
+        nlsDetail: { "ja": "(Command) SAVEGLOBAL" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "変数`GLOBAL`と`GLOBALS`をセーブします。保存先は\"global.sav\"です。ERHファイル内で`GLOBAL`及び`SAVEDATA`フラグを持つ変数が定義されていればそれもセーブします。\n\n"+
+            "") },
     },
     {
         label: "LOADGLOBAL",
         kind: Command,
+        nlsDetail: { "ja": "(Command) LOADGLOBAL" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "GLOBALとGLOBALSをロードします。読み込みに失敗してもエラーにはなりません。通常のセーブデータと同様に、gamebase.csvで設定されたコード、バージョンが適切でないファイルはロードできません。\n\n"+
+            "*@return* - 読み込みに成功すると1、失敗すると0。  \n"+
+            "*@see* - `GLOBAL`  \n"+
+            "") },
     },
     {
         label: "OUTPUTLOG",
         kind: Command,
+        nlsDetail: { "ja": "(Command) OUTPUTLOG" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "ファイルにログを出力します。ログの文字コードはUnicodeです。\n\n"+
+            "") },
     },
     {
         label: "SAVECHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) SAVECHARA str filename, str memo, int charaNo1, ..." },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定したキャラクタのデータをファイルに保存する命令です。datフォルダーが存在しない場合、フォルダの作成を試みます。作成に失敗した場合エラーになります。\n\n"+
+            "*@param* `filename` - データをセーブするファイル名(の一部)を指定します。実際のファイル名は\"chara_*.dat\"になります。空文字列である、またはファイル名に使えない文字が含まれるなどの場合エラーになります。  \n"+
+            "*@param* `memo` - セーブデータのメモとなる文字列を保存します。後にCHKCHARADATA関数により読むことができます。  \n"+
+            "*@param* `charaNo1` - セーブしたいキャラの登録番号を指定します。いくつでも可能ですが同一の登録番号を複数回指定することはできません。  \n"+
+            "") },
     },
     {
         label: "LOADCHARA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) LOADCHARA str filename" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定したファイルからキャラクタを読み込む命令です。SAVEされているキャラの数だけ新しいキャラを登録します。何名のキャラが追加されたかを知るにはロード前後でのCHARANUMを比較してください。\n\n"+
+            "*@param* `filename` - データをセーブするファイル名(の一部)を指定します。実際のファイル名は\"chara_*.dat\"になります。  \n"+
+            "*@return* - 読み込みに成功すると1、失敗すると0。  \n"+
+            "") },
     },
     {
         label: "CHKCHARADATA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) CHKCHARADATA str filename || (Function) int CHKCHARADATA(str filename)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定したファイルからキャラクタの情報を取得する命令です。\n\n"+
+            "*@param* `filename` - データをセーブするファイル名(の一部)を指定します。実際のファイル名は\"chara_*.dat\"になります。  \n"+
+            "*@return* - ロード可能な場合は0。何らかの理由により不可能な場合は非0。  \n"+
+            "*@returns* RESULTS:0 - セーブデータのメモ。またはエラーメッセージ。  \n"+
+            "") },
     },
     {
         label: "FIND_CHARADATA",
         kind: Command,
+        nlsDetail: { "ja": "(Command) FIND_CHARADATA str filename = \"*\" || (Function) int FIND_CHARADATA(str filename = \"*\")" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "LOADCHARAの対象となり得るファイルをdatフォルダの中から探索しファイル名(chara_*.datの*の部分)を`RESULTS`に代入します。\n\n"+
+            "*@param* `filename` - 検索するファイル名。`FIND_CHARADATA(\"*あなた*\")`であれば、chara_*あなた*.datを探し、chara_001あなた.datやchara_あなたABC.datがヒットします。  \n"+
+            "*@return* - 一致したファイル数  \n"+
+            "*@returns* RESULTS - 条件に一致したファイル名  \n"+
+            "") },
     },
     {
         label: "GETTIME",
         kind: Command,
+        nlsDetail: { "ja": "(Command) GETTIME || (Function) int GETTIME()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "(Command)パソコンの現在日時・時刻に関する情報を取得します。精度は実行する環境にもよりますが、十数～数十ミリ秒程度です。\n\n"+
+            "*@return* RESULT:0 - 現在日時の数値表記。2009年3月28日13時5分23秒678ミリ秒であれば、`RESULT:0 == 20090328130523678`  \n"+
+            "*@returns* RESULTS:0 - 現在日時の文字列表記。上記例では`RESULTS:0 == \"2009年03月28日 13:05:23\"`\n\n"+
+            "(Function)パソコンの現在日時・時刻に関する情報を取得します。精度は実行する環境にもよりますが、十数～数十ミリ秒程度です。\n\n"+
+            "*@return* - 現在日時の数値表記。  \n"+
+            "") },
     },
     {
         label: "GETMILLISECOND",
         kind: Command,
+        nlsDetail: { "ja": "(Command) GETMILLISECOND || (Function) int GETMILLISECOND()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "西暦0001年1月1日からの経過時間をミリ秒単位で取得します。精度は実行する環境にもよりますが、十数～数十ミリ秒程度です。\n\n"+
+            "*@return* - 経過時間  \n"+
+            "") },
     },
     {
         label: "GETSECOND",
         kind: Command,
+        nlsDetail: { "ja": "(Command) GETSECOND || (Function) int GETSECOND()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "西暦0001年1月1日からの経過時間を秒単位で取得します。精度は実行する環境にもよりますが、十数～数十ミリ秒程度です。\n\n"+
+            "*@return* - 経過時間  \n"+
+            "") },
     },
     {
         label: "FORCEWAIT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) FORCEWAIT" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "右クリック、マクロのスキップでスキップできないWAIT命令です。この命令に達した時点でこれらのスキップ状態は解除されます。\n\n"+
+            "") },
     },
     {
         label: "INPUT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) INPUT int default = null" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "整数の入力待ちを行う命令です。\n\n"+
+            "*@param* `default` - デフォルトの入力値です。この引数およびプレイヤーからの入力も省略された場合、再度`INPUT`による入力待ちとなります。  \n"+
+            "*@return* - 入力された整数  \n"+
+            "") },
     },
     {
         label: "INPUTS",
         kind: Command,
+        nlsDetail: { "ja": "(Command) INPUTS str default = \"\"" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "文字列の入力待ちを行う命令です。\n\n"+
+            "*@param* `default` - デフォルトの入力値です。この引数およびプレイヤーからの入力も省略された場合、入力結果は空文字となります。  \n"+
+            "*@returns* - 入力された文字列  \n"+
+            "") },
     },
     {
         label: "TINPUT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) TINPUT int ms, int default, int showRemainingTime = 1, str message = GETCONFIGS(\"時間切れ表示\")" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "制限時間のある入力受付命令です。\n\n"+
+            "*@param* `ms` - 制限時間(ms)。100msより細かい値を設定しても正確な動作はできません。  \n"+
+            "*@param* `default` - 時間切れ時のデフォルトのリターン値  \n"+
+            "*@param* `showRemainingTime` - 残り時間を表示するかで0なら非表示、他は表示。  \n"+
+            "*@param* `message` - 時間切れ時に表示される文字列。空文字列の場合はタイマー表示を消去して次の処理へ移ります。  \n"+
+            "*@return* - 入力された整数  \n"+
+            "") },
     },
     {
         label: "TINPUTS",
         kind: Command,
+        nlsDetail: { "ja": "(Command) TINPUTS int ms, str default, int showRemainingTime = 1, str message = GETCONFIGS(\"時間切れ表示\")" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "制限時間のある入力受付命令です。\n\n"+
+            "*@param* `ms` - 制限時間(ms)。100msより細かい値を設定しても正確な動作はできません。  \n"+
+            "*@param* `default` - 時間切れ時のデフォルトのリターン値  \n"+
+            "*@param* `showRemainingTime` - 残り時間を表示するかで0なら非表示、他は表示。  \n"+
+            "*@param* `message` - 時間切れ時に表示される文字列。空文字列の場合はタイマー表示を消去して次の処理へ移ります。  \n"+
+            "*@returns* - 入力された文字列  \n"+
+            "") },
     },
     {
         label: "TWAIT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) TWAIT int ms, int acceptInput" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "制限時間経過するまで動作を停止する命令です。\n\n"+
+            "*@param* `ms` - 制限時間(ms)  \n"+
+            "*@param* {0 | 1} `acceptInput` - \n\n"+
+            "- 0:入力を受け付けません（制限時間まで強制的に待たせることができます）\n"+
+            "- 1:入力を受け付け、入力がなされると制限時間前でも次に進みます。\n"+
+            "") },
     },
     {
         label: "ONEINPUT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ONEINPUT int default = null" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "1桁のみの整数の入力待ちを行う命令です。入力すると自動的に次の処理に移ります。\n\n"+
+            "*@param* `default` - デフォルトの入力値です。この引数およびプレイヤーからの入力も省略された場合、再度`INPUT`による入力待ちとなります。  \n"+
+            "*@return* - 入力された整数  \n"+
+            "") },
     },
     {
         label: "ONEINPUTS",
         kind: Command,
+        nlsDetail: { "ja": "(Command) ONEINPUTS str default = \"\"" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "1文字のみの文字列の入力待ちを行う命令です。入力すると自動的に次の処理に移ります。\n\n"+
+            "*@param* `default` - デフォルトの入力値です。この引数およびプレイヤーからの入力も省略された場合、入力結果は空文字となります。  \n"+
+            "*@returns* - 入力された文字列  \n"+
+            "") },
     },
     {
         label: "TONEINPUT",
         kind: Command,
+        nlsDetail: { "ja": "(Command) TONEINPUT int ms, int default, int showRemainingTime = 1, str message = GETCONFIGS(\"時間切れ表示\")" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "制限時間のある1桁のみの入力受付命令です。\n\n"+
+            "*@param* `ms` - 制限時間(ms)。100msより細かい値を設定しても正確な動作はできません。  \n"+
+            "*@param* `default` - 時間切れ時のデフォルトのリターン値  \n"+
+            "*@param* `showRemainingTime` - 残り時間を表示するかで0なら非表示、他は表示。  \n"+
+            "*@param* `message` - 時間切れ時に表示される文字列。空文字列の場合はタイマー表示を消去して次の処理へ移ります。  \n"+
+            "*@return* - 入力された整数  \n"+
+            "") },
     },
     {
         label: "TONEINPUTS",
         kind: Command,
+        nlsDetail: { "ja": "(Command) TONEINPUTS int ms, str default, int showRemainingTime = 1, str message = GETCONFIGS(\"時間切れ表示\")" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "制限時間のある1文字のみの入力受付命令です。\n\n"+
+            "*@param* `ms` - 制限時間(ms)。100msより細かい値を設定しても正確な動作はできません。  \n"+
+            "*@param* `default` - 時間切れ時のデフォルトのリターン値  \n"+
+            "*@param* `showRemainingTime` - 残り時間を表示するかで0なら非表示、他は表示。  \n"+
+            "*@param* `message` - 時間切れ時に表示される文字列。空文字列の場合はタイマー表示を消去して次の処理へ移ります。  \n"+
+            "*@returns* - 入力された文字列  \n"+
+            "") },
     },
     {
         label: "WAITANYKEY",
         kind: Command,
+        nlsDetail: { "ja": "(Command) WAITANYKEY" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "いずれかのキー入力、またはマウスのクリックを待つWAIT命令です。\n\n"+
+            "") },
     },
     {
         label: "BREAK",
@@ -1530,18 +1965,35 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "RANDOMIZE",
         kind: Command,
+        nlsDetail: { "ja": "(Command) RANDOMIZE int seed" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した値で乱数を初期化します。\n\n"+
+            "*@param* `seed` - 初期化する乱数シード  \n"+
+            "") },
     },
     {
         label: "DUMPRAND",
         kind: Command,
+        nlsDetail: { "ja": "(Command) DUMPRAND" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "現在の乱数の状態をRANDDATA変数に保存します。\n\n"+
+            "") },
     },
     {
         label: "INITRAND",
         kind: Command,
+        nlsDetail: { "ja": "(Command) INITRAND" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "RANDDATA変数に保存したデータを読み出します。DUMPRANDを行う前にINITRANDを行ってしまわないように注意してください。RANDDATA変数の中身が不適当な場合、RANDが正常に動作しなくなります。\n\n"+
+            "") },
     },
     {
         label: "BEGIN",
         kind: Command,
+        nlsDetail: { "ja": "(Command) BEGIN str keyword" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "*@param* {TITLE | FIRST | TRAIN | AFTERTRAIN | ABLUP | TURNEND | SHOP}`keyword` - キーワード  \n"+
+            "") },
     },
     {
         label: "CALLTRAIN",
