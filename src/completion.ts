@@ -2778,7 +2778,7 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "MATCH",
         kind: Function,
-        nlsDetail: { "ja": "(Command) SUMARRAY var[] array, var value, int start = 0, int end = *** || (Function) int SUMARRAY(var[] array, var value, int start = 0, int end = ***)" },
+        nlsDetail: { "ja": "(Command) MATCH var[] array, var value, int start = 0, int end = *** || (Function) int MATCH(var[] array, var value, int start = 0, int end = ***)" },
         nlsDocumentation: { "ja": new MarkdownString(
             "指定した配列変数の中に`value`と一致する要素がいくつあるかを返します。\n\n"+
             "*@param* {1次元配列} `array` - 配列変数。指定できるものは1次元配列変数のみで文字列変数や多次元配列は指定できません。CFLAGなどのキャラクタ配列を指定した場合、指定されたキャラについてのみ数え上げます。  \n"+
@@ -2815,98 +2815,264 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "SUMCARRAY",
         kind: Function,
+        nlsDetail: { "ja": "(Command) SUMCARRAY int[] array, int start = 0, int end = CHARANUM || (Function) int SUMCARRAY(int[] array, int start = 0, int end = CHARANUM)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "キャラクタ配列の指定の要素の値の総和を返します。\n\n"+
+            "*@param* {1次元数値型キャラクタ配列変数} `array` - 配列変数  \n"+
+            "*@param* `start` - キャラ登録番号開始位置  \n"+
+            "*@param* `end` - キャラ登録番号終了位置  \n"+
+            "*@return* - 総和\n"+
+            "*@example* - `SUMCARRAY(CFLAG:2, A, B)`\n"+
+            "") },
     },
     {
         label: "CMATCH",
         kind: Function,
+        nlsDetail: { "ja": "(Command) CMATCH var[] array, var value, int start = 0, int end = *** || (Function) int CMATCH(var[] array, var value, int start = 0, int end = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "キャラクタ配列の指定の要素の中に`value`と一致する要素がいくつあるかを返します。\n\n"+
+            "*@param* {1次元数値型キャラクタ配列変数} `array` - 配列変数  \n"+
+            "*@param* `value` - 検索内容  \n"+
+            "*@param* `start` - キャラ登録番号開始位置  \n"+
+            "*@param* `end` - キャラ登録番号終了位置  \n"+
+            "*@return* - 一致した数\n\n"+
+            "*@example* - `CMATCH(CFLAG:2, 1, A, B)`\n"+
+            "") },
     },
     {
         label: "MAXCARRAY",
         kind: Function,
+        nlsDetail: { "ja": "(Command) MAXCARRAY int[] array, int start = 0, int end = *** || (Function) int MAXCARRAY(int[] array, int start = 0, int end = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "キャラクタ配列の指定の要素の値の最大値を返します。\n\n"+
+            "*@param* {1次元数値型キャラクタ配列変数} `array` - 配列変数  \n"+
+            "*@param* `start` - キャラ登録番号開始位置  \n"+
+            "*@param* `end` - キャラ登録番号終了位置  \n"+
+            "*@return* - 最大値\n\n"+
+            "*@example* - `MAXCARRAY(CFLAG:2, A, B)`\n"+
+            "") },
     },
     {
         label: "MINCARRAY",
         kind: Function,
+        nlsDetail: { "ja": "(Command) MINCARRAY int[] array, int start = 0, int end = *** || (Function) int MINCARRAY(int[] array, int start = 0, int end = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "キャラクタ配列の指定の要素の値の最小値を返します。\n\n"+
+            "*@param* {1次元数値型キャラクタ配列変数} `array` - 配列変数  \n"+
+            "*@param* `start` - キャラ登録番号開始位置  \n"+
+            "*@param* `end` - キャラ登録番号終了位置  \n"+
+            "*@return* - 最小値\n\n"+
+            "*@example* - `MINCARRAY(CFLAG:2, A, B)`\n"+
+            "") },
     },
     {
         label: "GROUPMATCH",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GROUPMATCH ? key, ? value1, ... || (Function) int GROUPMATCH(? key, ? value1, ...)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "複数の値のうち、指定の値にいくつ一致するかを調べる命令です。\n\n"+
+            "*@param* `key` - 検索するキー  \n"+
+            "*@param* `value1` - 検索対象  \n"+
+            "*@return* - 一致した数\n\n"+
+            "") },
     },
     {
         label: "NOSAMES",
         kind: Function,
+        nlsDetail: { "ja": "(Command) NOSAMES ? value1, ? value2, ... || (Function) int NOSAMES(? value1, ? value2, ...)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した値群が全て異なる値かを調べる命令です。\n\n"+
+            "*@param* `value1` - 検索対象  \n"+
+            "*@param* `value2` - 検索対象  \n"+
+            "*@return* - 「全て異なる」ものであれば1を返す、そうでなければ0を返す。\n\n"+
+            "") },
     },
     {
         label: "ALLSAMES",
         kind: Function,
+        nlsDetail: { "ja": "(Command) ALLSAMES ? value1, ? value2, ... || (Function) int ALLSAMES(? value1, ? value2, ...)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した値群が全て同じ値かを調べる命令です。\n\n"+
+            "*@param* `value1` - 検索対象  \n"+
+            "*@param* `value2` - 検索対象  \n"+
+            "*@return* - 「全て同じ」であれば1を返す、そうでなければ0を返す。\n\n"+
+            "") },
     },
     {
         label: "MESSKIP",
         kind: Function,
+        nlsDetail: { "ja": "(Command) MESSKIP || (Function) int MESSKIP()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "WAITスキップの状態になっているかを調べます。\n\n"+
+            "*@return* - なっているなら1を、そうでなければ0を返します。\n\n"+
+            "") },
     },
     {
         label: "CONVERT",
         kind: Function,
+        nlsDetail: { "ja": "(Command) CONVERT int value, int n || (Function) str CONVERT(int value, int n)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "2,8,10,または16進数で表現した文字列を返します。\n\n"+
+            "*@param* {2 | 8 | 10 | 16} `n` - 基数  \n"+
+            "*@returns* - 指定した基数での位取り記数法表記\n"+
+            "") },
     },
     {
         label: "COLOR_FROMNAME",
         kind: Function,
+        nlsDetail: { "ja": "(Command) COLOR_FROMNAME str colorName || (Function) int COLOR_FROMNAME(str colorName)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "色名から0xRRGGBB形式の数値を返します。\n\n"+
+            "*@param* `colorName` - 色名  \n"+
+            "*@return* - 0xRRGGBB形式の数値。該当する色名が存在しない場合、-1を返します。 \n\n"+
+            "") },
     },
     {
         label: "COLOR_FROMRGB",
         kind: Function,
+        nlsDetail: { "ja": "(Command) COLOR_FROMRGB int R, int G, int B || (Function) int COLOR_FROMRGB(int R, int G, int B)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "R, G, B値から0xRRGGBB形式の数値を返します。\n\n"+
+            "*@param* `R` - 赤成分  \n"+
+            "*@param* `G` - 緑成分  \n"+
+            "*@param* `B` - 青成分  \n"+
+            "*@return* - 0xRRGGBB形式の数値。\n"+
+            "") },
     },
     {
         label: "INRANGEARRAY",
         kind: Function,
+        nlsDetail: { "ja": "(Command) INRANGEARRAY var array, int min, int max, int start = 0, int end = *** || (Function) int INRANGEARRAY(var array, int min, int max, int start = 0, int end = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "配列内の指定した範囲内の数値を持つ要素数を取得します。\n\n"+
+            "*@param* {一次元数値配列変数} `array` - 対象配列  \n"+
+            "*@param* `min` - 最小値  \n"+
+            "*@param* `max` - 最大値  \n"+
+            "*@param* `start` - 開始位置  \n"+
+            "*@param* `end` - 終了位置  \n"+
+            "*@return* - 最小値 <= 値 < 最大値をとる値を持つ配列中の要素の数\n"+
+            "") },
     },
     {
         label: "INRANGECARRAY",
         kind: Function,
+        nlsDetail: { "ja": "(Command) INRANGEARRAY var array, int min, int max, int start = 0, int end = *** || (Function) int INRANGEARRAY(var array, int min, int max, int start = 0, int end = ***)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "キャラクタ配列内の指定要素のうち、指定した範囲内の数値を持つ要素数を取得します。\n\n"+
+            "*@param* {数値型キャラクタ配列変数} `array` - 対象配列  \n"+
+            "*@param* `min` - 最小値  \n"+
+            "*@param* `max` - 最大値  \n"+
+            "*@param* `start` - 開始位置  \n"+
+            "*@param* `end` - 終了位置  \n"+
+            "*@return* - 最小値 <= 値 < 最大値をとる値を持つ配列中の要素の数  \n"+
+            "*@see* - `SUMCARRAY`  \n"+
+            "") },
     },
     {
         label: "GETLINESTR",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GETLINESTR str value || (Function) str GETLINESTR(str value)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "`value`を`CUSTOMDRAWLINE`、`DRAWLINEFORM`に渡した際の表示文字列を取得します。**この関数が返す文字列の長さが「1行に表示できる文字列長」に対応することは『全く保証されません』**\n\n"+
+            "*@param* `value` - 文字列  \n"+
+            "*@returns* - 表示文字列  \n"+
+            "") },
     },
     {
         label: "PRINTCLENGTH",
         kind: Function,
+        nlsDetail: { "ja": "(Command) PRINTCLENGTH  || (Function) int PRINTCLENGTH()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "PRINTCの文字数を取得します。\n\n"+
+            "*@return* - コンフィグのPRINTCの文字数の値  \n"+
+            "") },
     },
     {
         label: "STRFORM",
         kind: Function,
+        nlsDetail: { "ja": "(Command) STRFORM str value || (Function) str STRFORM(str value)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "与えられた文字列をPRINTFORMなどと同様の書式付文字列とみなし、展開後の文字列を返します。\n\n"+
+            "*@param* {書式付き文字列} `value` - 文字列  \n"+
+            "*@returns* - 展開後の文字列  \n"+
+            "") },
     },
     {
         label: "GETCONFIG",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GETCONFIG str key || (Function) int GETCONFIG(str key)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "コンフィグ及びreplace.csvの設定項目を取得します。\n\n"+
+            "*@param* {	\"オートセーブを行なう\" | \"単位の位置\" | \"ウィンドウ幅\" | \"PRINTCを並べる数\" | \"PRINTCの文字数\" | \"フォントサイズ\" | \"一行の高さ\" | \"表示するセーブデータ数\" | \"販売アイテム数\" | \"COM_ABLE初期値\" | \"文字色\" | \"背景色\" | \"選択中文字色\" | \"履歴文字色\" | \"PBANDの初期値\" | \"RELATIONの初期値\" } `value` - キー  \n"+
+            "*@return* - コンフィグの値  \n"+
+            "") },
     },
     {
         label: "GETCONFIGS",
         kind: Function,
+        nlsDetail: { "ja": "(Command) GETCONFIGS str key || (Function) str GETCONFIGS(str key)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "コンフィグ及びreplace.csvの設定項目を取得します。\n\n"+
+            "*@param* {	\"フォント名\" | \"お金の単位\" | \"起動時簡略表示\" | \"DRAWLINE文字\" | \"システムメニュー0\" | \"システムメニュー1\" | \"時間切れ表示\" | \"BAR文字1\" | \"BAR文字2\" | \"描画インターフェース\" } `value` - キー  \n"+
+            "*@return\* - コンフィグの値  \n"+
+            "") },
     },
     {
         label: "HTML_POPPRINTINGSTR",
         kind: Function,
+        nlsDetail: { "ja": "(Command) HTML_POPPRINTINGSTR || (Function) str HTML_POPPRINTINGSTR()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "現在PRINT中で改行待ちの文字列バッファをHtml形式で取得し、バッファを空にしますpタグはつかないのでALIGNMENT命令によるalignは反映されません。\n\n"+
+            "*@returns* - html文字列  \n"+
+            "") },
     },
     {
         label: "HTML_GETPRINTEDSTR",
         kind: Function,
+        nlsDetail: { "ja": "(Command) HTML_GETPRINTEDSTR int lineNo || (Function) str HTML_GETPRINTEDSTR(int lineNo)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "表示済みのラインのうちlineNoで指定した行の内容をhtml形式の文字列として取得します。行の数え方はLINECOUNTやCLEARLINE命令と同じです。 \n\n"+
+            "*@param* 'lineNo' - 行番号  \n"+
+            "*@returns* - html文字列  \n"+
+            "") },
     },
     {
         label: "HTML_ESCAPE",
         kind: Function,
+        nlsDetail: { "ja": "(Command) HTML_ESCAPE str value || (Function) str HTML_ESCAPE(str value)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "対象の文字列をHtml向けにエスケープ（文字参照に変換）します。アンエスケープには`HTML_TOPLAINTEXT`関数を使用します。 \n\n"+
+            "*@param* 'value' - 文字列  \n"+
+            "*@returns* - エスケープ済み文字列  \n"+
+            "") },
     },
     {
         label: "HTML_TOPLAINTEXT",
         kind: Function,
+        nlsDetail: { "ja": "(Command) HTML_TOPLAINTEXT str value || (Function) str HTML_TOPLAINTEXT(str value)" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "対象のhtml文字列をプレーンテキストに変換します。具体的には、文字列からhtmlタグを削除し文字参照を展開します。\n\n"+
+            "*@param* 'value' - html文字列  \n"+
+            "*@returns* - 文字列  \n"+
+            "") },
     },
     {
         label: "CLIENTWIDTH",
         kind: Function,
+        nlsDetail: { "ja": "(Command) CLIENTWIDTH || (Function) int CLIENTWIDTH()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "クライアント領域（ウィンドウの描画領域）の現在の幅を取得します。この数値にはウィンドウ枠やメニューバー、スクロールバー、テキスト入力領域の幅を含みません。\n\n"+
+            "*@return* - クライアント領域の現在の幅  \n"+
+            "") },
     },
     {
         label: "CLIENTHEIGHT",
         kind: Function,
+        nlsDetail: { "ja": "(Command) CLIENTHEIGHT || (Function) int CLIENTHEIGHT()" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "クライアント領域（ウィンドウの描画領域）の現在の高さを取得します。この数値にはウィンドウ枠やメニューバー、スクロールバー、テキスト入力領域の高さを含みません。ユーザーによってゲーム中に変更される可能性があることに注意して下さい。\n\n"+
+            "*@return* - クライアント領域（ウィンドウの描画領域）の現在の高さ  \n"+
+            "") },
     },
     {
         label: "PRINTDATA",
@@ -2925,6 +3091,7 @@ export const BuiltinComplationItems = localizedComplationItems([
             "    ENDLIST\n"+
             "ENDDATA\n"+
             "```\n"+
+            "*@see* - `STRDATA`, `DATA`, `DATAFORM`, `DATALIST`\n"+
             "") },
     },
     {
@@ -2962,6 +3129,12 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "STRDATA",
         kind: Control,
+        nlsDetail: { "ja": "(Command) PRINTDATA str variable" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "DATA構文で指定された文字列からランダムで1つを返します。DATALIST構文中のDATA系は改行文字で連結して返されます\n\n"+
+            "*@param* {文字列型変数} `variable` - 選択された文字列が格納される。 \n"+
+            "*@see* - `PRINTDATA`, `DATA`, `DATAFORM`, `DATALIST`\n"+
+            "") },
     },
     {
         label: "ENDDATA",
@@ -3602,34 +3775,82 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "DITEMTYPE",
         kind: Variable,
+        tags: [CompletionItemTag.Deprecated],
+        nlsDetail: { "ja": "(Variable) DITEMTYPE" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "**※この変数はobsoleteです。代わりに`#DIM`の使用を検討してください。**\n\n"+
+            "固定長の整数型二次元配列です。\n\n"+
+            "") },
     },
     {
         label: "DA",
         kind: Variable,
+        tags: [CompletionItemTag.Deprecated],
+        nlsDetail: { "ja": "(Variable) DA" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "**※この変数はobsoleteです。代わりに`#DIM`の使用を検討してください。**\n\n"+
+            "固定長の整数型二次元配列です。\n\n"+
+            "") },
     },
     {
         label: "DB",
         kind: Variable,
+        tags: [CompletionItemTag.Deprecated],
+        nlsDetail: { "ja": "(Variable) DB" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "**※この変数はobsoleteです。代わりに`#DIM`の使用を検討してください。**\n\n"+
+            "固定長の整数型二次元配列です。\n\n"+
+            "") },
     },
     {
         label: "DC",
         kind: Variable,
+        tags: [CompletionItemTag.Deprecated],
+        nlsDetail: { "ja": "(Variable) DC" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "**※この変数はobsoleteです。代わりに`#DIM`の使用を検討してください。**\n\n"+
+            "固定長の整数型二次元配列です。\n\n"+
+            "") },
     },
     {
         label: "DD",
         kind: Variable,
+        tags: [CompletionItemTag.Deprecated],
+        nlsDetail: { "ja": "(Variable) DD" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "**※この変数はobsoleteです。代わりに`#DIM`の使用を検討してください。**\n\n"+
+            "固定長の整数型二次元配列です。\n\n"+
+            "") },
     },
     {
         label: "DE",
         kind: Variable,
+        tags: [CompletionItemTag.Deprecated],
+        nlsDetail: { "ja": "(Variable) DE" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "**※この変数はobsoleteです。代わりに`#DIM`の使用を検討してください。**\n\n"+
+            "固定長の整数型二次元配列です。\n\n"+
+            "") },
     },
     {
         label: "TA",
         kind: Variable,
+        tags: [CompletionItemTag.Deprecated],
+        nlsDetail: { "ja": "(Variable) TA" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "**※この変数はobsoleteです。代わりに`#DIM`の使用を検討してください。**\n\n"+
+            "固定長の整数型三次元配列です。\n\n"+
+            "") },
     },
     {
         label: "TB",
         kind: Variable,
+        tags: [CompletionItemTag.Deprecated],
+        nlsDetail: { "ja": "(Variable) TB" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "**※この変数はobsoleteです。代わりに`#DIM`の使用を検討してください。**\n\n"+
+            "固定長の整数型三次元配列です。\n\n"+
+            "") },
     },
     {
         label: "ITEMPRICE",
@@ -3830,29 +4051,61 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "__FILE__",
         kind: Variable,
+        nlsDetail: { "ja": "(Variable) __FILE__" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "デバッグ変数はデバッグモードで起動したときのみ意味のある値を返します。現在実行中のスクリプトのファイル名を返します。ファイル名はエラー情報などと同じようにフォルダ構造及び拡張子までを含む形式です。システム入力待ち中にデバッグコマンドや変数ウォッチから参照した場合など、現在実行中のスクリプトがない場合は空文字列を返します。 \n\n"+
+            "") },
     },
     {
         label: "__FUNCTION__",
         kind: Variable,
+        nlsDetail: { "ja": "(Variable) __FUNCTION__" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "デバッグ変数はデバッグモードで起動したときのみ意味のある値を返します。現在実行中の関数名を返します。関数名は\"@\"及び引数のリストを含みません。現在実行中のスクリプトがない場合は空文字列を返します。 \n\n"+
+            "") },
     },
     {
         label: "__LINE__",
         kind: Variable,
+        nlsDetail: { "ja": "(Variable) __FUNCTION__" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "デバッグ変数はデバッグモードで起動したときのみ意味のある値を返します。現在実行中のスクリプトの行番号を返します。行番号はエラー情報などと同じように1から始まる数字です。現在実行中のスクリプトがない場合は-1を返します。 \n\n"+
+            "") },
     },
     {
         label: "LOCAL",
         kind: Variable,
+        tags: [CompletionItemTag.Deprecated],
+        nlsDetail: { "ja": "(Variable) LOCAL" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "**※この変数はobsoleteです。代わりに`#DIM`の使用を検討してください。**\n\n"+
+            "他の関数からは参照されないローカル変数（局所変数）です。\n\n"+
+            "") },
     },
     {
         label: "ARG",
         kind: Variable,
+        nlsDetail: { "ja": "(Variable) ARG" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "他の関数からは参照されないローカル変数です。\n\n"+
+            "") },
     },
     {
         label: "LOCALS",
         kind: Variable,
+        tags: [CompletionItemTag.Deprecated],
+        nlsDetail: { "ja": "(Variable) LOCALS" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "**※この変数はobsoleteです。代わりに`#DIMS`の使用を検討してください。**\n\n"+
+            "他の関数からは参照されないローカル変数（局所変数）です。\n\n"+
+            "") },
     },
     {
         label: "ARGS",
         kind: Variable,
+        nlsDetail: { "ja": "(Variable) ARGS" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "他の関数からは参照されないローカル変数です。\n\n"+
+            "") },
     },
 ]);
