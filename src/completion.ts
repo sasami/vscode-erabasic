@@ -1090,7 +1090,8 @@ export const BuiltinComplationItems = localizedComplationItems([
         nlsDocumentation: { "ja": new MarkdownString(
             "指定された数値のうち、最大の数値を返します。\n\n"+
             "*@param* `n` - 対象の数値  \n"+
-            "*@return* - 引数の中で最大の値"+
+            "*@return* - 引数の中で最大の値  \n"+
+            "*@see* - `MIN`, `LIMIT`  \n"+
             "") },
     },
     {
@@ -1100,7 +1101,8 @@ export const BuiltinComplationItems = localizedComplationItems([
         nlsDocumentation: { "ja": new MarkdownString(
             "指定された数値のうち、最小の数値を返します。\n\n"+
             "*@param* `n` - 対象の数値  \n"+
-            "*@return* - 引数の中で最小の値"+
+            "*@return* - 引数の中で最小の値  \n"+
+            "*@see* - `MAX`, `LIMIT`  \n"+
             "") },
     },
     {
@@ -1112,7 +1114,8 @@ export const BuiltinComplationItems = localizedComplationItems([
             "*@param* `value` - 対象の数値  \n"+
             "*@param* `min` - 最低値  \n"+
             "*@param* `max` - 最大値  \n"+
-            "*@return* - valueの値"+
+            "*@return* - valueの値  \n"+
+            "*@see* - `MAX`, `MIN`  \n"+
             "") },
     },
     {
