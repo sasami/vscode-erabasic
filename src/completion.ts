@@ -3442,6 +3442,11 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "UP",
         kind: Variable,
+        nlsDetail: { "ja": "(Variable) UP" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値型一次元配列変数\n\n"+
+            "*@see* - `CUP`  \n"+
+            "") },
     },
     {
         label: "PALAMLV",
@@ -3458,6 +3463,11 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "DOWN",
         kind: Variable,
+        nlsDetail: { "ja": "(Variable) DOWN" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値型一次元配列変数\n\n"+
+            "*@see* - `CDOWN`  \n"+
+            "") },
     },
     {
         label: "RESULT",
@@ -3486,6 +3496,11 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "LOSEBASE",
         kind: Variable,
+        nlsDetail: { "ja": "(Variable) LOSEBASE" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値型一次元配列変数\n\n"+
+            "*@see* - `DOWNBASE`  \n"+
+            "") },
     },
     {
         label: "SELECTCOM",
@@ -3738,14 +3753,26 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "DOWNBASE",
         kind: Variable,
+        nlsDetail: { "ja": "(Variable) DOWNBASE" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値型一次元キャラクタ配列変数\n\n"+
+            "") },
     },
     {
         label: "CUP",
         kind: Variable,
+        nlsDetail: { "ja": "(Variable) CUP" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値型一次元キャラクタ配列変数\n\n"+
+            "") },
     },
     {
         label: "CDOWN",
         kind: Variable,
+        nlsDetail: { "ja": "(Variable) CDOWN" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "数値型一次元キャラクタ配列変数\n\n"+
+            "") },
     },
     {
         label: "TCVAR",
