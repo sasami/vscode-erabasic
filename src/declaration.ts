@@ -10,7 +10,8 @@ export class Declaration {
         public kind: SymbolKind,
         public container: Declaration | undefined,
         public nameRange: Range,
-        public bodyRange: Range) {
+        public bodyRange: Range,
+        public docmentation: string) {
     }
 
     get isGlobal(): boolean {
@@ -26,7 +27,7 @@ function* iterlines(input: string): IterableIterator<[number, string]> {
     const lines = input.split(/\r?\n/);
     loop: for (let i = 0; i < lines.length; i++) {
         const text = lines[i];
-        if (/^\s*(?:$|;(?![!#];))/.test(text)) {
+        if (/^\s*(?:$|;(?![!#;];))/.test(text)) {
             continue;
         }
         if (/^\s*(?:;[!#];\s*)?\[SKIPSTART\]/.test(text)) {
@@ -46,7 +47,20 @@ export function readDeclarations(input: string): Declaration[] {
     let funcStart: Declaration;
     let funcEndLine: number;
     let funcEndChar: number;
+    let docComment: string = "";
     for (const [line, text] of iterlines(input)) {
+
+        const commentMatch = /\s*;{3}(@\S+)?(.*)/.exec(text);
+        if (commentMatch !== null) {
+            if (commentMatch[1]) {
+                docComment = docComment.concat("\n\n*",commentMatch[1],"* -",commentMatch[2]);
+                continue;
+            }
+
+            docComment = docComment.concat("\n",commentMatch[2]);
+            continue;
+        }
+
         {
             const match = /^\s*@([^\s\x21-\x2f\x3a-\x40\x5b-\x5e\x7b-\x7e]+)/.exec(text);
             if (match !== null) {
@@ -59,8 +73,10 @@ export function readDeclarations(input: string): Declaration[] {
                     undefined,
                     new Range(line, match[0].length - match[1].length, line, match[0].length),
                     new Range(line, 0, line, text.length),
+                    docComment,
                 );
                 symbols.push(funcStart);
+                docComment = "";
                 continue;
             }
             funcEndLine = line;
@@ -75,10 +91,14 @@ export function readDeclarations(input: string): Declaration[] {
                     funcStart,
                     new Range(line, match[0].length - match[2].length, line, match[0].length),
                     new Range(line, 0, line, text.length),
+                    docComment,
                 ));
+                docComment = "";
                 continue;
             }
         }
+
+        docComment = "";
     }
     if (funcStart !== undefined) {
         funcStart.bodyRange = funcStart.bodyRange.with({ end: new Position(funcEndLine, funcEndChar) });
@@ -202,6 +222,10 @@ export class DeclarationProvider implements Disposable {
         return path.startsWith(ws.uri.fsPath) || this.builtin.has(path);
     }
 
+    public isBuiltin(path):boolean{
+        return this.builtin.has(path);
+    }
+
     public sync(): Promise<void> {
         if (this.syncing === undefined) {
             this.syncing = this.flush().then(() => {
@@ -244,12 +268,13 @@ export class DeclarationProvider implements Disposable {
         if (this.dirty.size === 0) {
             return;
         }
-        for (const [path, uri] of Array.from(this.dirty)) {
-            const input = await new Promise<string>((resolve, reject) => {
+
+        await Promise.all([...this.dirty].map(async ([path, uri])=>{
+            const input = await new Promise<string | undefined>((resolve, reject) => {
                 fs.readFile(path, (err, data) => {
                     if (err) {
                         if (typeof err === "object" && err.code === "ENOENT") {
-                            resolve();
+                            resolve(undefined);
                         } else {
                             reject(err);
                         }
@@ -261,11 +286,14 @@ export class DeclarationProvider implements Disposable {
             if (input === undefined) {
                 this.dirty.delete(path);
                 this.onDidDeleteEmitter.fire(new DeclarationDeleteEvent(uri));
-                continue;
+                return;
             }
             if (this.dirty.delete(path)) {
                 this.onDidChangeEmitter.fire(new DeclarationChangeEvent(uri, readDeclarations(input)));
+                return;
             }
-        }
+
+        }));
+
     }
 }
