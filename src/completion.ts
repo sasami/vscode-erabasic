@@ -1,4 +1,7 @@
-import { CompletionItem, CompletionItemKind } from "vscode";
+import * as vscode from "vscode";
+
+import { CompletionItem, CompletionItemKind, Location, Position, TextDocument, Uri } from "vscode";
+import { Declaration, DeclarationProvider, readDeclarations } from "./declaration";
 
 const Keyword = CompletionItemKind.Keyword;
 const Control = CompletionItemKind.Keyword;
@@ -2521,3 +2524,98 @@ export const BuiltinComplationItems = localizedComplationItems([
         kind: Variable,
     },
 ]);
+
+export class CompletionItemRepository {
+    private cache: Map<string, NLSCompletionItem[]> = new Map();
+
+    constructor(private provider: DeclarationProvider) {
+        provider.onDidChange((e) => {
+            this.cache.set(e.uri.fsPath, e.decls.filter((d) => d.isGlobal)
+                .map((d) => declToCompletionItem(d)));
+        });
+        provider.onDidDelete((e) => {
+            this.cache.delete(e.uri.fsPath);
+        });
+        provider.onDidReset((e) => {
+            this.cache.clear();
+        });
+    }
+
+    public sync(): Promise<void> {
+        return this.provider.sync();
+    }
+
+    public *find(document: TextDocument, position: Position): IterableIterator<NLSCompletionItem> {
+        yield* this.findInCurrentDocument(document, position);
+        const ws = vscode.workspace.getWorkspaceFolder(document.uri);
+        if (ws === undefined) {
+            return;
+        }
+        const fresh: Set<string> = new Set([document.uri.fsPath]);
+        for (const doc of vscode.workspace.textDocuments) {
+            // BuiltinDeclarationFiles と BuiltinComplationItems で多重定義になってるからどっちか切りたい
+            if (!doc.isDirty) {
+                continue;
+            }
+            if (doc === document) {
+                continue;
+            }
+            if (!this.cache.has(doc.uri.fsPath)) {
+                continue;
+            }
+            if (!this.provider.reachable(ws, doc.uri.fsPath)) {
+                continue;
+            }
+            fresh.add(doc.uri.fsPath);
+            yield* this.findInDocument(doc);
+        }
+        for (const [path, defs] of this.cache.entries()) {
+            if (fresh.has(path)) {
+                continue;
+            }
+            if (!this.provider.reachable(ws, path)) {
+                continue;
+            }
+            yield* defs.filter((d) => d).map((d) => d);
+        }
+    }
+
+    private findInCurrentDocument(document: TextDocument, position: Position): NLSCompletionItem[] {
+        return readDeclarations(document.getText())
+            .filter((d) => d.visible(position))
+            .map((d) => declToCompletionItem(d));
+    }
+
+    private findInDocument(document: TextDocument): NLSCompletionItem[] {
+        return readDeclarations(document.getText())
+            .filter((d) => d.isGlobal)
+            .map((d) => declToCompletionItem(d));
+    }
+}
+
+function declToCompletionItem(decreation: Declaration): NLSCompletionItem {
+    const symbolKind = decreation.kind;
+    let kind: vscode.CompletionItemKind = toCompletionItemKind(symbolKind);
+
+    return {
+        label: decreation.name,
+        kind: kind,
+        // TODO 関数の引数情報がほしい
+        detail: `(${getName(kind)}) ${decreation.name}`,
+    };
+}
+
+function getName(kind: vscode.CompletionItemKind) {
+    return vscode.CompletionItemKind[kind];
+}
+
+function toCompletionItemKind(symbolKind: vscode.SymbolKind):vscode.CompletionItemKind {
+    switch (symbolKind) {
+        case vscode.SymbolKind.Variable:
+            return vscode.CompletionItemKind.Variable;
+        case vscode.SymbolKind.Function:
+            return vscode.CompletionItemKind.Function;
+        default:
+            return undefined;
+    }
+}

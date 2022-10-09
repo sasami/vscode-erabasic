@@ -1,8 +1,12 @@
 import * as fs from "fs";
 import * as iconv from "iconv-lite";
+import { cpus } from "os";
+import { join } from "path";
 import * as vscode from "vscode";
 
 import { Disposable, Event, EventEmitter, ExtensionContext, Position, Range, SymbolKind, Uri, WorkspaceFolder } from "vscode";
+import { Worker } from "worker_threads";
+import { WorkerResponse } from "./declarationWorker";
 
 export class Declaration {
     constructor(
@@ -244,12 +248,50 @@ export class DeclarationProvider implements Disposable {
         if (this.dirty.size === 0) {
             return;
         }
-        for (const [path, uri] of Array.from(this.dirty)) {
-            const input = await new Promise<string>((resolve, reject) => {
+
+        // マルチプロセスにしようとした残骸
+        
+        // const targ = [...this.dirty];
+        // const cps = cpus();
+        // const bundle = Math.ceil(targ.length / cps.length);
+        // const sliced = cps.map((cpu,i)=>{
+        //     const path = join(__dirname,"declarationWorker.js");
+        //     return new Worker(path, {workerData: {dirty: targ.slice(i*bundle, bundle), encode:this.encoding.detect(path, data)}});
+        // })
+        
+        // await Promise.all( sliced.map((w,i)=>{
+        //     return new Promise((resolve, reject)=>{
+        //         w.on("message", (res:WorkerResponse[])=>{
+        //             for (const rec of res) {
+        //                 if (rec.declarations === undefined) {
+        //                     this.dirty.delete(rec.path);
+        //                     this.onDidDeleteEmitter.fire(new DeclarationDeleteEvent(rec.uri));
+        //                     resolve(undefined);
+        //                     return;
+        //                 }
+        //                 if (this.dirty.delete(rec.path)) {
+        //                     this.onDidChangeEmitter.fire(new DeclarationChangeEvent(rec.uri, rec.declarations));
+        //                     resolve(undefined);
+        //                     return;
+        //                 }
+        //             }
+        //         });
+        //         w.on("error",(err)=>{
+        //             console.log(`${i}:${err}`)
+        //         });
+        //         w.on("exit",(n)=>{
+        //             console.log(`${i}: quit ${n}`)
+        //         });
+        //     })
+        // }));
+        // return;
+
+        await Promise.all([...this.dirty].map(async ([path, uri])=>{
+            const input = await new Promise<string | undefined>((resolve, reject) => {
                 fs.readFile(path, (err, data) => {
                     if (err) {
                         if (typeof err === "object" && err.code === "ENOENT") {
-                            resolve();
+                            resolve(undefined);
                         } else {
                             reject(err);
                         }
@@ -261,11 +303,14 @@ export class DeclarationProvider implements Disposable {
             if (input === undefined) {
                 this.dirty.delete(path);
                 this.onDidDeleteEmitter.fire(new DeclarationDeleteEvent(uri));
-                continue;
+                return;
             }
             if (this.dirty.delete(path)) {
                 this.onDidChangeEmitter.fire(new DeclarationChangeEvent(uri, readDeclarations(input)));
+                return;
             }
-        }
+
+        }));
+
     }
 }
