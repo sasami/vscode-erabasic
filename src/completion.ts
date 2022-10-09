@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-import { CompletionItem, CompletionItemKind, Location, Position, TextDocument, Uri } from "vscode";
+import { CompletionItem, CompletionItemKind, Location, MarkdownString, Position, TextDocument, Uri } from "vscode";
 import { Declaration, DeclarationProvider, readDeclarations } from "./declaration";
 
 const Keyword = CompletionItemKind.Keyword;
