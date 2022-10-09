@@ -2604,8 +2604,8 @@ export function declToCompletionItem(decreation: Declaration): NLSCompletionItem
     return {
         label: decreation.name,
         kind: kind,
-        // TODO 関数の引数情報がほしい
         detail: `(${getName(kind)}) ${decreation.name}`,
+        documentation: new MarkdownString(decreation.docmentation),
     };
 }
 

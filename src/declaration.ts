@@ -10,7 +10,8 @@ export class Declaration {
         public kind: SymbolKind,
         public container: Declaration | undefined,
         public nameRange: Range,
-        public bodyRange: Range) {
+        public bodyRange: Range,
+        public docmentation: string) {
     }
 
     get isGlobal(): boolean {
@@ -26,7 +27,7 @@ function* iterlines(input: string): IterableIterator<[number, string]> {
     const lines = input.split(/\r?\n/);
     loop: for (let i = 0; i < lines.length; i++) {
         const text = lines[i];
-        if (/^\s*(?:$|;(?![!#];))/.test(text)) {
+        if (/^\s*(?:$|;(?![!#;];))/.test(text)) {
             continue;
         }
         if (/^\s*(?:;[!#];\s*)?\[SKIPSTART\]/.test(text)) {
@@ -46,7 +47,20 @@ export function readDeclarations(input: string): Declaration[] {
     let funcStart: Declaration;
     let funcEndLine: number;
     let funcEndChar: number;
+    let docComment: string = "";
     for (const [line, text] of iterlines(input)) {
+
+        const commentMatch = /\s*;{3}(@\S+)?(.*)/.exec(text);
+        if (commentMatch !== null) {
+            if (commentMatch[1]) {
+                docComment = docComment.concat("\n\n*",commentMatch[1],"* -",commentMatch[2]);
+                continue;
+            }
+
+            docComment = docComment.concat("\n",commentMatch[2]);
+            continue;
+        }
+
         {
             const match = /^\s*@([^\s\x21-\x2f\x3a-\x40\x5b-\x5e\x7b-\x7e]+)/.exec(text);
             if (match !== null) {
@@ -59,8 +73,10 @@ export function readDeclarations(input: string): Declaration[] {
                     undefined,
                     new Range(line, match[0].length - match[1].length, line, match[0].length),
                     new Range(line, 0, line, text.length),
+                    docComment,
                 );
                 symbols.push(funcStart);
+                docComment = "";
                 continue;
             }
             funcEndLine = line;
@@ -75,10 +91,14 @@ export function readDeclarations(input: string): Declaration[] {
                     funcStart,
                     new Range(line, match[0].length - match[2].length, line, match[0].length),
                     new Range(line, 0, line, text.length),
+                    docComment,
                 ));
+                docComment = "";
                 continue;
             }
         }
+
+        docComment = "";
     }
     if (funcStart !== undefined) {
         funcStart.bodyRange = funcStart.bodyRange.with({ end: new Position(funcEndLine, funcEndChar) });
