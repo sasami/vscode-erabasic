@@ -1,4 +1,3 @@
-import { performance } from "perf_hooks";
 import * as vscode from "vscode";
 
 import {
@@ -6,7 +5,7 @@ import {
     DocumentSelector, DocumentSymbolProvider, ExtensionContext, Position, SymbolInformation, TextDocument, WorkspaceSymbolProvider,
 } from "vscode";
 
-import { BuiltinComplationItems, CompletionItemRepository } from "./completion";
+import { BuiltinComplationItems, CompletionItemRepository, declToCompletionItem } from "./completion";
 import { Declaration, DeclarationProvider, readDeclarations } from "./declaration";
 import { DefinitionRepository } from "./definition";
 import { readSymbolInformations, SymbolInformationRepository } from "./symbol";
@@ -14,7 +13,8 @@ import { readSymbolInformations, SymbolInformationRepository } from "./symbol";
 export function activate(context: ExtensionContext) {
     const selector: DocumentSelector = { language: "erabasic" };
     const provider: DeclarationProvider = new DeclarationProvider(context);
-    context.subscriptions.push(vscode.languages.registerCompletionItemProvider(selector, new EraBasicCompletionItemProvider(provider)));
+    const option = getEraBasicOption( vscode.workspace.getConfiguration("erabasic"));
+    context.subscriptions.push(vscode.languages.registerCompletionItemProvider(selector, new EraBasicCompletionItemProvider(provider,option)));
     context.subscriptions.push(vscode.languages.registerDefinitionProvider(selector, new EraBasicDefinitionProvider(provider)));
     context.subscriptions.push(vscode.languages.registerDocumentSymbolProvider(selector, new EraBasicDocumentSymbolProvider()));
     context.subscriptions.push(vscode.languages.registerWorkspaceSymbolProvider(new EraBasicWorkspaceSymbolProvider(provider)));
@@ -28,63 +28,27 @@ export function deactivate() {
 class EraBasicCompletionItemProvider implements CompletionItemProvider {
     private repo: CompletionItemRepository;
 
-    constructor(provider: DeclarationProvider) {
+    constructor(provider: DeclarationProvider, private option:EraBasicOption) {
         this.repo = new CompletionItemRepository(provider);
     }
 
     public provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken): Promise<CompletionItem[]> {
-        const start = performance.now();
-        console.log("start provideCompletionItems:"+(performance.now()-start));
+        if (!this.option.completionWorkspaceSymbols) {
+            return Promise.resolve( BuiltinComplationItems.concat(readDeclarations(document.getText())
+                .filter(d=> d.visible(position))
+                .map(decreation => {
+                    return declToCompletionItem(decreation);
+                })
+            ));
+        }
 
         return this.repo.sync().then(() => 
             {
-                console.log("proc1 provideCompletionItems:"+(performance.now()-start));
                 const res = BuiltinComplationItems.concat(...this.repo.find(document, position));
-                console.log("end provideCompletionItems:"+(performance.now()-start));
-                return res
+                return res;
             }
         );
     }
-
-
-    // public provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext): CompletionItem[] {
-
-    //     // 可視範囲のシンボル数がメガテンで 65000 を越えるため諸々見送り
-    //     return BuiltinComplationItems.concat(readDeclarations(document.getText())
-    //         // TODO 関数末尾で変数が見えない
-    //         .filter(d=> d.visible(position))
-    //         .map(decreation => {
-    //             return newFunction(decreation);
-    //         })
-    //     );
-
-    //     function newFunction(decreation: Declaration) {
-    //         const symbolKind = decreation.kind;
-    //         let kind: vscode.CompletionItemKind = toCompletionItemKind(symbolKind);
-
-    //         return {
-    //             label: decreation.name,
-    //             kind: kind,
-    //             // TODO 関数の引数情報がほしい
-    //             detail: `(${getName(kind)}) ${decreation.name}`,
-    //         };
-    //     }
-
-    //     function getName(kind: vscode.CompletionItemKind) {
-    //         return vscode.CompletionItemKind[kind];
-    //     }
-
-    //     function toCompletionItemKind(symbolKind: vscode.SymbolKind):vscode.CompletionItemKind {
-    //         switch (symbolKind) {
-    //             case vscode.SymbolKind.Variable:
-    //                 return vscode.CompletionItemKind.Variable;
-    //             case vscode.SymbolKind.Function:
-    //                 return vscode.CompletionItemKind.Function;
-    //             default:
-    //                 return undefined;
-    //         }
-    //     }
-    // }
 }
 
 class EraBasicDefinitionProvider implements DefinitionProvider {
@@ -115,4 +79,14 @@ class EraBasicWorkspaceSymbolProvider implements WorkspaceSymbolProvider {
     public provideWorkspaceSymbols(query: string, token: CancellationToken): Promise<SymbolInformation[]> {
         return this.repo.sync().then(() => Array.from(this.repo.find(query)));
     }
+}
+
+export interface EraBasicOption {
+    completionWorkspaceSymbols:boolean;
+}
+
+function getEraBasicOption(config:vscode.WorkspaceConfiguration):EraBasicOption {
+    return {
+        completionWorkspaceSymbols: config.get("completionWorkspaceSymbols", false),
+    };
 }

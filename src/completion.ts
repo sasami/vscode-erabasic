@@ -2593,7 +2593,7 @@ export class CompletionItemRepository {
     }
 }
 
-function declToCompletionItem(decreation: Declaration): NLSCompletionItem {
+export function declToCompletionItem(decreation: Declaration): NLSCompletionItem {
     const symbolKind = decreation.kind;
     let kind: vscode.CompletionItemKind = toCompletionItemKind(symbolKind);
 

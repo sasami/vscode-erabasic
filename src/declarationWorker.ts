@@ -29,15 +29,15 @@ Promise.all(Array.from(wkdata.dirty).map(async ([path, uri]):Promise<WorkerRespo
 })).then(res=>parentPort.postMessage(res));
 
 export interface WorkerResponse{
-    path:string,
-    uri:Uri,
+    path:string;
+    uri:Uri;
     declarations:Declaration[] | undefined;
 }
 
-type RangeObj = Pick<Range, "start"|"end">
+type RangeObj = Pick<Range, "start"|"end">;
 
 interface DeclarationObj extends Omit<Declaration, "visible" | "isGlobal" | "container" | "bodyRange" | "nameRange">{
-    container : DeclarationObj,
-    bodyRange : RangeObj,
-    nameRange : RangeObj
+    container : DeclarationObj;
+    bodyRange : RangeObj;
+    nameRange : RangeObj;
 }

@@ -56,6 +56,18 @@
                 "language": "erabasic",
                 "path": "./snippets/erabasic.json"
             }
+        ],
+        "configuration":[
+            {
+                "title": "erabasic",
+                "properties": {
+                    "erabasic.completionWorkspaceSymbols": {
+                        "default": false,
+                        "type": "boolean",
+                        "description": "%configuration.completionWorkspaceSymbols.description%"
+                    }
+                }
+            }
         ]
     },
     "dependencies": {
