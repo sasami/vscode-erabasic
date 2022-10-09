@@ -2553,7 +2553,6 @@ export class CompletionItemRepository {
         }
         const fresh: Set<string> = new Set([document.uri.fsPath]);
         for (const doc of vscode.workspace.textDocuments) {
-            // BuiltinDeclarationFiles と BuiltinComplationItems で多重定義になってるからどっちか切りたい
             if (!doc.isDirty) {
                 continue;
             }
@@ -2570,6 +2569,11 @@ export class CompletionItemRepository {
             yield* this.findInDocument(doc);
         }
         for (const [path, defs] of this.cache.entries()) {
+            // BuiltinDeclarationFiles と BuiltinComplationItems で多重定義になってるからファイルの方を切る
+            if (this.provider.isBuiltin(path)) {
+                continue;
+            }
+
             if (fresh.has(path)) {
                 continue;
             }

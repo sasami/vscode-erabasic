@@ -206,6 +206,10 @@ export class DeclarationProvider implements Disposable {
         return path.startsWith(ws.uri.fsPath) || this.builtin.has(path);
     }
 
+    public isBuiltin(path):boolean{
+        return this.builtin.has(path);
+    }
+
     public sync(): Promise<void> {
         if (this.syncing === undefined) {
             this.syncing = this.flush().then(() => {
