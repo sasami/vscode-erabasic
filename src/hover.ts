@@ -15,7 +15,7 @@ export class EraHoverProvider implements HoverProvider{
 
 function declToHover(decl: Declaration): Hover {
     return new Hover(
-        new MarkdownString(`(${getName(decl.kind)}) ${decl.name}`.concat("\n\n",decl.docmentation)),
+        new MarkdownString(`(${getName(decl.kind)}) ${decl.name}`.concat("\n\n---\n\n",decl.docmentation)),
         decl.bodyRange
     );
 }
