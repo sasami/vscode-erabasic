@@ -498,7 +498,13 @@ export const BuiltinComplationItems = localizedComplationItems([
     {
         label: "CLEARLINE",
         kind: Command,
-        nlsDetail: { "ja": "行を削除", "en": "Delete Line" },
+        nlsDetail: { "ja": "(Command) CLEARLINE int count" },
+        nlsDocumentation: { "ja": new MarkdownString(
+            "指定した行数の文字列を削除します（行の数え方はLINECOUNTと同様です）/n"+
+            "行数はPRINTL等で改行が行われるまでのものを1つの行とします。/n"+
+            "なお、長い文字列が複数行に分割されたものもまとめて1行として扱うので気をつけてください。\n\n"+
+            "*@param* `count` - 削除する行数。\n\n"
+            ), "en": new MarkdownString("Delete Line") },
     },
     {
         label: "PRINT_IMG",
